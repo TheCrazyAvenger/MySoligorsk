@@ -2,14 +2,19 @@ import { RootNavigator } from '@/navigation'
 import { store } from '@/store'
 import analytics from '@react-native-firebase/analytics'
 import { NavigationContainer } from '@react-navigation/native'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux'
 
 export const App = () => {
   const routeNameRef = useRef<any>()
   const navigationRef = useRef<any>()
+
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
 
   return (
     <Provider store={store}>

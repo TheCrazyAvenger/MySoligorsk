@@ -1,5 +1,5 @@
 export enum Screens {
-  homeScreen = 'Home Screen',
+  home = 'Home',
 }
 
 export enum Navigators {
