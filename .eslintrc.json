@@ -1,0 +1,30 @@
+{
+  "root": true,
+  "extends": [
+    "@react-native-community",
+    "plugin:import/warnings",
+    "plugin:@typescript-eslint/recommended",
+    // "plugin:react/recommended",
+    "airbnb"
+  ],
+  "plugins": ["prefer-arrow"],
+  "rules": {
+    "semi": 0,
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "no-unused-vars": "off",
+    "no-trailing-spaces": "off",
+    "prettier/prettier": ["warn", { "endOfLine": "auto" }],
+    "jsx-quotes": "off",
+    "react-native/no-inline-styles": "off",
+    "spaced-comment": "warn",
+    "import/no-default-export": "warn",
+    "prefer-arrow/prefer-arrow-functions": [
+      "warn",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ]
+  }
+}
