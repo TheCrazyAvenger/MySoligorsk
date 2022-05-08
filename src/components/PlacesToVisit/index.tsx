@@ -1,6 +1,11 @@
+import { Colors, Screens } from '@/constants'
+import { Typography } from '@/ui'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, TouchableOpacity, View } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { PlacesToVisitItem } from '../PlacesToVisitItem'
+import { styles } from './styles'
 
 const DUMMY_PLACES = [
   {
@@ -24,11 +29,23 @@ const DUMMY_PLACES = [
 ]
 
 export const PlacesToVisit = () => {
+  const navigation = useNavigation<any>()
+  const handleGoToCity = () => navigation.navigate(Screens.city)
+
   return (
-    <ScrollView style={{ marginTop: 30 }} horizontal showsHorizontalScrollIndicator={false}>
-      {DUMMY_PLACES.map((item) => (
-        <PlacesToVisitItem key={item.id} data={item} isLast={item.id === DUMMY_PLACES.length - 1} />
-      ))}
-    </ScrollView>
+    <View style={{ marginTop: 10 }}>
+      <TouchableOpacity style={styles.header} onPress={handleGoToCity}>
+        <View style={styles.title}>
+          <Icon name='business' size={20} color={Colors.iconRed} />
+          <Typography.H3 pl={5}>Интересные места</Typography.H3>
+        </View>
+        <Icon name={'chevron-forward'} size={25} />
+      </TouchableOpacity>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {DUMMY_PLACES.map((item) => (
+          <PlacesToVisitItem key={item.id} data={item} isLast={item.id === DUMMY_PLACES.length - 1} />
+        ))}
+      </ScrollView>
+    </View>
   )
 }

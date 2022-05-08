@@ -1,5 +1,4 @@
 import { Colors } from '@/constants'
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { useFocusEffect, useRoute } from '@react-navigation/core'
 import React, { useState } from 'react'
 import { Platform, View } from 'react-native'
@@ -10,7 +9,6 @@ export const TabBarScreenLayout = ({ children }: any) => {
   const insets = useSafeAreaInsets()
   const [backgroundColor, setBackgroundColor] = useState('white')
   const isIosFillLine = Platform.OS === 'ios' && insets.bottom > 30
-  const tabBarHeight = useBottomTabBarHeight()
 
   const route = useRoute()
 
@@ -30,7 +28,7 @@ export const TabBarScreenLayout = ({ children }: any) => {
         style={[
           styles.container,
           {
-            paddingBottom: tabBarHeight - 22 + (isIosFillLine ? 30 : 0),
+            paddingBottom: 54 - 22 + (isIosFillLine ? 30 : 0),
             marginTop: insets.top,
           },
         ]}
