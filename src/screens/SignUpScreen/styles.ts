@@ -1,0 +1,16 @@
+import { Colors, Fonts } from '@/constants'
+import { StyleSheet } from 'react-native'
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingVertical: 130,
+    backgroundColor: Colors.white,
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+  text: {
+    fontFamily: Fonts.openSansBold,
+    textAlign: 'center',
+  },
+})
