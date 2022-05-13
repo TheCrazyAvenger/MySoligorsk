@@ -3,8 +3,8 @@ import { CustomTooltip } from '@/components/ToolTip'
 import { Fonts, Screens } from '@/constants'
 import { Button, Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
-import { View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { Animated, View } from 'react-native'
 import { styles } from './styles'
 
 const regTooltipMessage =
@@ -16,12 +16,18 @@ export const WelcomeScreen = () => {
   const handleOpenAnonimousModal = () => setShowModal(true)
   const handleCloseAnonimousModal = () => setShowModal(false)
 
+  const opacity = useRef(new Animated.Value(0)).current
+
+  useEffect(() => {
+    Animated.timing(opacity, { toValue: 1, duration: 500, useNativeDriver: false }).start()
+  }, [])
+
   const handleGoToSignUp = () => navigation.navigate(Screens.signUp)
 
   return (
     <>
       <AnonymousModal visible={showModal} hideModal={handleCloseAnonimousModal} />
-      <View style={styles.container}>
+      <Animated.View style={[styles.container, { opacity }]}>
         <View>
           <Typography.TitleText lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
             Добро пожаловать в Мой Солигорск
@@ -44,7 +50,7 @@ export const WelcomeScreen = () => {
             Продолжить без регистрации
           </Button>
         </View>
-      </View>
+      </Animated.View>
     </>
   )
 }
