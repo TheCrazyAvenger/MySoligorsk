@@ -1,15 +1,17 @@
-import { selectIsLoggedIn } from '@/selectors'
+import { selectIsLoggedIn, selectIsRegistered } from '@/selectors'
 import { removeLogin, setLogin } from '@/slices/authentication'
 import { Spinner } from '@/ui'
 import auth from '@react-native-firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { AcquaintanceStackNavigator } from './AcquaintanceStackNavigator'
 import { ApplicationStackNavigator } from './ApplicationStackNavigator'
 import { AuthenticationStackNavigator } from './AuthenticationStackNavigator'
 
 export const RootNavigator = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
+  const isRegistered = useSelector(selectIsRegistered)
   const dispatch = useDispatch()
 
   const [initializing, setInitializing] = useState(true)
@@ -20,6 +22,7 @@ export const RootNavigator = () => {
         setLogin({
           isAnonymous,
           isLoggedIn: true,
+          isRegistered: isAnonymous ? false : true,
           loginInfo: { token: uid, email, register_type: providerId },
         })
       )
@@ -37,7 +40,13 @@ export const RootNavigator = () => {
   return (
     <View style={{ flex: 1 }}>
       {initializing && <Spinner />}
-      {isLoggedIn ? <ApplicationStackNavigator /> : <AuthenticationStackNavigator />}
+      {isRegistered ? (
+        <AcquaintanceStackNavigator />
+      ) : isLoggedIn ? (
+        <ApplicationStackNavigator />
+      ) : (
+        <AuthenticationStackNavigator />
+      )}
     </View>
   )
 }

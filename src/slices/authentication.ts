@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 type AuthenticationStateType = {
   isAnonymous: boolean
   isLoggedIn: boolean
+  isRegistered: boolean
   loginInfo: {
     token: string | null
     email: string | null
@@ -14,6 +15,7 @@ type AuthenticationStateType = {
 const initialState: AuthenticationStateType = {
   isAnonymous: false,
   isLoggedIn: false,
+  isRegistered: false,
   loginInfo: null,
 }
 
@@ -22,10 +24,22 @@ const authenticationSlice = createSlice({
   initialState,
   reducers: {
     setLogin: (state, action) => {
-      return { ...state, isAnonymous: action.payload.isAnonymous, loginInfo: { ...action.payload }, isLoggedIn: true }
+      return {
+        ...state,
+        isAnonymous: action.payload.isAnonymous,
+        loginInfo: { ...action.payload },
+        isLoggedIn: true,
+        isRegistered: action.payload.isRegistered,
+      }
     },
     removeLogin: (state) => {
-      return { ...state, isAnonymous: false, loginInfo: null, isLoggedIn: false }
+      return {
+        ...state,
+        isAnonymous: false,
+        loginInfo: null,
+        isLoggedIn: false,
+        isRegistered: false,
+      }
     },
   },
 })

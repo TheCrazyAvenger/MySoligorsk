@@ -3,12 +3,13 @@ import { ENVIRONMENT_NAME } from '@env'
 import analytics from '@react-native-firebase/analytics'
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useEffect, useRef } from 'react'
-import { LogBox, Text } from 'react-native'
+import { LogBox } from 'react-native'
 import 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux'
 import { RootNavigator } from './navigation'
+import { Typography } from './ui'
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
@@ -46,9 +47,9 @@ export const App = () => {
           }}
         >
           {ENVIRONMENT_NAME !== 'prod' && (
-            <Text style={{ position: 'absolute', zIndex: 9999999, bottom: 10, left: 38 }}>
+            <Typography.Default style={{ position: 'absolute', zIndex: 9999999, bottom: 10, left: 38 }}>
               Environment: {ENVIRONMENT_NAME}
-            </Text>
+            </Typography.Default>
           )}
           <RootNavigator />
         </NavigationContainer>

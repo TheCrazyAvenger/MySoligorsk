@@ -5,6 +5,7 @@ import React from 'react'
 import { KeyboardAvoidingView, Platform, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { CustomTooltip } from '../ToolTip'
 import { styles } from './styles'
 
 export const FormWrapper = ({
@@ -16,6 +17,10 @@ export const FormWrapper = ({
   loading = false,
   buttonTitle = 'Далее',
   error,
+  showTooltip,
+  tooltipTitle,
+  tooltipMessage,
+  style,
 }: any) => {
   return (
     <DismissKeyboardView style={styles.container}>
@@ -24,7 +29,7 @@ export const FormWrapper = ({
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'position' : undefined}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
-            style={styles.content}
+            style={[styles.content, style]}
           >
             <View>
               <Typography.TitleText lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
@@ -38,6 +43,17 @@ export const FormWrapper = ({
             </View>
             <View style={{ paddingVertical: 122 }}>{children}</View>
             <View>
+              {showTooltip && (
+                <CustomTooltip message={tooltipMessage}>
+                  <Typography.Default
+                    color={'#767575'}
+                    mb={16}
+                    style={[styles.text, { textDecorationLine: 'underline' }]}
+                  >
+                    {tooltipTitle}
+                  </Typography.Default>
+                </CustomTooltip>
+              )}
               <Button disabled={disabledContinueBtn} loading={loading} onPress={onContinue}>
                 {buttonTitle}
               </Button>
