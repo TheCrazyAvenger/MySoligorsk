@@ -1,7 +1,8 @@
 import { selectUser } from '@/selectors'
 import { Typography } from '@/ui'
+import auth from '@react-native-firebase/auth'
 import React, { useMemo } from 'react'
-import { Image, View } from 'react-native'
+import { Image, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { styles } from './styles'
 
@@ -27,6 +28,8 @@ export const HomeHeader = () => {
     else return 'Здравствуйте'
   }
 
+  const handleLogout = () => auth().signOut()
+
   return (
     <View style={styles.container}>
       <View>
@@ -35,7 +38,9 @@ export const HomeHeader = () => {
           {firstname}, {startPhrazes[currentPhraze]}
         </Typography.Description>
       </View>
-      <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+      <TouchableOpacity onPress={handleLogout}>
+        <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+      </TouchableOpacity>
     </View>
   )
 }

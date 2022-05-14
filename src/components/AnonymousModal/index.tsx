@@ -1,7 +1,7 @@
-import { Fonts } from '@/constants'
-import { setLogin } from '@/slices/authentication'
+import { Colors, Fonts } from '@/constants'
 import { Button, Typography } from '@/ui'
-import React from 'react'
+import auth from '@react-native-firebase/auth'
+import React, { useState } from 'react'
 import { Modal, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { styles } from './styles'
@@ -20,9 +20,21 @@ const regPluses = [
 ]
 
 export const AnonymousModal = ({ visible, hideModal }: Props) => {
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
-  const handleAnonymous = () => dispatch(setLogin({ deviceId: '1' }))
-
+  const handleAnonymous = () => {
+    setError(null)
+    setIsLoading(true)
+    auth()
+      .signInAnonymously()
+      .then(() => {
+        setIsLoading(false)
+      })
+      .catch(() => {
+        setError('Что-то пошло не так')
+      })
+  }
   return (
     <Modal visible={visible} transparent statusBarTranslucent animationType='fade'>
       <View style={styles.wrappwer}>
@@ -39,12 +51,23 @@ export const AnonymousModal = ({ visible, hideModal }: Props) => {
             </Typography.Default>
           ))}
           <View style={{ marginTop: 10 }}>
-            <Button buttonStyle={{ marginVertical: 24 }} onPress={hideModal}>
+            <Button disabled={loading} buttonStyle={{ marginVertical: 24 }} onPress={hideModal}>
               Вернуться назад
             </Button>
-            <Button outlined onPress={handleAnonymous}>
-              Продолжить
-            </Button>
+            <View>
+              <Button loading={loading} outlined onPress={handleAnonymous}>
+                Продолжить
+              </Button>
+              {error ? (
+                <Typography.Description
+                  style={{ position: 'absolute', bottom: -22, alignSelf: 'center' }}
+                  color={Colors.error}
+                  textAlign={'center'}
+                >
+                  {error}
+                </Typography.Description>
+              ) : null}
+            </View>
           </View>
         </View>
       </View>

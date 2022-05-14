@@ -1,4 +1,3 @@
-import { RootNavigator } from '@/navigation'
 import { store } from '@/store'
 import { ENVIRONMENT_NAME } from '@env'
 import analytics from '@react-native-firebase/analytics'
@@ -9,6 +8,7 @@ import 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux'
+import { RootNavigator } from './navigation'
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",

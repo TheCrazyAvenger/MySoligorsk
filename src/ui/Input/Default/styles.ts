@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     borderColor: '#D1CBCB',
     backgroundColor: '#F2F2F2',
     borderRadius: 30,
-    paddingHorizontal: 17,
+    paddingLeft: 17,
     marginTop: 6,
     height: 57,
   },
@@ -46,6 +46,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.openSansRegular,
     fontSize: 12,
     lineHeight: 16,
+    textAlign: 'center',
   },
   rightIconContainerStyle: {
     marginRight: 12,
