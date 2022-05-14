@@ -2,8 +2,11 @@ import * as Yup from 'yup'
 
 export const validationSchema = Yup.object({
   email: Yup.string()
-    .required('Please enter your email')
-    .email('Please check your email format')
-    .max(64, 'This field should be less than or equal to 64 symbols'),
-  password: Yup.string().required('Please enter your password').min(8).max(32),
+    .required('Введите свой Email')
+    .email('Проверьте формат электронной почты')
+    .max(64, 'Это поле должно быть меньше или равно 64 символам.'),
+  password: Yup.string()
+    .required('Введите пароль')
+    .min(8, 'Пароль должен быть не менее 8 символов')
+    .max(32, 'Пароль должен быть не более 32 символов'),
 })
