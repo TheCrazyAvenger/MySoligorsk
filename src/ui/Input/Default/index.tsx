@@ -35,6 +35,7 @@ export const Default = ({
           name: secureEntry ? 'eye-outline' : 'eye',
           color: Colors.iconEyes,
           onPress: handleRightIconPress,
+          size: 29,
         }
       : rightIcon
 

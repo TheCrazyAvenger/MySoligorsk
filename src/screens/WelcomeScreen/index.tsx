@@ -16,7 +16,7 @@ export const WelcomeScreen = () => {
   const handleOpenAnonimousModal = () => setShowModal(true)
   const handleCloseAnonimousModal = () => setShowModal(false)
 
-  const opacity = useRef(new Animated.Value(0)).current
+  const opacity = useRef(new Animated.Value(1)).current
 
   useEffect(() => {
     Animated.timing(opacity, { toValue: 1, duration: 500, useNativeDriver: false }).start()
