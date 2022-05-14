@@ -44,7 +44,7 @@ export const Button: React.FC<ButtonProps> = ({
           textStyle,
         ]}
       >
-        {loading ? 'Loading...' : children}
+        {loading ? 'Загрузка...' : children}
       </Text>
     </TouchableOpacity>
   )

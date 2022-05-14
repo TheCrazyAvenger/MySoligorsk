@@ -2,21 +2,18 @@ import { Slices } from '@/constants'
 import { createSlice } from '@reduxjs/toolkit'
 
 type AuthenticationStateType = {
+  isAnonymous: boolean
   isLoggedIn: boolean
-  deviceId: string | null
   loginInfo: {
-    id: string | null
-    device: string | null
     token: string | null
     email: string | null
-    password: string | null
     register_type: string | null
   } | null
 }
 
 const initialState: AuthenticationStateType = {
+  isAnonymous: false,
   isLoggedIn: false,
-  deviceId: null,
   loginInfo: null,
 }
 
@@ -25,10 +22,10 @@ const authenticationSlice = createSlice({
   initialState,
   reducers: {
     setLogin: (state, action) => {
-      return { ...state, deviceId: action.payload.device, loginInfo: { ...action.payload }, isLoggedIn: true }
+      return { ...state, isAnonymous: action.payload.isAnonymous, loginInfo: { ...action.payload }, isLoggedIn: true }
     },
     removeLogin: (state) => {
-      return { ...state, loginInfo: null, isLoggedIn: false }
+      return { ...state, isAnonymous: false, loginInfo: null, isLoggedIn: false }
     },
   },
 })

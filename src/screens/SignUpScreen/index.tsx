@@ -1,30 +1,41 @@
 import { SignUpNamesForm } from '@/forms'
-import { setLogin } from '@/slices/authentication'
-import { Typography } from '@/ui'
+import auth from '@react-native-firebase/auth'
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { View } from 'react-native'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { styles } from './styles'
 
 export const SignUpScreen = () => {
   const navigation = useNavigation<any>()
   const dispatch = useDispatch()
-  const handleAnonymous = () => dispatch(setLogin({ deviceId: '1' }))
+  const [loading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const initialValues = { email: '', password: '' }
 
   const handleSubmit = (values: any) => {
-    console.log(values)
-    handleAnonymous()
+    setIsLoading(true)
+    setError('')
+
+    const { email, password } = values
+
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        setIsLoading(false)
+        if (error.code === 'auth/email-already-in-use') {
+          return setError('Этот адрес электронной почты уже используется')
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          return setError('Этот адрес электронной почты недействителен')
+        }
+
+        return setError('Что-то пошло не так')
+      })
   }
 
-  return (
-    <View style={styles.container}>
-      <Typography.TitleText lineH={50.73} style={[styles.text]} size={38}>
-        Регистрация
-      </Typography.TitleText>
-      <SignUpNamesForm onSubmit={handleSubmit} initialValues={initialValues} />
-    </View>
-  )
+  return <SignUpNamesForm onSubmit={handleSubmit} initialValues={initialValues} loading={loading} error={error} />
 }
