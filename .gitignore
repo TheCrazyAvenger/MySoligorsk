@@ -64,6 +64,9 @@ buck-out/
 
 #.env
 .env
+.env.dev
+.env.stage
+.env.prod
 
 /android/app/google-services.json
 /ios/CyberMetals/GoogleService-Info.plist

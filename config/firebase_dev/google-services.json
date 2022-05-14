@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "283652204116",
+    "project_id": "mysoligorsk-80c01",
+    "storage_bucket": "mysoligorsk-80c01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283652204116:android:e6e0103a10ded83c072fc1",
+        "android_client_info": {
+          "package_name": "com.mysoligorsk.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283652204116-uba8fcod49ub7bha1sakqn3tdtfafhcv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mysoligorsk.app.dev",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "283652204116-qd8nduj5erhv4hltu3tulju0fiaiggsg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBuIkUGZXiB867BAeCTSRwq6v0Iji4d4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283652204116-qd8nduj5erhv4hltu3tulju0fiaiggsg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

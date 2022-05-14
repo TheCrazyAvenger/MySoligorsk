@@ -256,6 +256,22 @@ android {
         }
     }
 
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            applicationIdSuffix '.app.dev'
+            manifestPlaceholders = [WEB_DOMAIN_NAME: "dev.mysoligorsk.com"]
+        }
+        stage {
+            applicationIdSuffix '.app.stage'
+            manifestPlaceholders = [WEB_DOMAIN_NAME: "staging.mysoligorsk.com"]
+        }
+        prod {
+            applicationIdSuffix '.app.prod'
+            manifestPlaceholders = [WEB_DOMAIN_NAME: "www.mysoligorsk.com"]
+        }
+    }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
