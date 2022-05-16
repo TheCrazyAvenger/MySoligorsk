@@ -4,8 +4,10 @@ export enum Screens {
   menu = 'Menu',
   welcome = 'Welcome',
   signUp = 'Sign Up',
+  signIn = 'Sign In',
   acquaintanceAbout = 'Acquaintance: About',
   acquaintanceBirthDate = 'Acquaintance: Date Screen',
+  acquaintanceInterests = 'Acquaintance: Interests',
   acquaintanceStart = 'Acquaintance: Start',
   acquaintanceNames = 'Acquaintance: Names',
 }

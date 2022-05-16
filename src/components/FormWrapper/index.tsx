@@ -2,8 +2,7 @@ import { DismissKeyboardView } from '@/components'
 import { Colors, Fonts } from '@/constants'
 import { Button, Typography } from '@/ui'
 import React from 'react'
-import { KeyboardAvoidingView, Platform, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Animated, KeyboardAvoidingView, Platform, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CustomTooltip } from '../ToolTip'
 import { styles } from './styles'
@@ -21,11 +20,12 @@ export const FormWrapper = ({
   tooltipTitle,
   tooltipMessage,
   style,
+  scrollViewStyle,
 }: any) => {
   return (
     <DismissKeyboardView style={styles.container}>
       <SafeAreaView style={[styles.container, { backgroundColor: 'white' }]}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={styles.container}>
+        <Animated.ScrollView contentContainerStyle={{ flexGrow: 1 }} style={[styles.container, scrollViewStyle]}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'position' : undefined}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
@@ -54,21 +54,22 @@ export const FormWrapper = ({
                   </Typography.Default>
                 </CustomTooltip>
               )}
-              <Button disabled={disabledContinueBtn} loading={loading} onPress={onContinue}>
+              <Button
+                buttonStyle={{ marginBottom: 5 }}
+                disabled={disabledContinueBtn}
+                loading={loading}
+                onPress={onContinue}
+              >
                 {buttonTitle}
               </Button>
               {error ? (
-                <Typography.Description
-                  style={{ position: 'absolute', bottom: -22, alignSelf: 'center' }}
-                  color={Colors.error}
-                  textAlign={'center'}
-                >
+                <Typography.Description style={{ alignSelf: 'center' }} color={Colors.error} textAlign={'center'}>
                   {error}
                 </Typography.Description>
               ) : null}
             </View>
           </KeyboardAvoidingView>
-        </ScrollView>
+        </Animated.ScrollView>
       </SafeAreaView>
     </DismissKeyboardView>
   )

@@ -11,7 +11,7 @@ const regTooltipMessage =
 export const AcquaintanceStartScreen = () => {
   const navigation = useNavigation<any>()
 
-  const opacity = useRef(new Animated.Value(1)).current
+  const opacity = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
     Animated.timing(opacity, { toValue: 1, duration: 500, useNativeDriver: false }).start()
@@ -21,7 +21,8 @@ export const AcquaintanceStartScreen = () => {
 
   return (
     <FormWrapper
-      style={[styles.container]}
+      style={styles.container}
+      scrollViewStyle={{ opacity }}
       title={'Давайте познакомимся'}
       description={
         'Приложение будет развиваться, и со временем, вы сможете находить людей с похожими увлечениями, и составлять себе компанию!'

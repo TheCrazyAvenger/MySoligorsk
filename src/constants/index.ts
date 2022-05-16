@@ -1,6 +1,7 @@
 export * from './api'
 export * from './colors'
 export * from './fonts'
+export * from './interests'
 export * from './routes'
 export * from './slices'
 export * from './tabBar'

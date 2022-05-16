@@ -1,6 +1,7 @@
 import { selectIsLoggedIn, selectIsRegistered } from '@/selectors'
 import { removeLogin, setLogin } from '@/slices/authentication'
 import { Spinner } from '@/ui'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import auth from '@react-native-firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
@@ -15,14 +16,16 @@ export const RootNavigator = () => {
   const dispatch = useDispatch()
 
   const [initializing, setInitializing] = useState(true)
-  const onAuthStateChanged = (user: any) => {
+  const onAuthStateChanged = async (user: any) => {
+    const isSignIn = await AsyncStorage.getItem('isSignIn')
+
     if (user) {
       const { providerId, email, uid, isAnonymous } = user
       dispatch(
         setLogin({
           isAnonymous,
           isLoggedIn: true,
-          isRegistered: isAnonymous ? false : true,
+          isRegistered: isSignIn ? false : isAnonymous ? false : true,
           loginInfo: { token: uid, email, register_type: providerId },
         })
       )

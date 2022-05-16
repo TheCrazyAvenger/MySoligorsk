@@ -2,6 +2,7 @@ import { Screens } from '@/constants'
 import {
   AcquaintanceAboutScreen,
   AcquaintanceBirthDateScreen,
+  AcquaintanceInterestsScreen,
   AcquaintanceNamesScreen,
   AcquaintanceStartScreen,
 } from '@/screens'
@@ -21,6 +22,7 @@ export const AcquaintanceStackNavigator = () => {
       <Stack.Screen name={Screens.acquaintanceNames} component={AcquaintanceNamesScreen} />
       <Stack.Screen name={Screens.acquaintanceAbout} component={AcquaintanceAboutScreen} />
       <Stack.Screen name={Screens.acquaintanceBirthDate} component={AcquaintanceBirthDateScreen} />
+      <Stack.Screen name={Screens.acquaintanceInterests} component={AcquaintanceInterestsScreen} />
     </Stack.Navigator>
   )
 }

@@ -1,5 +1,5 @@
 import { Screens } from '@/constants'
-import { SignUpScreen, WelcomeScreen } from '@/screens'
+import { SignInScreen, SignUpScreen, WelcomeScreen } from '@/screens'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
@@ -13,6 +13,7 @@ export const AuthenticationStackNavigator = () => {
     <Stack.Navigator screenOptions={authenticationStackNavigatorScreenOptions}>
       <Stack.Screen name={Screens.welcome} component={WelcomeScreen} />
       <Stack.Screen name={Screens.signUp} component={SignUpScreen} />
+      <Stack.Screen name={Screens.signIn} component={SignInScreen} />
     </Stack.Navigator>
   )
 }

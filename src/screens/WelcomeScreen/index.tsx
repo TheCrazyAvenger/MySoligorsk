@@ -16,17 +16,19 @@ export const WelcomeScreen = () => {
   const handleOpenAnonimousModal = () => setShowModal(true)
   const handleCloseAnonimousModal = () => setShowModal(false)
 
-  const opacity = useRef(new Animated.Value(1)).current
+  const opacity = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
     Animated.timing(opacity, { toValue: 1, duration: 500, useNativeDriver: false }).start()
   }, [])
 
   const handleGoToSignUp = () => navigation.navigate(Screens.signUp)
+  const handleGoToSignIn = () => navigation.navigate(Screens.signIn)
 
   return (
     <>
       <AnonymousModal visible={showModal} hideModal={handleCloseAnonimousModal} />
+
       <Animated.View style={[styles.container, { opacity }]}>
         <View>
           <Typography.TitleText lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
@@ -46,9 +48,10 @@ export const WelcomeScreen = () => {
           <Button buttonStyle={{ marginBottom: 24 }} onPress={handleGoToSignUp}>
             Зарегистрироваться
           </Button>
-          <Button outlined onPress={handleOpenAnonimousModal}>
+          <Button outlined buttonStyle={{ marginBottom: 24 }} onPress={handleOpenAnonimousModal}>
             Продолжить без регистрации
           </Button>
+          <Button onPress={handleGoToSignIn}>Войти</Button>
         </View>
       </Animated.View>
     </>
