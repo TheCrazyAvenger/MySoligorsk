@@ -3,7 +3,6 @@ import { Screens } from '@/constants'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useState } from 'react'
 import DatePicker from 'react-native-date-picker'
-import { styles } from './styles'
 
 export const AcquaintanceBirthDateScreen = () => {
   const [birthDate, setBirthDate] = useState(new Date())
@@ -19,12 +18,7 @@ export const AcquaintanceBirthDateScreen = () => {
   const isContinueButtonDisabled = new Date('2010-01-01') <= birthDate
 
   return (
-    <FormWrapper
-      style={styles.container}
-      title={'Когда вы родились?'}
-      onContinue={handleGoNext}
-      disabledContinueBtn={isContinueButtonDisabled}
-    >
+    <FormWrapper title={'Когда вы родились?'} onContinue={handleGoNext} disabledContinueBtn={isContinueButtonDisabled}>
       <DatePicker
         date={birthDate}
         style={{ alignSelf: 'center' }}

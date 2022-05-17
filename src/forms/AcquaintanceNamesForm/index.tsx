@@ -3,7 +3,6 @@ import { isErrorsExist } from '@/helpers'
 import { Input } from '@/ui'
 import { useFormik } from 'formik'
 import React, { useEffect } from 'react'
-import { styles } from './styles'
 import { validationSchema } from './validation'
 
 export const AcquaintanceNamesForm = ({ onSubmit, initialValues }: any) => {
@@ -24,12 +23,7 @@ export const AcquaintanceNamesForm = ({ onSubmit, initialValues }: any) => {
   const isContinueButtonDisabled = isErrorsExist(errors)
 
   return (
-    <FormWrapper
-      style={styles.container}
-      title={'Как вас зовут?'}
-      onContinue={handleSubmit}
-      disabledContinueBtn={isContinueButtonDisabled}
-    >
+    <FormWrapper title={'Как вас зовут?'} onContinue={handleSubmit} disabledContinueBtn={isContinueButtonDisabled}>
       <Input.Default
         placeholder='Имя'
         onChangeText={handleChange('firstname')}

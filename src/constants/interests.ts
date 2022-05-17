@@ -1,5 +1,3 @@
-import { Colors } from './colors'
-
 export const interests = [
   {
     id: 0,
@@ -147,13 +145,5 @@ export const interests = [
     title: 'Азарт',
     icon: 'cards-playing-spade',
     iconType: 'Material',
-  },
-  {
-    id: 21,
-    fillColor: '#000',
-    title: 'Другое',
-    icon: 'help',
-    iconColor: Colors.white,
-    iconType: 'Ion',
   },
 ]

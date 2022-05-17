@@ -1,4 +1,5 @@
 import { selectIsLoggedIn, selectIsRegistered } from '@/selectors'
+import { setIsWaitForVerification } from '@/slices/applicationSettings'
 import { removeLogin, setLogin } from '@/slices/authentication'
 import { Spinner } from '@/ui'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -20,6 +21,15 @@ export const RootNavigator = () => {
     const isSignIn = await AsyncStorage.getItem('isSignIn')
 
     if (user) {
+      // await auth().currentUser?.reload()
+      // auth().currentUser?.getIdToken(true)
+      const isWaitForVerification = !isSignIn && !user.emailVerified && !user.isAnonymous
+      if (isWaitForVerification) {
+        await dispatch(setIsWaitForVerification(true))
+      } else {
+        await dispatch(setIsWaitForVerification(false))
+      }
+
       const { providerId, email, uid, isAnonymous } = user
       dispatch(
         setLogin({

@@ -16,7 +16,8 @@ export const SignUpScreen = () => {
 
     auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((user) => {
+        user.user.sendEmailVerification()
         setIsLoading(false)
       })
       .catch((error) => {

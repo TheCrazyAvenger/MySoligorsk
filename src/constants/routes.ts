@@ -5,6 +5,7 @@ export enum Screens {
   welcome = 'Welcome',
   signUp = 'Sign Up',
   signIn = 'Sign In',
+  emailVerification = 'Email Verification',
   acquaintanceAbout = 'Acquaintance: About',
   acquaintanceBirthDate = 'Acquaintance: Date Screen',
   acquaintanceInterests = 'Acquaintance: Interests',

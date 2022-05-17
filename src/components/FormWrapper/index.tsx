@@ -31,8 +31,8 @@ export const FormWrapper = ({
             keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
             style={[styles.content, style]}
           >
-            <View>
-              <Typography.TitleText lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
+            <View style={{ flex: 0.2, justifyContent: 'flex-end' }}>
+              <Typography.TitleText style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
                 {title}
               </Typography.TitleText>
               {description ? (
@@ -41,8 +41,8 @@ export const FormWrapper = ({
                 </Typography.Default>
               ) : null}
             </View>
-            <View style={{ paddingVertical: 122 }}>{children}</View>
-            <View>
+            <View>{children}</View>
+            <View style={{ flex: 0.2, justifyContent: 'flex-start' }}>
               {showTooltip && (
                 <CustomTooltip message={tooltipMessage}>
                   <Typography.Default

@@ -4,7 +4,6 @@ import { Typography } from '@/ui'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useState } from 'react'
 import BouncyCheckboxGroup, { ICheckboxButton } from 'react-native-bouncy-checkbox-group'
-import { styles } from './styles'
 
 const renderText = (text: string) => {
   return (
@@ -62,12 +61,7 @@ export const AcquaintanceAboutScreen = () => {
   }
 
   return (
-    <FormWrapper
-      style={styles.container}
-      title={'Расскажите о себе'}
-      onContinue={handleGoNext}
-      disabledContinueBtn={!selectedCheckbox}
-    >
+    <FormWrapper title={'Расскажите о себе'} onContinue={handleGoNext} disabledContinueBtn={!selectedCheckbox}>
       <BouncyCheckboxGroup
         data={data}
         style={{ flexDirection: 'column' }}
