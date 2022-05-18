@@ -21,6 +21,7 @@ export const FormWrapper = ({
   tooltipMessage,
   style,
   scrollViewStyle,
+  textBelowButtons,
 }: any) => {
   return (
     <DismissKeyboardView style={styles.container}>
@@ -54,6 +55,15 @@ export const FormWrapper = ({
                   </Typography.Default>
                 </CustomTooltip>
               )}
+              {textBelowButtons ? (
+                <Typography.Default
+                  color={'#767575'}
+                  mb={16}
+                  style={[styles.text, { textDecorationLine: 'underline' }]}
+                >
+                  {textBelowButtons}
+                </Typography.Default>
+              ) : null}
               <Button
                 buttonStyle={{ marginBottom: 5 }}
                 disabled={disabledContinueBtn}

@@ -21,11 +21,21 @@ export const RootNavigator = () => {
     const isSignIn = await AsyncStorage.getItem('isSignIn')
 
     if (user) {
-      // await auth().currentUser?.reload()
-      // auth().currentUser?.getIdToken(true)
-      const isWaitForVerification = !isSignIn && !user.emailVerified && !user.isAnonymous
+      const isWaitForVerification = !user.emailVerified && !user.isAnonymous
       if (isWaitForVerification) {
         await dispatch(setIsWaitForVerification(true))
+        const onIdTokenChangedUnsubscribe = auth().onIdTokenChanged((user) => {
+          const unsubscribeSetInterval = setTimeout(() => {
+            auth().currentUser?.reload()
+            auth().currentUser?.getIdToken(true)
+          }, 10000)
+
+          if (user && user.emailVerified) {
+            clearInterval(unsubscribeSetInterval)
+            onAuthStateChanged(user)
+            return onIdTokenChangedUnsubscribe()
+          }
+        })
       } else {
         await dispatch(setIsWaitForVerification(false))
       }
