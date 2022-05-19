@@ -18,6 +18,7 @@ export const EmailVerificationScreen = () => {
         setTimerOn(true)
       })
   }
+  const handleLogout = () => auth().signOut()
 
   useEffect(() => {
     auth().currentUser?.sendEmailVerification()
@@ -82,6 +83,8 @@ export const EmailVerificationScreen = () => {
       disabledContinueBtn={timerOn}
       onContinue={handleSendAgain}
       buttonTitle={'Отпрвить еще раз'}
+      secondButtonTitle={'Выйти из системы'}
+      onSecondContinue={handleLogout}
     />
   )
 }

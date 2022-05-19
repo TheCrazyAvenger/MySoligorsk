@@ -1,5 +1,6 @@
 import { FormWrapper } from '@/components'
 import { Screens } from '@/constants'
+import auth from '@react-native-firebase/auth'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useRef } from 'react'
 import { Animated } from 'react-native'
@@ -18,6 +19,7 @@ export const AcquaintanceStartScreen = () => {
   }, [])
 
   const handleGoNext = () => navigation.navigate(Screens.acquaintanceNames)
+  const handleLogout = () => auth().signOut()
 
   return (
     <FormWrapper
@@ -30,6 +32,8 @@ export const AcquaintanceStartScreen = () => {
       tooltipTitle={regTooltipTitle}
       tooltipMessage={regTooltipMessage}
       onContinue={handleGoNext}
+      secondButtonTitle={'Выйти из системы'}
+      onSecondContinue={handleLogout}
     />
   )
 }

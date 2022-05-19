@@ -14,7 +14,11 @@ export const FormWrapper = ({
   onContinue,
   disabledContinueBtn = false,
   loading = false,
+  disabledSecondBtn = false,
+  loadingSecond = false,
   buttonTitle = 'Далее',
+  secondButtonTitle,
+  onSecondContinue,
   error,
   showTooltip,
   tooltipTitle,
@@ -72,6 +76,17 @@ export const FormWrapper = ({
               >
                 {buttonTitle}
               </Button>
+              {secondButtonTitle ? (
+                <Button
+                  buttonStyle={{ marginTop: 19, marginBottom: 5 }}
+                  disabled={disabledSecondBtn}
+                  loading={loadingSecond}
+                  outlined
+                  onPress={onSecondContinue}
+                >
+                  {secondButtonTitle}
+                </Button>
+              ) : null}
               {error ? (
                 <Typography.Description style={{ alignSelf: 'center' }} color={Colors.error} textAlign={'center'}>
                   {error}

@@ -26,7 +26,10 @@ export const AcquaintanceNamesForm = ({ onSubmit, initialValues }: any) => {
   return (
     <FormWrapper
       style={styles.container}
-      title={'Как вас зовут?'}
+      title={'Укажите ваш адрес'}
+      description={
+        'Это необязательно, но, с этой информацией мы сможем подбирать для вас подходящие места рядом, связанные с вашими увлечениями. Также вы сможете видеть находящиеся рядом с вами открытые заведения (магазины и т.д)'
+      }
       onContinue={handleSubmit}
       disabledContinueBtn={isContinueButtonDisabled}
     >
