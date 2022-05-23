@@ -7,11 +7,11 @@ import DatePicker from 'react-native-date-picker'
 export const AcquaintanceBirthDateScreen = () => {
   const [birthDate, setBirthDate] = useState(new Date())
   const navigation = useNavigation<any>()
-  const route = useRoute()
+  const route: any = useRoute()
 
   const handleGoNext = () => {
     navigation.navigate(Screens.acquaintanceInterests, {
-      data: { ...route.params, birthDate: birthDate.toLocaleDateString() },
+      data: { ...route.params?.data, birthDate: birthDate.toLocaleDateString() },
     })
   }
 

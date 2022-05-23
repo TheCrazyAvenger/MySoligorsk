@@ -1,9 +1,9 @@
 import { Navigators, Screens } from '@/constants'
-import { EmailVerificationScreen } from '@/screens'
-import { selectIsWaitForVerification } from '@/selectors/applicationSettings'
+import { selectIsRegistered } from '@/selectors'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { AcquaintanceStackNavigator } from '../AcquaintanceStackNavigator'
 import { BottomTabNavigator } from './BottomTabNavigator'
 
 const Stack = createStackNavigator()
@@ -12,18 +12,23 @@ const bottomTabNavigatorOptions = {
   headerShown: false,
 }
 
+const acquaintanceNavigatorOptions = {
+  headerShown: false,
+}
+
 export const ApplicationStackNavigator = () => {
-  const isWaitForVerification = useSelector(selectIsWaitForVerification)
+  const isRegistered = useSelector(selectIsRegistered)
 
   return (
     <Stack.Navigator>
-      {isWaitForVerification && (
+      {isRegistered && (
         <Stack.Screen
-          name={Screens.emailVerification}
-          options={{ headerShown: false }}
-          component={EmailVerificationScreen}
+          name={Screens.authVerification}
+          options={acquaintanceNavigatorOptions}
+          component={AcquaintanceStackNavigator}
         />
       )}
+
       <Stack.Screen name={Navigators.bottomTabs} component={BottomTabNavigator} options={bottomTabNavigatorOptions} />
     </Stack.Navigator>
   )

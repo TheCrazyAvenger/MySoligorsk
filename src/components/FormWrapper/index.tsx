@@ -20,6 +20,7 @@ export const FormWrapper = ({
   secondButtonTitle,
   onSecondContinue,
   error,
+  type = 'ScrollView',
   showTooltip,
   tooltipTitle,
   tooltipMessage,
@@ -27,10 +28,12 @@ export const FormWrapper = ({
   scrollViewStyle,
   textBelowButtons,
 }: any) => {
+  const Container = type === 'ScrollView' ? Animated.ScrollView : Animated.View
+
   return (
     <DismissKeyboardView style={styles.container}>
       <SafeAreaView style={[styles.container, { backgroundColor: 'white' }]}>
-        <Animated.ScrollView contentContainerStyle={{ flexGrow: 1 }} style={[styles.container, scrollViewStyle]}>
+        <Container contentContainerStyle={{ flexGrow: 1 }} style={[styles.container, scrollViewStyle]}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'position' : undefined}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
@@ -94,7 +97,7 @@ export const FormWrapper = ({
               ) : null}
             </View>
           </KeyboardAvoidingView>
-        </Animated.ScrollView>
+        </Container>
       </SafeAreaView>
     </DismissKeyboardView>
   )

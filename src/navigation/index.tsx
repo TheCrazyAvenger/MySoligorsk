@@ -1,26 +1,22 @@
-import { selectIsLoggedIn, selectIsRegistered } from '@/selectors'
+import { selectIsLoggedIn } from '@/selectors'
 import { setIsWaitForVerification } from '@/slices/applicationSettings'
 import { removeLogin, setLogin } from '@/slices/authentication'
 import { Spinner } from '@/ui'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import auth from '@react-native-firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { AcquaintanceStackNavigator } from './AcquaintanceStackNavigator'
 import { ApplicationStackNavigator } from './ApplicationStackNavigator'
 import { AuthenticationStackNavigator } from './AuthenticationStackNavigator'
 
 export const RootNavigator = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
-  const isRegistered = useSelector(selectIsRegistered)
   const dispatch = useDispatch()
 
   const [initializing, setInitializing] = useState(true)
   const onAuthStateChanged = async (user: any) => {
-    const isSignIn = await AsyncStorage.getItem('isSignIn')
-
     if (user) {
+      const isRegistered = !user.displayName && !user.isAnonymous
       const isWaitForVerification = !user.emailVerified && !user.isAnonymous
       if (isWaitForVerification) {
         await dispatch(setIsWaitForVerification(true))
@@ -45,7 +41,7 @@ export const RootNavigator = () => {
         setLogin({
           isAnonymous,
           isLoggedIn: true,
-          isRegistered: isSignIn ? false : isAnonymous ? false : true,
+          isRegistered,
           loginInfo: { token: uid, email, register_type: providerId },
         })
       )
@@ -63,13 +59,7 @@ export const RootNavigator = () => {
   return (
     <View style={{ flex: 1 }}>
       {initializing && <Spinner />}
-      {isRegistered ? (
-        <AcquaintanceStackNavigator />
-      ) : isLoggedIn ? (
-        <ApplicationStackNavigator />
-      ) : (
-        <AuthenticationStackNavigator />
-      )}
+      {isLoggedIn ? <ApplicationStackNavigator /> : <AuthenticationStackNavigator />}
     </View>
   )
 }

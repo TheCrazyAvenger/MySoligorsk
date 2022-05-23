@@ -3,4 +3,5 @@ declare module '@env' {
   export const WEATHER_API_KEY: string
   export const ENVIRONMENT_NAME: string
   export const WEB_DOMAIN_NAME: string
+  export const GOOGLE_LOCATION_API_KEY: string
 }

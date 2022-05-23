@@ -1,6 +1,8 @@
 import { withStatusBar } from '@/hocs'
 import { AcquaintanceAboutScreen as AcquaintanceAbout } from './AcquaintanceAboutScreen'
+import { AcquaintanceAddressScreen as AcquaintanceAddress } from './AcquaintanceAddressScreen'
 import { AcquaintanceBirthDateScreen as AcquaintanceBirthDate } from './AcquaintanceBirthDateScreen'
+import { AcquaintanceFinishScreen as AcquaintanceFinish } from './AcquaintanceFinishScreen'
 import { AcquaintanceInterestsScreen as AcquaintanceInterests } from './AcquaintanceInterestsScreen'
 import { AcquaintanceNamesScreen as AcquaintanceNames } from './AcquaintanceNamesScreen'
 import { AcquaintanceStartScreen as AcquaintanceStart } from './AcquaintanceStartScreen'
@@ -13,7 +15,9 @@ import { SignUpScreen as SignUp } from './SignUpScreen'
 import { WelcomeScreen as Welcome } from './WelcomeScreen'
 
 export const AcquaintanceAboutScreen = withStatusBar(AcquaintanceAbout)
+export const AcquaintanceAddressScreen = withStatusBar(AcquaintanceAddress)
 export const AcquaintanceBirthDateScreen = withStatusBar(AcquaintanceBirthDate)
+export const AcquaintanceFinishScreen = withStatusBar(AcquaintanceFinish)
 export const AcquaintanceInterestsScreen = withStatusBar(AcquaintanceInterests)
 export const AcquaintanceStartScreen = withStatusBar(AcquaintanceStart)
 export const AcquaintanceNamesScreen = withStatusBar(AcquaintanceNames)

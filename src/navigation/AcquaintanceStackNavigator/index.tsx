@@ -1,7 +1,9 @@
 import { Screens } from '@/constants'
 import {
   AcquaintanceAboutScreen,
+  AcquaintanceAddressScreen,
   AcquaintanceBirthDateScreen,
+  AcquaintanceFinishScreen,
   AcquaintanceInterestsScreen,
   AcquaintanceNamesScreen,
   AcquaintanceStartScreen,
@@ -29,6 +31,8 @@ export const AcquaintanceStackNavigator = () => {
       <Stack.Screen name={Screens.acquaintanceAbout} component={AcquaintanceAboutScreen} />
       <Stack.Screen name={Screens.acquaintanceBirthDate} component={AcquaintanceBirthDateScreen} />
       <Stack.Screen name={Screens.acquaintanceInterests} component={AcquaintanceInterestsScreen} />
+      <Stack.Screen name={Screens.acquaintanceAddress} component={AcquaintanceAddressScreen} />
+      <Stack.Screen name={Screens.acquaintanceFinish} component={AcquaintanceFinishScreen} />
     </Stack.Navigator>
   )
 }

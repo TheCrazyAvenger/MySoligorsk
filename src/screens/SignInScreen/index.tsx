@@ -1,5 +1,4 @@
 import { SignInForm } from '@/forms'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import auth from '@react-native-firebase/auth'
 import React, { useState } from 'react'
 
@@ -15,15 +14,12 @@ export const SignInScreen = () => {
 
     const { email, password } = values
 
-    await AsyncStorage.setItem('isSignIn', 'true')
-
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         setIsLoading(false)
       })
       .catch((error) => {
-        AsyncStorage.removeItem('isSignIn')
         setIsLoading(false)
         if (error.code === 'auth/wrong-password') {
           return setError('Пароль недействителен или у пользователя нет пароля')

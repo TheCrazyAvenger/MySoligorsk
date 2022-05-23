@@ -46,11 +46,11 @@ const data: any = [
 
 export const AcquaintanceAboutScreen = () => {
   const [selectedCheckbox, setSelectedCheckbox] = useState<string | null>(null)
-  const route = useRoute()
+  const route:any = useRoute()
   const navigation = useNavigation<any>()
 
   const handleGoNext = () =>
-    navigation.navigate(Screens.acquaintanceBirthDate, { data: { ...route.params, location: selectedCheckbox } })
+    navigation.navigate(Screens.acquaintanceBirthDate, { data: { ...route.params?.data, location: selectedCheckbox } })
 
   const handleSetAbout = (id: string) => {
     if (id === '0' || id === '1') {

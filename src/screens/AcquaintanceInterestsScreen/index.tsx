@@ -26,13 +26,19 @@ const otherObject = {
 }
 
 export const AcquaintanceInterestsScreen = () => {
-  const route = useRoute()
+  const route: any = useRoute()
   const navigation = useNavigation<any>()
 
   const [selectedInterests, setSelectedInterests] = useState<string[] | []>([])
   const handleAddInterest = (name: string) => setSelectedInterests((prev: any) => [...prev, name])
   const handleRemoveInterest = (name: string) =>
     setSelectedInterests((prev: any) => prev.filter((item: any) => item !== name))
+
+  const handleGoNext = () => {
+    navigation.navigate(Screens.acquaintanceAddress, {
+      data: { ...route.params?.data, interests: selectedInterests },
+    })
+  }
 
   const InterestsItem = ({ item }: any) => {
     const { fillColor, icon, iconColor, iconType, title } = item
@@ -58,10 +64,6 @@ export const AcquaintanceInterestsScreen = () => {
 
   const shuffledInterests = useMemo(() => shuffle(interests), [])
 
-  console.log(selectedInterests)
-
-  const handleGoNext = () => navigation.navigate(Screens.acquaintanceBirthDate, { data: { ...route.params } })
-
   return (
     <>
       <ScrollView style={[styles.container]}>
@@ -79,7 +81,7 @@ export const AcquaintanceInterestsScreen = () => {
           <InterestsItem item={otherObject} />
         </View>
       </ScrollView>
-      <Button disabled={selectedInterests.length === 0} buttonStyle={styles.nextButton} onPress={() => {}}>
+      <Button disabled={selectedInterests.length === 0} buttonStyle={styles.nextButton} onPress={handleGoNext}>
         Далее
       </Button>
     </>
