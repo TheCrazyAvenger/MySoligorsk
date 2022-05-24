@@ -55,6 +55,10 @@ export const RootNavigator = () => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
     return subscriber
   }, [])
+  useEffect(() => {
+    const subscriber = auth().onUserChanged(onAuthStateChanged)
+    return subscriber
+  }, [])
 
   return (
     <View style={{ flex: 1 }}>
