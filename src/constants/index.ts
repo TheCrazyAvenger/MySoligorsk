@@ -1,3 +1,4 @@
+export * from './addresses'
 export * from './api'
 export * from './colors'
 export * from './fonts'
