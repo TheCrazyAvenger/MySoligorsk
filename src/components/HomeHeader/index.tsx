@@ -1,5 +1,6 @@
 import { selectUser } from '@/selectors'
 import { Typography } from '@/ui'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import auth from '@react-native-firebase/auth'
 import React, { useMemo } from 'react'
 import { Image, TouchableOpacity, View } from 'react-native'
@@ -28,7 +29,10 @@ export const HomeHeader = () => {
     else return 'Здравствуйте'
   }
 
-  const handleLogout = () => auth().signOut()
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('isSignIn')
+    auth().signOut()
+  }
 
   return (
     <View style={styles.container}>

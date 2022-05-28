@@ -1,11 +1,13 @@
 import { weatherApi } from '@/api'
 import { Slices } from '@/constants'
 import { userReducer, weatherReducer } from '@/slices'
+import { applicationSettingsReducer } from '@/slices/applicationSettings'
 import { authenticationReducer } from '@/slices/authentication'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 const reducers = combineReducers({
   [weatherApi.reducerPath]: weatherApi.reducer,
+  [Slices.applicationSettings]: applicationSettingsReducer,
   [Slices.authentication]: authenticationReducer,
   [Slices.user]: userReducer,
   [Slices.weather]: weatherReducer,
