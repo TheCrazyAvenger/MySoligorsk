@@ -1,11 +1,15 @@
+import { OtherSelectedModal } from '@/components'
 import { Colors, Fonts, interests, Screens } from '@/constants'
 import { shuffle } from '@/helpers'
+import { selectOtherInterestSelected } from '@/selectors/applicationSettings'
+import { setOtherInterestSelected } from '@/slices/applicationSettings'
 import { Button, Typography } from '@/ui'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useMemo, useState } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useDispatch, useSelector } from 'react-redux'
 import { styles } from './styles'
 
 const getIcon = (name: string, type: string, color: string = Colors.black) => {
@@ -28,6 +32,9 @@ const otherObject = {
 export const AcquaintanceInterestsScreen = () => {
   const route: any = useRoute()
   const navigation = useNavigation<any>()
+  const otherInterestSelected = useSelector(selectOtherInterestSelected)
+  const dispatch = useDispatch()
+  const [showOtherModal, setShowOtherModal] = useState(false)
 
   const [selectedInterests, setSelectedInterests] = useState<string[] | []>([])
   const handleAddInterest = (name: string) => setSelectedInterests((prev: any) => [...prev, name])
@@ -35,9 +42,16 @@ export const AcquaintanceInterestsScreen = () => {
     setSelectedInterests((prev: any) => prev.filter((item: any) => item !== name))
 
   const handleGoNext = () => {
-    navigation.navigate(Screens.acquaintanceAddress, {
-      data: { ...route.params?.data, interests: selectedInterests },
-    })
+    const isOther = selectedInterests.findIndex((interest) => interest === 'Другое')
+
+    if (isOther !== -1 && !otherInterestSelected) {
+      setShowOtherModal(true)
+    } else {
+      selectedInterests.length > 0 &&
+        navigation.navigate(Screens.acquaintanceAddress, {
+          data: { ...route.params?.data, interests: selectedInterests },
+        })
+    }
   }
 
   const InterestsItem = ({ item }: any) => {
@@ -63,9 +77,18 @@ export const AcquaintanceInterestsScreen = () => {
   }
 
   const shuffledInterests = useMemo(() => shuffle(interests), [])
+  const handleHideOtherModal = () => {
+    dispatch(setOtherInterestSelected(true))
+    setShowOtherModal(false)
+    selectedInterests.length > 0 &&
+      navigation.navigate(Screens.acquaintanceAddress, {
+        data: { ...route.params?.data, interests: selectedInterests },
+      })
+  }
 
   return (
-    <>
+    <View style={{ flex: 1 }}>
+      <OtherSelectedModal visible={showOtherModal} hideModal={handleHideOtherModal} />
       <ScrollView style={[styles.container]}>
         <Typography.TitleText mt={50} lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
           Чем вы увлекаетесь?
@@ -84,6 +107,6 @@ export const AcquaintanceInterestsScreen = () => {
       <Button disabled={selectedInterests.length === 0} buttonStyle={styles.nextButton} onPress={handleGoNext}>
         Далее
       </Button>
-    </>
+    </View>
   )
 }

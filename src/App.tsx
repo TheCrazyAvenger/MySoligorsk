@@ -8,7 +8,7 @@ import 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux'
-import { Colors, Fonts, Screens } from './constants'
+import { Fonts, Screens } from './constants'
 import { RootNavigator } from './navigation'
 import { Typography } from './ui'
 
@@ -61,27 +61,14 @@ export const App = () => {
             <Typography.Default
               size={16}
               style={{
-                fontFamily: Fonts.openSansBold,
+                fontFamily: Fonts.openSansSemiBold,
                 position: 'absolute',
                 zIndex: 9999999,
-                top: 40,
+                bottom: 10,
                 left: 20,
               }}
             >
-              Environment:{' '}
-              <Typography.Default
-                size={16}
-                style={{ fontFamily: Fonts.openSansBold }}
-                color={
-                  ENVIRONMENT_NAME === 'dev'
-                    ? Colors.iconRed
-                    : ENVIRONMENT_NAME === 'stage'
-                    ? Colors.yellow
-                    : Colors.iconGreen
-                }
-              >
-                {ENVIRONMENT_NAME}
-              </Typography.Default>
+              Environment: {ENVIRONMENT_NAME}
             </Typography.Default>
           )}
           <RootNavigator />

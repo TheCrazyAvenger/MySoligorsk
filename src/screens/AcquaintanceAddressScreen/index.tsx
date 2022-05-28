@@ -1,25 +1,34 @@
-import { Screens } from '@/constants'
+import { addresses, Screens } from '@/constants'
 import { AcquaintanceAddressForm } from '@/forms'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import React from 'react'
+import React, { useState } from 'react'
 
 export const AcquaintanceAddressScreen = () => {
   const route: any = useRoute()
   const navigation = useNavigation<any>()
   const initialValues = { street: '', house: '' }
+  const [unknownAddressModal, setUnknownAddressModal] = useState(false)
+  const handleCloseModal = () => setUnknownAddressModal(false)
 
-  const handleGoNext = (values: any) => {
+  const handleGoNext = async (values: any) => {
     const { street, house } = values
 
-    navigation.navigate(Screens.acquaintanceFinish, {
-      data: {
-        ...route.params?.data,
-        address: {
-          street,
-          house,
+    const isAddressExsist = await addresses.find((item) => item.title === street)
+    const isHouseExsist = await isAddressExsist?.houses.find((item) => item === house)
+
+    if (!isAddressExsist || !isHouseExsist) {
+      setUnknownAddressModal(true)
+    } else {
+      navigation.navigate(Screens.acquaintanceFinish, {
+        data: {
+          ...route.params?.data,
+          address: {
+            street,
+            house,
+          },
         },
-      },
-    })
+      })
+    }
   }
   const handleSkip = () =>
     navigation.navigate(
@@ -28,5 +37,13 @@ export const AcquaintanceAddressScreen = () => {
       })
     )
 
-  return <AcquaintanceAddressForm handleSkip={handleSkip} onSubmit={handleGoNext} initialValues={initialValues} />
+  return (
+    <AcquaintanceAddressForm
+      unknownAddressModal={unknownAddressModal}
+      handleCloseModal={handleCloseModal}
+      handleSkip={handleSkip}
+      onSubmit={handleGoNext}
+      initialValues={initialValues}
+    />
+  )
 }
