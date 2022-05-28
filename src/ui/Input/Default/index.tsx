@@ -13,6 +13,8 @@ export const Default = ({
   onBlur,
   rightIcon,
   touched,
+  inputStyle,
+  inputContainerStyle,
   setSecureTextEntry,
   multiline,
   numberOfLines,
@@ -51,9 +53,10 @@ export const Default = ({
       secureTextEntry={!!(secureEntry || isSecure)}
       placeholderTextColor={Colors.silver}
       containerStyle={[styles.containerStyle, containerPropStyle]}
-      inputStyle={[styles.inputStyle, multiline && styles.multilineInput]}
+      inputStyle={[styles.inputStyle, inputStyle, multiline && styles.multilineInput]}
       inputContainerStyle={[
         styles.inputContainerStyle,
+        inputContainerStyle,
         error && styles.inputContainerErrorStyle,
         multiline && styles.multilineInput,
       ]}

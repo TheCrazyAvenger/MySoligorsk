@@ -30,8 +30,9 @@ export const WeatherCard = ({ data }: Props) => {
   return (
     <View>
       <View style={styles.header}>
-        <Ionicons name='cloud' size={20} color={getWeatherBackground(iocnName)} />
-        <Typography.H3 pl={5}>Погода</Typography.H3>
+        <Typography.H4 size={17} pl={10}>
+          Погода
+        </Typography.H4>
       </View>
       <View style={[styles.card, { backgroundColor: getWeatherBackground(iocnName) }]}>
         <View style={styles.cityContainer}>
@@ -45,6 +46,7 @@ export const WeatherCard = ({ data }: Props) => {
             {Math.round(temp)}°
           </Typography.TitleText>
           <Image
+            resizeMode='cover'
             source={{ uri: `http://openweathermap.org/img/wn/${icon}.png` }}
             style={{ marginLeft: -10, width: 100, height: 45 }}
           />

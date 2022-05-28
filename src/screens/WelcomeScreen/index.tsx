@@ -16,23 +16,25 @@ export const WelcomeScreen = () => {
   const handleOpenAnonimousModal = () => setShowModal(true)
   const handleCloseAnonimousModal = () => setShowModal(false)
 
-  const opacity = useRef(new Animated.Value(1)).current
+  const opacity = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
     Animated.timing(opacity, { toValue: 1, duration: 500, useNativeDriver: false }).start()
   }, [])
 
   const handleGoToSignUp = () => navigation.navigate(Screens.signUp)
+  const handleGoToSignIn = () => navigation.navigate(Screens.signIn)
 
   return (
     <>
       <AnonymousModal visible={showModal} hideModal={handleCloseAnonimousModal} />
+
       <Animated.View style={[styles.container, { opacity }]}>
         <View>
           <Typography.TitleText lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
             Добро пожаловать в Мой Солигорск
           </Typography.TitleText>
-          <Typography.Default size={15} mt={24} style={styles.text}>
+          <Typography.Default size={15} mt={24} mb={96} style={styles.text}>
             Самый легкий и удобный спутник по нашему любимому городу, как для постоянных жителей, так и для туристов!
           </Typography.Default>
         </View>
@@ -46,9 +48,10 @@ export const WelcomeScreen = () => {
           <Button buttonStyle={{ marginBottom: 24 }} onPress={handleGoToSignUp}>
             Зарегистрироваться
           </Button>
-          <Button outlined onPress={handleOpenAnonimousModal}>
+          <Button outlined buttonStyle={{ marginBottom: 24 }} onPress={handleOpenAnonimousModal}>
             Продолжить без регистрации
           </Button>
+          <Button onPress={handleGoToSignIn}>Войти</Button>
         </View>
       </Animated.View>
     </>

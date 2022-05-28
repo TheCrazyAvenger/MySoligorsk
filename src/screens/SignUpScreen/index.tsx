@@ -1,12 +1,8 @@
 import { SignUpNamesForm } from '@/forms'
 import auth from '@react-native-firebase/auth'
-import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 export const SignUpScreen = () => {
-  const navigation = useNavigation<any>()
-  const dispatch = useDispatch()
   const [loading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
