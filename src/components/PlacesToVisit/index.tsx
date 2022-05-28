@@ -1,4 +1,4 @@
-import { Colors, Screens } from '@/constants'
+import { Screens } from '@/constants'
 import { Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
@@ -36,8 +36,7 @@ export const PlacesToVisit = () => {
     <View style={{ marginTop: 10 }}>
       <TouchableOpacity style={styles.header} onPress={handleGoToCity}>
         <View style={styles.title}>
-          <Icon name='business' size={20} color={Colors.iconRed} />
-          <Typography.H3 pl={5}>Интересные места</Typography.H3>
+          <Typography.H4 size={17}>Интересные места</Typography.H4>
         </View>
         <Icon name={'chevron-forward'} size={25} />
       </TouchableOpacity>

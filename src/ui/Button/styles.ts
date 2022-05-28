@@ -36,9 +36,9 @@ export const styles = StyleSheet.create({
     color: Colors.white,
   },
   disabledOutlinedButton: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.disabledPrimary,
   },
   disabledOutlinedText: {
-    color: Colors.disabledPrimary,
+    color: Colors.white,
   },
 })
