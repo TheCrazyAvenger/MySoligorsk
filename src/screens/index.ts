@@ -10,6 +10,7 @@ import { CityScreen as City } from './CityScreen'
 import { EmailVerificationScreen as EmailVerification } from './EmailVerificationScreen'
 import { HomeScreen as Home } from './HomeScreen'
 import { MenuScreen as Menu } from './MenuScreen'
+import { PlacestoVisitDetailsScreen as PlacestoVisitDetails } from './PlacestoVisitDetailsScreen'
 import { SignInScreen as SignIn } from './SignInScreen'
 import { SignUpScreen as SignUp } from './SignUpScreen'
 import { WelcomeScreen as Welcome } from './WelcomeScreen'
@@ -25,6 +26,7 @@ export const CityScreen = withStatusBar(City)
 export const EmailVerificationScreen = withStatusBar(EmailVerification)
 export const HomeScreen = withStatusBar(Home)
 export const MenuScreen = withStatusBar(Menu)
+export const PlacestoVisitDetailsScreen = withStatusBar(PlacestoVisitDetails)
 export const SignInScreen = withStatusBar(SignIn)
 export const SignUpScreen = withStatusBar(SignUp)
 export const WelcomeScreen = withStatusBar(Welcome)

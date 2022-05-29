@@ -28,7 +28,7 @@ export const TabBarScreenLayout = ({ children }: any) => {
         style={[
           styles.container,
           {
-            paddingBottom: 54 - 22 + (isIosFillLine ? 30 : 0),
+            // paddingBottom: 54 - 22 + (isIosFillLine ? 30 : 0),
             marginTop: insets.top,
           },
         ]}

@@ -3,11 +3,23 @@ import { getWeatherBackground } from '@/helpers'
 import { Typography } from '@/ui'
 import React from 'react'
 import { Image, View } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
 type Props = {
   data: any
+}
+
+const zoomIn = {
+  0: {
+    opacity: 1,
+    scale: 1,
+  },
+  1: {
+    opacity: 1,
+    scale: 1,
+  },
 }
 
 const WeatherItem = ({ icon, value, condition }: any) => {
@@ -28,7 +40,7 @@ export const WeatherCard = ({ data }: Props) => {
   const { main: iocnName, icon } = weather[0]
 
   return (
-    <View>
+    <Animatable.View animation={zoomIn} duration={1000} delay={100}>
       <View style={styles.header}>
         <Typography.H4 size={17} pl={10}>
           Погода
@@ -72,6 +84,6 @@ export const WeatherCard = ({ data }: Props) => {
           />
         </View>
       </View>
-    </View>
+    </Animatable.View>
   )
 }
