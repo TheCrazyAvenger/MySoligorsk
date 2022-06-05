@@ -1,11 +1,12 @@
+import { PlacesToVisitContentItem } from '@/components'
 import { Colors } from '@/constants'
 import { Typography } from '@/ui'
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import {
+  Animated,
   FlatList,
   Image,
-  Linking,
   StatusBar,
   StyleSheet,
   Text,
@@ -13,7 +14,6 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native'
-import * as Animatable from 'react-native-animatable'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { SharedElement } from 'react-navigation-shared-element'
@@ -35,7 +35,27 @@ export const PlacestoVisitDetailsScreen = () => {
   const navigation = useNavigation<any>()
   const insets = useSafeAreaInsets()
   const isFocused = useIsFocused()
-  const { width, height } = useWindowDimensions()
+  const { height } = useWindowDimensions()
+  const HEADER_MAX_HEIGHT = height * 0.6
+  const HEADER_MIN_HEIGHT = height * 0.11
+  const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
+
+  const scrollY = useRef(new Animated.Value(0)).current
+
+  const imageOpacity = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE / 4, HEADER_SCROLL_DISTANCE / 2],
+    outputRange: [1, 1, 0],
+  })
+
+  const backButtonOpacity = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE - 100, HEADER_SCROLL_DISTANCE],
+    outputRange: [1, 1, 0],
+  })
+
+  const secondHeaderOpacity = scrollY.interpolate({
+    inputRange: [0, HEADER_SCROLL_DISTANCE - 100, HEADER_SCROLL_DISTANCE],
+    outputRange: [0, 0, 1],
+  })
 
   useEffect(() => {
     isFocused &&
@@ -47,50 +67,42 @@ export const PlacestoVisitDetailsScreen = () => {
   const { image, title, id, category, content } = route.params.data
 
   const handleGoBack = () => navigation.goBack()
+  const ref = useRef()
 
   const keyExtractor = (item: any) => item.id
-  const renderItem = ({ item, index }: any) => {
-    return (
-      <Animatable.View animation={zoomIn} duration={700} delay={400 + index * 100}>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={[styles.itemContainer, { width: width * 0.33, height: width * 0.5 }]}
-          onPress={() => Linking.openURL(item.onPress)}
-        >
-          <Image style={styles.itemImage} borderRadius={10} source={item.image} resizeMode='cover' />
-          <Typography.Default style={styles.itemTitle}>{item.title}</Typography.Default>
-          <Typography.Description mt={3}>{item.description}</Typography.Description>
-        </TouchableOpacity>
-      </Animatable.View>
-    )
-  }
+  const renderItem = ({ item, index }: any) => <PlacesToVisitContentItem key={index} item={item} index={index} />
 
   return (
     <View style={[StyleSheet.absoluteFillObject]}>
-      <TouchableOpacity style={[styles.backButton, { top: 20 + insets.top }]} onPress={handleGoBack}>
-        <Icon name='arrow-back' color={Colors.white} size={30} />
-      </TouchableOpacity>
-      <SharedElement id={`item.${id}.photo`} style={[StyleSheet.absoluteFillObject]}>
-        <Image
-          style={[StyleSheet.absoluteFillObject, styles.image]}
-          resizeMode='cover'
-          borderRadius={20}
-          blurRadius={5}
-          source={image}
-        />
+      <Animated.View style={{ opacity: backButtonOpacity }}>
+        <TouchableOpacity style={[styles.backButton, { top: 16 + insets.top }]} onPress={handleGoBack}>
+          <Icon name='arrow-back' color={Colors.white} size={30} />
+        </TouchableOpacity>
+      </Animated.View>
+
+      <SharedElement id={`item.${id}.photo`} style={[styles.image]}>
+        <Image style={[StyleSheet.absoluteFillObject, { height }]} resizeMode='cover' blurRadius={5} source={image} />
       </SharedElement>
-      <View style={[styles.content, { paddingTop: insets.top + 110 }]}>
-        <View style={{ paddingHorizontal: 20 }}>
+
+      <Animated.View style={[styles.header, { height: HEADER_MAX_HEIGHT }]}>
+        <Animated.View style={{ opacity: imageOpacity }}>
           <SharedElement id={`item.${id}.title`}>
-            <Text style={styles.title}>{title}</Text>
+            <Animated.Text style={[styles.title]}>{title}</Animated.Text>
           </SharedElement>
           <SharedElement id={`item.${id}.subTitle`}>
             <Text style={styles.subTitle}>{category}</Text>
           </SharedElement>
-        </View>
+        </Animated.View>
+      </Animated.View>
 
+      <Animated.ScrollView
+        contentContainerStyle={{ paddingTop: HEADER_MAX_HEIGHT, flex: 1 }}
+        scrollEventThrottle={16}
+        ref={ref}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
+      >
         {content ? (
-          <View style={{ marginTop: height * 0.25 }}>
+          <View style={styles.content}>
             <Typography.Default ml={20} style={styles.contentTitle}>
               {content.title}
             </Typography.Default>
@@ -104,7 +116,19 @@ export const PlacestoVisitDetailsScreen = () => {
             />
           </View>
         ) : null}
-      </View>
+      </Animated.ScrollView>
+
+      <Animated.View
+        style={[
+          styles.secondHeader,
+          { height: HEADER_MIN_HEIGHT, paddingTop: insets.top, opacity: secondHeaderOpacity },
+        ]}
+      >
+        <TouchableOpacity style={[{ marginLeft: 20 }]} onPress={handleGoBack}>
+          <Icon name='arrow-back' color={Colors.black} size={30} />
+        </TouchableOpacity>
+        <Typography.Default style={styles.contentTitle}>{title}</Typography.Default>
+      </Animated.View>
     </View>
   )
 }

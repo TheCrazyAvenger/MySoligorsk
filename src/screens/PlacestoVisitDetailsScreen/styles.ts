@@ -4,11 +4,18 @@ import { StyleSheet } from 'react-native'
 export const styles = StyleSheet.create({
   content: {
     flex: 1,
+    backgroundColor: Colors.white,
+    // borderTopLeftRadius: 20,
+    // borderTopRightRadius: 20,
+    paddingTop: 40,
   },
   image: {
-    flex: 1,
     height: '100%',
     width: '100%',
+    top: 0,
+    left: 0,
+    position: 'absolute',
+    zIndex: -1,
   },
   backButton: {
     position: 'absolute',
@@ -29,8 +36,27 @@ export const styles = StyleSheet.create({
   },
   contentTitle: {
     fontFamily: Fonts.openSansBold,
-    color: Colors.white,
+    color: Colors.black,
     textTransform: 'uppercase',
+  },
+  header: {
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  secondHeader: {
+    backgroundColor: Colors.white,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   itemContainer: {
     borderRadius: 10,
@@ -38,6 +64,16 @@ export const styles = StyleSheet.create({
     padding: 10,
     marginRight: 20,
     marginVertical: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+    // marginBottom: 1000,
   },
   itemImage: {
     width: '100%',
