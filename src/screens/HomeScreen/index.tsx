@@ -17,7 +17,7 @@ export const HomeScreen = () => {
       <ScrollView style={styles.container}>
         <HomeHeader />
         <PlacesToVisit />
-        <WeatherCard data={weatheeData} />
+        {weatheeData && <WeatherCard data={weatheeData} />}
       </ScrollView>
     </TabBarScreenLayout>
   )
