@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     // borderTopLeftRadius: 20,
     // borderTopRightRadius: 20,
-    paddingTop: 40,
+    paddingTop: 20,
   },
   image: {
     height: '100%',
@@ -58,12 +58,22 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  itemContainer: {
+  itemImage: {
+    width: '100%',
+    height: '63%',
+    marginBottom: 2,
+  },
+  itemTitle: {
+    fontFamily: Fonts.openSansBold,
+  },
+  mapContainer: {
+    padding: 20,
+    paddingTop: 10,
+  },
+  mapView: {
+    overflow: 'hidden',
     borderRadius: 10,
-    backgroundColor: Colors.white,
-    padding: 10,
-    marginRight: 20,
-    marginVertical: 10,
+    width: '100%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -73,14 +83,5 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
-    // marginBottom: 1000,
-  },
-  itemImage: {
-    width: '100%',
-    height: '63%',
-    marginBottom: 2,
-  },
-  itemTitle: {
-    fontFamily: Fonts.openSansBold,
   },
 })

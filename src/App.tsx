@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import React, { useEffect, useRef } from 'react'
 import { LogBox } from 'react-native'
 import 'react-native-gesture-handler'
+import { enableLatestRenderer } from 'react-native-maps'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux'
@@ -33,6 +34,7 @@ export const App = () => {
 
   useEffect(() => {
     SplashScreen.hide()
+    enableLatestRenderer()
   }, [])
 
   return (

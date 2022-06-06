@@ -12,6 +12,10 @@ const DUMMY_PLACES = [
     title: 'Шава Хаўз',
     category: 'Шаурмечная',
     image: require('@/assets/images/shavahouse.png'),
+    location: {
+      lat: 52.7926454,
+      lon: 27.5414154,
+    },
     content: {
       title: 'Меню',
       items: [
@@ -58,6 +62,10 @@ const DUMMY_PLACES = [
     title: 'Green',
     category: 'ТЦ',
     image: require('@/assets/images/green.png'),
+    location: {
+      lat: 52.7926454,
+      lon: 27.5414154,
+    },
     id: '1',
   },
 
@@ -65,6 +73,10 @@ const DUMMY_PLACES = [
     title: 'Мята',
     category: 'Кальянная',
     image: require('@/assets/images/mint.jpg'),
+    location: {
+      lat: 52.7926454,
+      lon: 27.5414154,
+    },
     content: {
       title: 'Меню',
       items: [{}],
@@ -75,24 +87,40 @@ const DUMMY_PLACES = [
     title: 'Корона',
     category: 'ТЦ',
     image: require('@/assets/images/crown.png'),
+    location: {
+      lat: 52.7926454,
+      lon: 27.5414154,
+    },
     id: '3',
   },
   {
     title: 'Green',
     category: 'ТЦ',
     image: require('@/assets/images/green.png'),
+    location: {
+      lat: 52.7926454,
+      lon: 27.5414154,
+    },
     id: '4',
   },
   {
     title: 'Мята',
     category: 'Кальянная',
     image: require('@/assets/images/mint.jpg'),
+    location: {
+      lat: 52.7926454,
+      lon: 27.5414154,
+    },
     id: '5',
   },
   {
     title: 'Корона',
     category: 'ТЦ',
     image: require('@/assets/images/crown.png'),
+    location: {
+      lat: 52.7926454,
+      lon: 27.5414154,
+    },
     id: '6',
   },
 ]
