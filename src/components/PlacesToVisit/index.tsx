@@ -56,6 +56,32 @@ const DUMMY_PLACES = [
         },
       ],
     },
+    comments: [
+      {
+        user: 'Даниил Романеня',
+        grade: 4,
+        comment: 'Я не был в шава хаузе',
+        date: '2022-06-07T19:34:48.290Z',
+      },
+      {
+        user: 'Илья Павлющик',
+        grade: 2,
+        comment: 'Я был в шава хаузе',
+        date: '2022-06-07T19:34:48.290Z',
+      },
+      {
+        user: 'Миша Михаил',
+        grade: 5,
+        comment: 'Приятная музыка',
+        date: '2022-06-07T19:34:48.290Z',
+      },
+      {
+        user: 'Иван',
+        grade: 3,
+        comment: 'Вкусная шаурма',
+        date: '2022-06-07T19:34:48.290Z',
+      },
+    ],
     id: '0',
   },
   {
@@ -63,9 +89,10 @@ const DUMMY_PLACES = [
     category: 'ТЦ',
     image: require('@/assets/images/green.png'),
     location: {
-      lat: 52.7926454,
-      lon: 27.5414154,
+      lat: 52.7923472,
+      lon: 27.5421693,
     },
+    comments: [],
     id: '1',
   },
 
@@ -74,13 +101,10 @@ const DUMMY_PLACES = [
     category: 'Кальянная',
     image: require('@/assets/images/mint.jpg'),
     location: {
-      lat: 52.7926454,
-      lon: 27.5414154,
+      lat: 52.7928931,
+      lon: 27.5444218,
     },
-    content: {
-      title: 'Меню',
-      items: [{}],
-    },
+    comments: [],
     id: '2',
   },
   {
@@ -88,40 +112,11 @@ const DUMMY_PLACES = [
     category: 'ТЦ',
     image: require('@/assets/images/crown.png'),
     location: {
-      lat: 52.7926454,
-      lon: 27.5414154,
+      lat: 52.7897416,
+      lon: 27.5329346,
     },
+    comments: [],
     id: '3',
-  },
-  {
-    title: 'Green',
-    category: 'ТЦ',
-    image: require('@/assets/images/green.png'),
-    location: {
-      lat: 52.7926454,
-      lon: 27.5414154,
-    },
-    id: '4',
-  },
-  {
-    title: 'Мята',
-    category: 'Кальянная',
-    image: require('@/assets/images/mint.jpg'),
-    location: {
-      lat: 52.7926454,
-      lon: 27.5414154,
-    },
-    id: '5',
-  },
-  {
-    title: 'Корона',
-    category: 'ТЦ',
-    image: require('@/assets/images/crown.png'),
-    location: {
-      lat: 52.7926454,
-      lon: 27.5414154,
-    },
-    id: '6',
   },
 ]
 

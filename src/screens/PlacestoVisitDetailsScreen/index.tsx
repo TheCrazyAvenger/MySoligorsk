@@ -1,4 +1,4 @@
-import { PlacesToVisitContentItem } from '@/components'
+import { PlacesToVisitComments, PlacesToVisitContentItem } from '@/components'
 import { Colors } from '@/constants'
 import { Typography } from '@/ui'
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native'
@@ -68,7 +68,7 @@ export const PlacestoVisitDetailsScreen = () => {
       }, 100)
   }, [])
 
-  const { image, title, id, category, content, location } = route.params.data
+  const { image, title, id, category, content, location, comments } = route.params.data
   const { lat, lon } = location
 
   const handleGoBack = () => navigation.goBack()
@@ -88,6 +88,8 @@ export const PlacestoVisitDetailsScreen = () => {
 
     Linking.openURL(url)
   }
+
+  const avarageRate = comments.reduce((acc: number, next: any) => acc + next.grade, 0) / comments.length
 
   return (
     <View style={[StyleSheet.absoluteFillObject]}>
@@ -109,6 +111,12 @@ export const PlacestoVisitDetailsScreen = () => {
           <SharedElement id={`item.${id}.subTitle`}>
             <Text style={styles.subTitle}>{category}</Text>
           </SharedElement>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+            <Icon name={'star'} color={'orange'} size={21} />
+            <Typography.H3 ml={5} color={Colors.white}>
+              {avarageRate ? avarageRate.toFixed(1) : '0.0'}
+            </Typography.H3>
+          </View>
         </Animated.View>
       </Animated.View>
 
@@ -120,7 +128,7 @@ export const PlacestoVisitDetailsScreen = () => {
       >
         <View style={styles.content}>
           {content ? (
-            <>
+            <View style={{ marginBottom: 20 }}>
               <Typography.Default ml={20} style={styles.contentTitle}>
                 {content.title}
               </Typography.Default>
@@ -132,9 +140,9 @@ export const PlacestoVisitDetailsScreen = () => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
               />
-            </>
+            </View>
           ) : null}
-          <Typography.Default mt={20} ml={20} style={styles.contentTitle}>
+          <Typography.Default ml={20} style={styles.contentTitle}>
             Карта
           </Typography.Default>
           <Animatable.View animation={zoomIn} duration={700} delay={400} style={styles.mapContainer}>
@@ -157,6 +165,8 @@ export const PlacestoVisitDetailsScreen = () => {
               </MapView>
             </View>
           </Animatable.View>
+
+          <PlacesToVisitComments data={comments} />
         </View>
       </Animated.ScrollView>
 

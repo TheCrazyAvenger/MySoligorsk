@@ -1,9 +1,10 @@
-import { Navigators, Screens } from '@/constants'
-import { PlacestoVisitDetailsScreen } from '@/screens'
+import { Colors, Navigators, Screens } from '@/constants'
+import { PlacesToVisitCommentsScreen, PlacestoVisitDetailsScreen } from '@/screens'
 import { selectIsRegistered } from '@/selectors'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import React from 'react'
-import { Easing } from 'react-native'
+import { Easing, TouchableOpacity } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import { useSelector } from 'react-redux'
 import { AcquaintanceStackNavigator } from '../AcquaintanceStackNavigator'
@@ -41,6 +42,17 @@ const placesToVisitOptions: StackNavigationOptions = {
   },
 }
 
+const placesToVisitCommentsOptions: any = ({ navigation }: any) => ({
+  presentation: 'modal',
+  title: 'Отзывы',
+  headerTitleAlign: 'center',
+  headerLeft: () => (
+    <TouchableOpacity style={{ marginLeft: 20 }} onPress={() => navigation.goBack()}>
+      <Icon name='arrow-back' color={Colors.black} size={30} />
+    </TouchableOpacity>
+  ),
+})
+
 export const ApplicationStackNavigator = () => {
   const isRegistered = useSelector(selectIsRegistered)
 
@@ -76,6 +88,11 @@ export const ApplicationStackNavigator = () => {
             },
           ]
         }}
+      />
+      <Stack.Screen
+        name={Screens.placesToVisitComments}
+        component={PlacesToVisitCommentsScreen}
+        options={placesToVisitCommentsOptions}
       />
     </Stack.Navigator>
   )
