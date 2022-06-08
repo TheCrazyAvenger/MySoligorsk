@@ -2,7 +2,7 @@ import { Colors, Fonts, Screens } from '@/constants'
 import { Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useMemo } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Image, TouchableOpacity, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
@@ -25,10 +25,12 @@ const zoomIn = {
 export const PlacesToVisitComments = ({ data }: Props) => {
   const navigation = useNavigation<any>()
 
-  const threeComments = useMemo(() => data.slice(0, 3), [])
+  const threeComments = useMemo(() => data.slice(0, 3), [data])
   const commentsSize = data.length
 
-  const handleGoToComments = () => navigation.navigate(Screens.placesToVisitComments, { data })
+  const handleGoToComments = () => {
+    navigation.navigate(Screens.placesToVisitComments, { data })
+  }
 
   return (
     <View style={styles.container}>
@@ -49,20 +51,25 @@ export const PlacesToVisitComments = ({ data }: Props) => {
           const commentDate = new Date(date).toLocaleDateString()
 
           return (
-            <Animatable.View animation={zoomIn} key={i} duration={700} delay={500}>
-              <Typography.Default mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 16 }}>
-                {user}
-              </Typography.Default>
-              <View style={styles.commentGrade}>
-                {Array.from(Array(5).keys()).map((item) => {
-                  const isColored = item < grade
-                  return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
-                })}
-                <Typography.Description lineH={16} ml={5}>
-                  {commentDate}
-                </Typography.Description>
+            <Animatable.View animation={zoomIn} key={i} duration={700} delay={100}>
+              <View style={styles.commentSection}>
+                <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+                <View>
+                  <Typography.Default mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 16 }}>
+                    {user}
+                  </Typography.Default>
+                  <View style={styles.commentGrade}>
+                    {Array.from(Array(5).keys()).map((item) => {
+                      const isColored = item < grade
+                      return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
+                    })}
+                    <Typography.Description lineH={16} ml={5}>
+                      {commentDate}
+                    </Typography.Description>
+                  </View>
+                </View>
               </View>
-              <Typography.Default style={{ fontSize: 16 }}>{comment}</Typography.Default>
+              {comment ? <Typography.Default style={{ fontSize: 16 }}>{comment}</Typography.Default> : null}
 
               {i !== 2 && <View style={styles.line} />}
             </Animatable.View>
@@ -77,7 +84,7 @@ export const PlacesToVisitComments = ({ data }: Props) => {
             mb={3}
             style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 16 }}
           >
-            Больше
+            Все отзывы
           </Typography.Default>
         </TouchableOpacity>
       )}

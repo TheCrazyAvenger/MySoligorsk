@@ -24,7 +24,7 @@ export const PlacesToVisitContentItem = ({ item, index }: Props) => {
   const { width } = useWindowDimensions()
 
   return (
-    <Animatable.View animation={zoomIn} duration={700} delay={400 + index * 100}>
+    <Animatable.View animation={zoomIn} duration={700} delay={300 + index * 100}>
       <TouchableOpacity
         activeOpacity={0.7}
         style={[styles.itemContainer, { width: width * 0.33, height: width * 0.5 }]}

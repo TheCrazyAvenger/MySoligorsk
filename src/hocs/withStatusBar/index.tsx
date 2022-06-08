@@ -10,7 +10,7 @@ export const withStatusBar = (Screen: any) => {
       switch (route.name) {
         case Screens.placestoVisitDetails:
           if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor('transparent')
+            setTimeout(() => StatusBar.setBackgroundColor('transparent'), 300)
           }
           StatusBar.setBarStyle('light-content')
           break

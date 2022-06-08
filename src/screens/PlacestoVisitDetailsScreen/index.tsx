@@ -1,15 +1,14 @@
-import { PlacesToVisitComments, PlacesToVisitContentItem } from '@/components'
+import { PlacesToVisitComments, PlacesToVisitContentItem, PlacesToVisitYourComment } from '@/components'
 import { Colors } from '@/constants'
-import { Typography } from '@/ui'
-import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native'
-import React, { useEffect, useRef } from 'react'
+import { Spinner, Typography } from '@/ui'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Animated,
   FlatList,
   Image,
   Linking,
   Platform,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -22,6 +21,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { SharedElement } from 'react-navigation-shared-element'
 import { styles } from './styles'
+
+interface Comment {
+  user: string
+  grade: number
+  comment: string
+  date: string
+}
 
 const zoomIn = {
   0: {
@@ -38,11 +44,17 @@ export const PlacestoVisitDetailsScreen = () => {
   const route = useRoute<any>()
   const navigation = useNavigation<any>()
   const insets = useSafeAreaInsets()
-  const isFocused = useIsFocused()
   const { width, height } = useWindowDimensions()
+
+  const [loading, setLoading] = useState(true)
+
   const HEADER_MAX_HEIGHT = height * 0.6
   const HEADER_MIN_HEIGHT = height * 0.11
   const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 400)
+  }, [])
 
   const scrollY = useRef(new Animated.Value(0)).current
 
@@ -61,15 +73,10 @@ export const PlacestoVisitDetailsScreen = () => {
     outputRange: [0, 0, 1],
   })
 
-  useEffect(() => {
-    isFocused &&
-      setTimeout(() => {
-        StatusBar.setBackgroundColor('transparent')
-      }, 100)
-  }, [])
-
   const { image, title, id, category, content, location, comments } = route.params.data
   const { lat, lon } = location
+
+  const [commentsArr, setCommentsArr] = useState<Comment[]>(comments)
 
   const handleGoBack = () => navigation.goBack()
   const ref = useRef()
@@ -89,7 +96,14 @@ export const PlacestoVisitDetailsScreen = () => {
     Linking.openURL(url)
   }
 
-  const avarageRate = comments.reduce((acc: number, next: any) => acc + next.grade, 0) / comments.length
+  const avarageRate = useMemo(
+    () => commentsArr.reduce((acc: number, next: any) => acc + next.grade, 0) / commentsArr.length,
+    [commentsArr]
+  )
+
+  const handleSendComment = (comment: Comment) => {
+    setCommentsArr((prev) => [comment, ...prev])
+  }
 
   return (
     <View style={[StyleSheet.absoluteFillObject]}>
@@ -127,46 +141,53 @@ export const PlacestoVisitDetailsScreen = () => {
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
       >
         <View style={styles.content}>
-          {content ? (
-            <View style={{ marginBottom: 20 }}>
+          {loading ? (
+            <Spinner style={{ position: 'relative', height: height - HEADER_MAX_HEIGHT / 1.1, width: '100%' }} />
+          ) : (
+            <>
+              {content ? (
+                <View style={{ marginBottom: 20 }}>
+                  <Typography.Default ml={20} style={styles.contentTitle}>
+                    {content.title}
+                  </Typography.Default>
+                  <FlatList
+                    data={content.items}
+                    keyExtractor={keyExtractor}
+                    renderItem={renderItem}
+                    contentContainerStyle={{ paddingLeft: 20 }}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                  />
+                </View>
+              ) : null}
               <Typography.Default ml={20} style={styles.contentTitle}>
-                {content.title}
+                Карта
               </Typography.Default>
-              <FlatList
-                data={content.items}
-                keyExtractor={keyExtractor}
-                renderItem={renderItem}
-                contentContainerStyle={{ paddingLeft: 20 }}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-              />
-            </View>
-          ) : null}
-          <Typography.Default ml={20} style={styles.contentTitle}>
-            Карта
-          </Typography.Default>
-          <Animatable.View animation={zoomIn} duration={700} delay={400} style={styles.mapContainer}>
-            <View style={[styles.mapView, { height: width / 1.15 }]}>
-              <MapView
-                onPress={openExternalApp}
-                scrollEnabled={false}
-                zoomEnabled={false}
-                showsUserLocation={true}
-                showsMyLocationButton={false}
-                region={{
-                  latitude: lat,
-                  longitude: lon,
-                  latitudeDelta: 0.001,
-                  longitudeDelta: 0.001,
-                }}
-                style={[StyleSheet.absoluteFillObject]}
-              >
-                <Marker coordinate={{ latitude: lat, longitude: lon }} />
-              </MapView>
-            </View>
-          </Animatable.View>
+              <Animatable.View animation={zoomIn} duration={700} delay={100} style={styles.mapContainer}>
+                <View style={[styles.mapView, { height: width / 1.15 }]}>
+                  <MapView
+                    onPress={openExternalApp}
+                    scrollEnabled={false}
+                    zoomEnabled={false}
+                    showsUserLocation={true}
+                    showsMyLocationButton={false}
+                    region={{
+                      latitude: lat,
+                      longitude: lon,
+                      latitudeDelta: 0.001,
+                      longitudeDelta: 0.001,
+                    }}
+                    style={[StyleSheet.absoluteFillObject]}
+                  >
+                    <Marker coordinate={{ latitude: lat, longitude: lon }} />
+                  </MapView>
+                </View>
+              </Animatable.View>
 
-          <PlacesToVisitComments data={comments} />
+              <PlacesToVisitYourComment sendComment={handleSendComment} />
+              <PlacesToVisitComments data={commentsArr} />
+            </>
+          )}
         </View>
       </Animated.ScrollView>
 
