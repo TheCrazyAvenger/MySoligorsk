@@ -125,7 +125,7 @@ export const PlacestoVisitDetailsScreen = () => {
           <SharedElement id={`item.${id}.subTitle`}>
             <Text style={styles.subTitle}>{category}</Text>
           </SharedElement>
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
             <Icon name={'star'} color={'orange'} size={21} />
             <Typography.H3 ml={5} color={Colors.white}>
               {avarageRate ? avarageRate.toFixed(1) : '0.0'}

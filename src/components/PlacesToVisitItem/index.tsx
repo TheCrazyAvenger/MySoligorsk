@@ -1,4 +1,4 @@
-import { Colors, placesToVisitTheme, Screens } from '@/constants'
+import { Colors, Fonts, placesToVisitTheme, Screens } from '@/constants'
 import { Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
@@ -9,7 +9,13 @@ import { SharedElement } from 'react-navigation-shared-element'
 import { styles } from './styles'
 
 type Props = {
-  data: { title: string; category: string; image: any; id: number }
+  data: {
+    title: string
+    category: string
+    image: any
+    id: number
+    workingHours: { id: number; day: string; open: string; close: string }[]
+  }
   isLast: boolean
   index: number
   scrollX: Animated.Value
@@ -28,8 +34,12 @@ const zoomIn = {
 
 export const PlacesToVisitItem = ({ data, isLast, index, scrollX }: Props) => {
   const navigation = useNavigation<any>()
-  const { title, category, image, id } = data
+  const { title, category, image, id, workingHours } = data
   const { FULL_SIZE, ITEM_WIDTH, ITEM_HEIGHT } = placesToVisitTheme
+
+  const currentDay = new Date().getDay()
+  const currentWorkingHours = workingHours[currentDay - 1]
+  const { open, close } = currentWorkingHours
 
   const [like, setLike] = useState(id === 1 ? true : false)
 
@@ -72,6 +82,14 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX }: Props) => {
             <SharedElement id={`item.${id}.subTitle`}>
               <Animated.Text style={[styles.subTitle, { transform: [{ translateX }] }]}>{category}</Animated.Text>
             </SharedElement>
+            <Animated.Text
+              style={[
+                styles.subTitle,
+                { transform: [{ translateX }], marginTop: 6, fontFamily: Fonts.openSansRegular, fontSize: 12.5 },
+              ]}
+            >
+              {open} - {close}
+            </Animated.Text>
             <Animated.View style={[styles.likeButton, { opacity }]}>
               <TouchableOpacity onPress={handleLike} activeOpacity={0.7}>
                 <Icon name={like ? 'favorite' : 'favorite-outline'} size={30} color={Colors.white} />
@@ -81,10 +99,7 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX }: Props) => {
         </View>
       </TouchableOpacity>
       {isLast && (
-        <Typography.Default
-          onPress={handleGoToDetails}
-          style={{ position: 'absolute', right: ITEM_WIDTH / 2.8, top: ITEM_HEIGHT / 2 }}
-        >
+        <Typography.Default style={{ position: 'absolute', right: ITEM_WIDTH / 2.8, top: ITEM_HEIGHT / 2 }}>
           Больше
         </Typography.Default>
       )}
