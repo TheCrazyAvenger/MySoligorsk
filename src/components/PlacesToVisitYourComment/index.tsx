@@ -35,7 +35,7 @@ export const PlacesToVisitYourComment = ({ sendComment }: Props) => {
     const comment = {
       user: 'Илья Павлющик',
       grade,
-      comment: value,
+      comment: value.trim(),
       date: new Date().toString(),
     }
     sendComment(comment)
