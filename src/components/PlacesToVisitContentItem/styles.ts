@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
   itemImage: {
     width: '100%',
     height: '63%',
+    borderRadius: 10,
     marginBottom: 2,
   },
   itemTitle: {

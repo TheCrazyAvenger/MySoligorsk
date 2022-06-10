@@ -1,7 +1,8 @@
 import { Typography } from '@/ui'
 import React from 'react'
-import { Image, Linking, TouchableOpacity, useWindowDimensions } from 'react-native'
+import { Linking, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
+import FastImage from 'react-native-fast-image'
 import { styles } from './styles'
 
 type Props = {
@@ -30,9 +31,20 @@ export const PlacesToVisitContentItem = ({ item, index }: Props) => {
         style={[styles.itemContainer, { width: width * 0.33, height: width * 0.5 }]}
         onPress={() => Linking.openURL(item.onPress)}
       >
-        <Image style={styles.itemImage} borderRadius={10} source={item.image} resizeMode='cover' />
-        <Typography.Default style={styles.itemTitle}>{item.title}</Typography.Default>
-        <Typography.Description mt={3}>{item.description}</Typography.Description>
+        <FastImage
+          style={styles.itemImage}
+          source={
+            item.image ?? {
+              uri: item.imageUri,
+            }
+          }
+          resizeMode={FastImage.resizeMode.cover}
+        />
+
+        <View style={{ justifyContent: 'space-between', flex: 1 }}>
+          <Typography.Default style={styles.itemTitle}>{item.title}</Typography.Default>
+          <Typography.Description mt={3}>{item.description}</Typography.Description>
+        </View>
       </TouchableOpacity>
     </Animatable.View>
   )

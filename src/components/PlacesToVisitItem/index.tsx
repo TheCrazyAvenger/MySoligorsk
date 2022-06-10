@@ -19,6 +19,7 @@ type Props = {
   isLast: boolean
   index: number
   scrollX: Animated.Value
+  places: any
 }
 
 const zoomIn = {
@@ -32,7 +33,7 @@ const zoomIn = {
   },
 }
 
-export const PlacesToVisitItem = ({ data, isLast, index, scrollX }: Props) => {
+export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Props) => {
   const navigation = useNavigation<any>()
   const { title, category, image, id, workingHours } = data
   const { FULL_SIZE, ITEM_WIDTH, ITEM_HEIGHT } = placesToVisitTheme
@@ -44,7 +45,7 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX }: Props) => {
   const [like, setLike] = useState(id === 1 ? true : false)
 
   const handleLike = () => setLike((prev) => !prev)
-  const handleGoToDetails = () => navigation.navigate(Screens.placestoVisitDetails, { data })
+  const handleGoToDetails = () => navigation.navigate(Screens.placestoVisitDetails, { data, places })
 
   const inputRange = [(index - 1) * FULL_SIZE, index * FULL_SIZE, (index + 1) * FULL_SIZE]
   const translateX = scrollX.interpolate({

@@ -1,7 +1,7 @@
 import { Button, Input, Typography } from '@/ui'
 import { AirbnbRating } from '@rneui/themed'
 import React, { useRef, useState } from 'react'
-import { Animated, Image, View } from 'react-native'
+import { Animated, Image, useWindowDimensions, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { styles } from './styles'
 
@@ -26,7 +26,10 @@ export const PlacesToVisitYourComment = ({ sendComment }: Props) => {
   const [loading, setLoading] = useState(false)
   const [visible, setVisible] = useState(true)
 
+  const { width } = useWindowDimensions()
+
   const height = useRef(new Animated.Value(375)).current
+  const translateX = useRef(new Animated.Value(0)).current
 
   const handleOnChangeText = (value: string) => setValue(value)
   const handleSetGrade = (value: number) => setGrade(value)
@@ -39,14 +42,18 @@ export const PlacesToVisitYourComment = ({ sendComment }: Props) => {
       date: new Date().toString(),
     }
     sendComment(comment)
-    Animated.timing(height, { toValue: 0, duration: 700, useNativeDriver: false }).start(() => {
-      setVisible(false)
-      setLoading(false)
+    Animated.timing(translateX, { toValue: 100, duration: 400, useNativeDriver: false }).start(() => {
+      Animated.timing(translateX, { toValue: -width, duration: 400, useNativeDriver: false }).start(() => {
+        Animated.timing(height, { toValue: 0, duration: 400, useNativeDriver: false }).start(() => {
+          setVisible(false)
+          setLoading(false)
+        })
+      })
     })
   }
 
   return visible ? (
-    <Animated.View style={{ height, overflow: 'hidden' }}>
+    <Animated.View style={{ height, overflow: 'hidden', transform: [{ translateX }] }}>
       <View style={styles.container}>
         <Typography.Default style={styles.contentTitle}>Ваш отзыв</Typography.Default>
         <Typography.Default mb={20} style={{ fontSize: 16 }}>

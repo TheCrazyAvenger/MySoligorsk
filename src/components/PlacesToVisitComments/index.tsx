@@ -26,7 +26,7 @@ export const PlacesToVisitComments = ({ data }: Props) => {
   const navigation = useNavigation<any>()
 
   const threeComments = useMemo(() => data.slice(0, 3), [data])
-  const commentsSize = data.length
+  const commentsSize = useMemo(() => data.length, [data])
 
   const handleGoToComments = () => {
     navigation.navigate(Screens.placesToVisitComments, { data })
@@ -71,7 +71,7 @@ export const PlacesToVisitComments = ({ data }: Props) => {
               </View>
               {comment ? <Typography.Default style={{ fontSize: 16 }}>{comment}</Typography.Default> : null}
 
-              {i !== 2 && <View style={styles.line} />}
+              {i !== commentsSize - 1 && i !== 2 && <View style={styles.line} />}
             </Animatable.View>
           )
         })

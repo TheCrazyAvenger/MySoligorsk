@@ -1,4 +1,9 @@
-import { PlacesToVisitComments, PlacesToVisitContentItem, PlacesToVisitYourComment } from '@/components'
+import {
+  PlacesToVisitComments,
+  PlacesToVisitContentItem,
+  PlacesToVisitSimilarPlaces,
+  PlacesToVisitYourComment,
+} from '@/components'
 import { Colors } from '@/constants'
 import { Spinner, Typography } from '@/ui'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -75,6 +80,10 @@ export const PlacestoVisitDetailsScreen = () => {
 
   const { image, title, id, category, content, location, comments } = route.params.data
   const { lat, lon } = location
+
+  const similarPlaces = route.params.places
+    ?.filter((item: any) => item.tags?.includes(category) && item.title !== title)
+    .slice(0, 5)
 
   const [commentsArr, setCommentsArr] = useState<Comment[]>(comments)
 
@@ -164,9 +173,12 @@ export const PlacestoVisitDetailsScreen = () => {
                 Карта
               </Typography.Default>
               <Animatable.View animation={zoomIn} duration={700} delay={100} style={styles.mapContainer}>
-                <View style={[styles.mapView, { height: width / 1.15 }]}>
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  onPress={openExternalApp}
+                  style={[styles.mapView, { height: width / 1.15 }]}
+                >
                   <MapView
-                    onPress={openExternalApp}
                     scrollEnabled={false}
                     zoomEnabled={false}
                     showsUserLocation={true}
@@ -181,9 +193,12 @@ export const PlacestoVisitDetailsScreen = () => {
                   >
                     <Marker coordinate={{ latitude: lat, longitude: lon }} />
                   </MapView>
-                </View>
+                </TouchableOpacity>
               </Animatable.View>
 
+              {similarPlaces?.length > 0 && (
+                <PlacesToVisitSimilarPlaces data={similarPlaces} places={route.params.places} />
+              )}
               <PlacesToVisitYourComment sendComment={handleSendComment} />
               <PlacesToVisitComments data={commentsArr} />
             </>
