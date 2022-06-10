@@ -2604,7 +2604,7 @@ export const buses = [
     title: 'КДП Молодежный - КДП 1 РУ',
     busStops: [
       {
-        name: '',
+        name: ' ',
 
         location: {
           lat: '',
