@@ -69,6 +69,7 @@ export const PlacesToVisitSimilarPlaces = ({ data, places }: Props) => {
                       {category}
                     </Typography.Description>
                   </SharedElement>
+
                   <Typography.Default style={styles.time}>
                     {open} - {close}
                   </Typography.Default>
