@@ -58,7 +58,6 @@ export const PlacesToVisitSimilarPlaces = ({ data, places }: Props) => {
                 <SharedElement id={`item.${data.id}.photo`} style={[StyleSheet.absoluteFillObject]}>
                   <Image style={[StyleSheet.absoluteFillObject, styles.image]} source={image} resizeMode={'cover'} />
                 </SharedElement>
-
                 <View style={styles.imageInner}>
                   <SharedElement id={`item.${item.id}.title`}>
                     <Typography.H2 style={styles.title} color={Colors.white}>
