@@ -42,7 +42,9 @@ export const PlacesToVisitContentItem = ({ item, index }: Props) => {
         />
 
         <View style={{ justifyContent: 'space-between', flex: 1 }}>
-          <Typography.Default style={styles.itemTitle}>{item.title}</Typography.Default>
+          <Typography.Default numberOfLines={2} lineH={19} mt={2} style={styles.itemTitle}>
+            {item.title}
+          </Typography.Default>
           <Typography.Description mt={3}>{item.description}</Typography.Description>
         </View>
       </TouchableOpacity>

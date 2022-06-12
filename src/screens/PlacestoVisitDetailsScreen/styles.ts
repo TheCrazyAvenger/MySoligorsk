@@ -5,8 +5,6 @@ export const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: Colors.white,
-    // borderTopLeftRadius: 20,
-    // borderTopRightRadius: 20,
     paddingTop: 20,
   },
   image: {
@@ -19,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    zIndex: 100,
+    zIndex: 0,
     left: 20,
   },
   title: {
@@ -50,16 +48,6 @@ export const styles = StyleSheet.create({
     bottom: 0,
     zIndex: 0,
   },
-  secondHeader: {
-    backgroundColor: Colors.white,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   itemImage: {
     width: '100%',
     height: '63%',
@@ -67,23 +55,5 @@ export const styles = StyleSheet.create({
   },
   itemTitle: {
     fontFamily: Fonts.openSansBold,
-  },
-  mapContainer: {
-    padding: 20,
-    paddingTop: 10,
-  },
-  mapView: {
-    overflow: 'hidden',
-    borderRadius: 10,
-    width: '100%',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
   },
 })

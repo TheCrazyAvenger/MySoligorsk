@@ -1,12 +1,16 @@
-import { Button, Input, Typography } from '@/ui'
+import { Colors, Fonts } from '@/constants'
+import { Typography } from '@/ui'
 import { AirbnbRating } from '@rneui/themed'
-import React, { useRef, useState } from 'react'
-import { Animated, Image, useWindowDimensions, View } from 'react-native'
+import React from 'react'
+import { Image, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
 type Props = {
-  sendComment: (...args: any) => any
+  handleSetGrade: (...args: any) => any
+  grade: number
+  comment: any
 }
 
 const zoomIn = {
@@ -20,82 +24,52 @@ const zoomIn = {
   },
 }
 
-export const PlacesToVisitYourComment = ({ sendComment }: Props) => {
-  const [grade, setGrade] = useState(0)
-  const [value, setValue] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [visible, setVisible] = useState(true)
-
-  const { width } = useWindowDimensions()
-
-  const height = useRef(new Animated.Value(375)).current
-  const translateX = useRef(new Animated.Value(0)).current
-
-  const handleOnChangeText = (value: string) => setValue(value)
-  const handleSetGrade = (value: number) => setGrade(value)
-  const handleSendComment = () => {
-    setLoading(true)
-    const comment = {
-      user: 'Илья Павлющик',
-      grade,
-      comment: value.trim(),
-      date: new Date().toString(),
-    }
-    sendComment(comment)
-    Animated.timing(translateX, { toValue: 100, duration: 400, useNativeDriver: false }).start(() => {
-      Animated.timing(translateX, { toValue: -width, duration: 400, useNativeDriver: false }).start(() => {
-        Animated.timing(height, { toValue: 0, duration: 400, useNativeDriver: false }).start(() => {
-          setVisible(false)
-          setLoading(false)
-        })
-      })
-    })
-  }
-
-  return visible ? (
-    <Animated.View style={{ height, overflow: 'hidden', transform: [{ translateX }] }}>
+export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment }: Props) => {
+  return (
+    <View>
       <View style={styles.container}>
         <Typography.Default style={styles.contentTitle}>Ваш отзыв</Typography.Default>
-        <Typography.Default mb={20} style={{ fontSize: 16 }}>
+        <Typography.Default mb={20} style={{ fontSize: 15 }}>
           Поделитесь вашими впечатлениями
         </Typography.Default>
-        <Animatable.View animation={zoomIn} duration={700} delay={100}>
-          <View style={styles.reviewHeader}>
-            <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
-            <AirbnbRating
-              isDisabled={loading}
-              onFinishRating={handleSetGrade}
-              showRating={false}
-              defaultRating={0}
-              size={30}
-              selectedColor={'orange'}
-            />
+        {comment ? (
+          <View style={styles.comment}>
+            <View style={styles.commentSection}>
+              <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+              <View>
+                <Typography.Default mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 15 }}>
+                  {comment.user}
+                </Typography.Default>
+                <View style={styles.commentGrade}>
+                  {Array.from(Array(5).keys()).map((item) => {
+                    const isColored = item < comment.grade
+                    return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
+                  })}
+                  <Typography.Description lineH={16} ml={5}>
+                    {comment.commentDate}
+                  </Typography.Description>
+                </View>
+              </View>
+            </View>
+            {comment.comment ? (
+              <Typography.Default style={{ fontSize: 14 }}>{comment.comment}</Typography.Default>
+            ) : null}
           </View>
-          <Typography.Description textAlign={'right'} mr={20} mb={-10}>
-            {value.length}/250
-          </Typography.Description>
-          <Input.Default
-            disabled={loading}
-            value={value}
-            onChangeText={handleOnChangeText}
-            multiline
-            placeholder='Ваш отзыв'
-            inputContainerStyle={{ marginTop: 15 }}
-            maxLength={250}
-          />
-
-          <Button
-            loading={loading}
-            onPress={handleSendComment}
-            disabled={grade === 0}
-            buttonStyle={{ marginBottom: -5 }}
-          >
-            Отправить
-          </Button>
-        </Animatable.View>
+        ) : (
+          <Animatable.View animation={zoomIn} duration={700} delay={100}>
+            <View style={styles.reviewHeader}>
+              <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+              <AirbnbRating
+                onFinishRating={handleSetGrade}
+                showRating={false}
+                defaultRating={grade}
+                size={35}
+                selectedColor={'orange'}
+              />
+            </View>
+          </Animatable.View>
+        )}
       </View>
-    </Animated.View>
-  ) : (
-    <View />
+    </View>
   )
 }

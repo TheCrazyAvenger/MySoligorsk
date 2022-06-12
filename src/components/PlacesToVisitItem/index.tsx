@@ -39,7 +39,7 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Prop
   const { FULL_SIZE, ITEM_WIDTH, ITEM_HEIGHT } = placesToVisitTheme
 
   const currentDay = new Date().getDay()
-  const currentWorkingHours = workingHours[currentDay - 1]
+  const currentWorkingHours = workingHours[currentDay]
   const { open, close } = currentWorkingHours
 
   const [like, setLike] = useState(id === 1 ? true : false)

@@ -38,9 +38,9 @@ export const PlacesToVisitComments = ({ data }: Props) => {
         commentsSize !== 0 ? `(${commentsSize})` : ''
       }`}</Typography.Default>
       {data.length === 0 ? (
-        <View style={styles.noReviews}>
+        <View style={[styles.comment, styles.noReviews]}>
           <Icon name={'chatbubbles-outline'} size={50} color={Colors.black} />
-          <Typography.Default style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 16 }}>
+          <Typography.Default style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 15 }}>
             Нет отзывов
           </Typography.Default>
         </View>
@@ -51,11 +51,11 @@ export const PlacesToVisitComments = ({ data }: Props) => {
           const commentDate = new Date(date).toLocaleDateString()
 
           return (
-            <Animatable.View animation={zoomIn} key={i} duration={700} delay={100}>
+            <Animatable.View animation={zoomIn} key={i} duration={700} delay={100} style={styles.comment}>
               <View style={styles.commentSection}>
                 <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
                 <View>
-                  <Typography.Default mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 16 }}>
+                  <Typography.Default mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 15 }}>
                     {user}
                   </Typography.Default>
                   <View style={styles.commentGrade}>
@@ -69,21 +69,14 @@ export const PlacesToVisitComments = ({ data }: Props) => {
                   </View>
                 </View>
               </View>
-              {comment ? <Typography.Default style={{ fontSize: 16 }}>{comment}</Typography.Default> : null}
-
-              {i !== commentsSize - 1 && i !== 2 && <View style={styles.line} />}
+              {comment ? <Typography.Default style={{ fontSize: 14 }}>{comment}</Typography.Default> : null}
             </Animatable.View>
           )
         })
       )}
       {commentsSize !== 0 && (
         <TouchableOpacity onPress={handleGoToComments}>
-          <Typography.Default
-            mt={11}
-            textAlign={'center'}
-            mb={3}
-            style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 16 }}
-          >
+          <Typography.Default textAlign={'center'} mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 15 }}>
             Все отзывы
           </Typography.Default>
         </TouchableOpacity>

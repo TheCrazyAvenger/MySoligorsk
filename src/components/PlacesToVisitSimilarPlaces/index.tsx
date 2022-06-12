@@ -2,8 +2,9 @@ import { Colors, Fonts, Screens } from '@/constants'
 import { Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
+import { ScrollView } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { SharedElement } from 'react-navigation-shared-element'
 import { styles } from './styles'
@@ -32,13 +33,13 @@ export const PlacesToVisitSimilarPlaces = ({ data, places }: Props) => {
       <Typography.Default ml={20} mb={10} style={styles.contentTitle}>
         Похожие места
       </Typography.Default>
-      <ScrollView horizontal>
+      <ScrollView showsHorizontalScrollIndicator={false} horizontal>
         {data.map((item: any, i: number) => {
           const { title, image, category, workingHours } = item
           const isLast = i === data.length - 1
 
           const currentDay = new Date().getDay()
-          const currentWorkingHours = workingHours[currentDay - 1]
+          const currentWorkingHours = workingHours[currentDay]
           const { open, close } = currentWorkingHours
 
           const [like, setLike] = useState(item.id === 1 ? true : false)
