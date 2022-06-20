@@ -1,4 +1,4 @@
-import { Colors } from '@/constants'
+import { Colors, Fonts } from '@/constants'
 import { getOffset } from '@/helpers'
 import { TextPropsTypes } from '@/ui'
 import React from 'react'
@@ -9,9 +9,10 @@ export const Default: React.FC<TextPropsTypes> = ({
   children,
   style,
   color = Colors.titleText,
-  size = 17,
+  size = 15,
   lineH = 22,
   textAlign = 'auto',
+  type = 'regular',
   ...rest
 }) => {
   return (
@@ -23,6 +24,7 @@ export const Default: React.FC<TextPropsTypes> = ({
           fontSize: size,
           lineHeight: lineH,
           textAlign: textAlign,
+          fontFamily: type === 'regular' ? Fonts.openSansRegular : Fonts.openSansSemiBold,
         },
         style,
         getOffset(rest),

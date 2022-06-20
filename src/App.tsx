@@ -9,7 +9,7 @@ import { enableLatestRenderer } from 'react-native-maps'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
 import { Provider } from 'react-redux'
-import { Fonts, Screens } from './constants'
+import { Screens } from './constants'
 import { RootNavigator } from './navigation'
 import { Typography } from './ui'
 
@@ -17,6 +17,7 @@ LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
   'If you want to use Reanimated 2 then go through our installation steps https://docs.swmansion.com/react-native-reanimated/docs/installation',
   `ViewPropTypes will be removed from React Native. Migrate to ViewPropTypes exported from 'deprecated-react-native-prop-types'.`,
+  'new NativeEventEmitter',
 ])
 
 const linking = {
@@ -63,7 +64,6 @@ export const App = () => {
             <Typography.Default
               size={16}
               style={{
-                fontFamily: Fonts.openSansSemiBold,
                 position: 'absolute',
                 zIndex: 9999999,
                 bottom: 10,

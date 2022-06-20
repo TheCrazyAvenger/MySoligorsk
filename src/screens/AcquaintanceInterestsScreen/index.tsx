@@ -69,7 +69,7 @@ export const AcquaintanceInterestsScreen = () => {
           </View>
         )}
         <View style={[styles.interestsItem, { backgroundColor: fillColor }]}>{getIcon(icon, iconType, iconColor)}</View>
-        <Typography.Default mb={30} style={{ fontFamily: Fonts.openSansSemiBold }} textAlign={'center'}>
+        <Typography.Default mb={30} type='semiBold' textAlign={'center'}>
           {title}
         </Typography.Default>
       </TouchableOpacity>
@@ -94,7 +94,7 @@ export const AcquaintanceInterestsScreen = () => {
           Чем вы увлекаетесь?
         </Typography.TitleText>
 
-        <Typography.Default size={15} mb={30} mt={24} style={styles.text}>
+        <Typography.Default mb={30} mt={24} style={styles.text}>
           Выберите хотя бы одно увлечение, чтобы мы смогли подбирать для вас наиболее удобные и подходящие места
         </Typography.Default>
         <View style={styles.interestsContainer}>

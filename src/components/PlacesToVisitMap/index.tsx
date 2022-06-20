@@ -1,8 +1,7 @@
 import { Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Linking, Platform, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native'
-import * as Animatable from 'react-native-animatable'
+import { Linking, Platform, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { styles } from './styles'
@@ -11,17 +10,6 @@ type Props = {
   lat: number
   lon: number
   title: string
-}
-
-const zoomIn = {
-  0: {
-    opacity: 1,
-    scale: 0,
-  },
-  1: {
-    opacity: 1,
-    scale: 1,
-  },
 }
 
 export const PlacesToVisitMap = ({ lat, lon, title }: Props) => {
@@ -43,10 +31,8 @@ export const PlacesToVisitMap = ({ lat, lon, title }: Props) => {
 
   return (
     <>
-      <Typography.Default ml={20} style={styles.contentTitle}>
-        Карта
-      </Typography.Default>
-      <Animatable.View animation={zoomIn} duration={700} delay={100} style={styles.mapContainer}>
+      <Typography.ContentTitle ml={20}>Карта</Typography.ContentTitle>
+      <View style={styles.mapContainer}>
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={openExternalApp}
@@ -68,7 +54,7 @@ export const PlacesToVisitMap = ({ lat, lon, title }: Props) => {
             <Marker coordinate={{ latitude: lat, longitude: lon }} />
           </MapView>
         </TouchableOpacity>
-      </Animatable.View>
+      </View>
     </>
   )
 }

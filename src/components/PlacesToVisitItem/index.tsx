@@ -3,7 +3,6 @@ import { Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native'
-import * as Animatable from 'react-native-animatable'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { SharedElement } from 'react-navigation-shared-element'
 import { styles } from './styles'
@@ -20,17 +19,6 @@ type Props = {
   index: number
   scrollX: Animated.Value
   places: any
-}
-
-const zoomIn = {
-  0: {
-    opacity: 0,
-    scale: 0,
-  },
-  1: {
-    opacity: 1,
-    scale: 1,
-  },
 }
 
 export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Props) => {
@@ -62,7 +50,7 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Prop
   })
 
   return (
-    <Animatable.View animation={zoomIn} duration={700} delay={100 + index * 100} style={styles.content}>
+    <View style={styles.content}>
       <TouchableOpacity
         activeOpacity={0.7}
         onPress={handleGoToDetails}
@@ -104,6 +92,6 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Prop
           Больше
         </Typography.Default>
       )}
-    </Animatable.View>
+    </View>
   )
 }

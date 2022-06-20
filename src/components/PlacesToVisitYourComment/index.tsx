@@ -1,9 +1,8 @@
-import { Colors, Fonts } from '@/constants'
+import { Colors } from '@/constants'
 import { Typography } from '@/ui'
 import { AirbnbRating } from '@rneui/themed'
 import React from 'react'
 import { Image, View } from 'react-native'
-import * as Animatable from 'react-native-animatable'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
@@ -13,31 +12,18 @@ type Props = {
   comment: any
 }
 
-const zoomIn = {
-  0: {
-    opacity: 1,
-    scale: 0,
-  },
-  1: {
-    opacity: 1,
-    scale: 1,
-  },
-}
-
 export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment }: Props) => {
   return (
     <View>
       <View style={styles.container}>
-        <Typography.Default style={styles.contentTitle}>Ваш отзыв</Typography.Default>
-        <Typography.Default mb={20} style={{ fontSize: 15 }}>
-          Поделитесь вашими впечатлениями
-        </Typography.Default>
+        <Typography.ContentTitle>Ваш отзыв</Typography.ContentTitle>
+        <Typography.Default mb={20}>Поделитесь вашими впечатлениями</Typography.Default>
         {comment ? (
           <View style={styles.comment}>
             <View style={styles.commentSection}>
               <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
               <View>
-                <Typography.Default mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 15 }}>
+                <Typography.Default mb={3} type='semiBold'>
                   {comment.user}
                 </Typography.Default>
                 <View style={styles.commentGrade}>
@@ -51,23 +37,19 @@ export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment }: Pro
                 </View>
               </View>
             </View>
-            {comment.comment ? (
-              <Typography.Default style={{ fontSize: 14 }}>{comment.comment}</Typography.Default>
-            ) : null}
+            {comment.comment ? <Typography.Description mt={5}>{comment.comment}</Typography.Description> : null}
           </View>
         ) : (
-          <Animatable.View animation={zoomIn} duration={700} delay={100}>
-            <View style={styles.reviewHeader}>
-              <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
-              <AirbnbRating
-                onFinishRating={handleSetGrade}
-                showRating={false}
-                defaultRating={grade}
-                size={35}
-                selectedColor={'orange'}
-              />
-            </View>
-          </Animatable.View>
+          <View style={styles.reviewHeader}>
+            <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+            <AirbnbRating
+              onFinishRating={handleSetGrade}
+              showRating={false}
+              defaultRating={grade}
+              size={35}
+              selectedColor={'orange'}
+            />
+          </View>
         )}
       </View>
     </View>

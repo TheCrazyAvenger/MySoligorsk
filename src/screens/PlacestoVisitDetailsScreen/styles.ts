@@ -33,11 +33,6 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 22,
   },
-  contentTitle: {
-    fontFamily: Fonts.openSansBold,
-    color: Colors.black,
-    textTransform: 'uppercase',
-  },
   header: {
     paddingHorizontal: 20,
     justifyContent: 'center',

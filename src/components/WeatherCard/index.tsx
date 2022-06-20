@@ -1,4 +1,4 @@
-import { Colors, Fonts } from '@/constants'
+import { Colors } from '@/constants'
 import { getWeatherBackground } from '@/helpers'
 import { Typography } from '@/ui'
 import React from 'react'
@@ -11,23 +11,12 @@ type Props = {
   data: any
 }
 
-const zoomIn = {
-  0: {
-    opacity: 1,
-    scale: 1,
-  },
-  1: {
-    opacity: 1,
-    scale: 1,
-  },
-}
-
 const WeatherItem = ({ icon, value, condition }: any) => {
   return (
     <View style={styles.watherItem}>
       {icon}
 
-      <Typography.Description pl={4} color={Colors.white} style={{ fontFamily: Fonts.openSansBold }}>
+      <Typography.Description pl={4} color={Colors.white} type='semiBold'>
         {value} {condition}
       </Typography.Description>
     </View>
@@ -40,13 +29,18 @@ export const WeatherCard = ({ data }: Props) => {
   const { main: iocnName, icon } = weather[0]
 
   return (
-    <Animatable.View animation={zoomIn} duration={1000} delay={100}>
+    <View>
       <View style={styles.header}>
         <Typography.H4 size={17} pl={10}>
           Погода
         </Typography.H4>
       </View>
-      <View style={[styles.card, { backgroundColor: getWeatherBackground(iocnName) }]}>
+      <Animatable.View
+        animation={'fadeInLeft'}
+        duration={1000}
+        delay={100}
+        style={[styles.card, { backgroundColor: getWeatherBackground(iocnName) }]}
+      >
         <View style={styles.cityContainer}>
           <Typography.H3 color={Colors.white} pr={5}>
             Солигорск
@@ -83,7 +77,7 @@ export const WeatherCard = ({ data }: Props) => {
             condition={'кПа'}
           />
         </View>
-      </View>
-    </Animatable.View>
+      </Animatable.View>
+    </View>
   )
 }

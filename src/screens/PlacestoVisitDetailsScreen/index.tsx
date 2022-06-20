@@ -1,5 +1,6 @@
 import {
   PlacesToVisitComments,
+  PlacesToVisitContacts,
   PlacesToVisitContentItem,
   PlacesToVisitEditComments,
   PlacesToVisitHeader,
@@ -13,6 +14,7 @@ import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Image, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 import { FlatList } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -24,17 +26,6 @@ interface Comment {
   grade: number
   comment: string
   date: string
-}
-
-const zoomIn = {
-  0: {
-    opacity: 1,
-    scale: 0,
-  },
-  1: {
-    opacity: 1,
-    scale: 1,
-  },
 }
 
 export const PlacestoVisitDetailsScreen = () => {
@@ -62,7 +53,7 @@ export const PlacestoVisitDetailsScreen = () => {
     setTimeout(() => setLoading(false), 400)
   }, [])
 
-  const { image, title, id, category, content, location, comments } = route.params.data
+  const { image, title, id, category, content, location, comments, info } = route.params.data
   const { lat, lon } = location
 
   const similarPlaces = route.params.places
@@ -116,8 +107,8 @@ export const PlacestoVisitDetailsScreen = () => {
         <Image style={[StyleSheet.absoluteFillObject, { height }]} resizeMode='cover' blurRadius={5} source={image} />
       </SharedElement>
       {showBackButton && (
-        <TouchableOpacity onPress={handleGoBack} style={[styles.backButton, { top: 11 + insets.top }]}>
-          <Icon name='arrow-back' color={Colors.white} size={30} />
+        <TouchableOpacity onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
+          <Icon name='arrow-back' color={Colors.white} size={27} />
         </TouchableOpacity>
       )}
 
@@ -148,12 +139,10 @@ export const PlacestoVisitDetailsScreen = () => {
             {loading ? (
               <Spinner style={{ position: 'relative', height: height - HEADER_MAX_HEIGHT / 1.1, width: '100%' }} />
             ) : (
-              <>
+              <Animatable.View animation={'fadeInUp'}>
                 {content ? (
                   <View style={{ marginBottom: 20 }}>
-                    <Typography.Default ml={20} style={styles.contentTitle}>
-                      {content.title}
-                    </Typography.Default>
+                    <Typography.ContentTitle ml={20}>{content.title}</Typography.ContentTitle>
                     <FlatList
                       data={content.items}
                       keyExtractor={keyExtractor}
@@ -164,13 +153,14 @@ export const PlacestoVisitDetailsScreen = () => {
                     />
                   </View>
                 ) : null}
+                <PlacesToVisitContacts item={info} />
                 <PlacesToVisitMap lat={lat} lon={lon} title={title} />
                 {similarPlaces?.length > 0 && (
                   <PlacesToVisitSimilarPlaces data={similarPlaces} places={route.params.places} />
                 )}
                 <PlacesToVisitYourComment handleSetGrade={handleSetGrade} grade={grade} comment={userComment} />
                 <PlacesToVisitComments data={commentsArr} />
-              </>
+              </Animatable.View>
             )}
           </View>
         </BottomSheetScrollView>

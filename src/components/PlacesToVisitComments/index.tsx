@@ -1,25 +1,13 @@
-import { Colors, Fonts, Screens } from '@/constants'
+import { Colors, Screens } from '@/constants'
 import { Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useMemo } from 'react'
 import { Image, TouchableOpacity, View } from 'react-native'
-import * as Animatable from 'react-native-animatable'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
 type Props = {
   data: { user: string; grade: number; comment: string; date: string }[]
-}
-
-const zoomIn = {
-  0: {
-    opacity: 1,
-    scale: 0,
-  },
-  1: {
-    opacity: 1,
-    scale: 1,
-  },
 }
 
 export const PlacesToVisitComments = ({ data }: Props) => {
@@ -34,15 +22,13 @@ export const PlacesToVisitComments = ({ data }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Typography.Default mb={10} style={styles.contentTitle}>{`Отзывы ${
+      <Typography.ContentTitle ml={20} mb={10}>{`Отзывы ${
         commentsSize !== 0 ? `(${commentsSize})` : ''
-      }`}</Typography.Default>
+      }`}</Typography.ContentTitle>
       {data.length === 0 ? (
-        <View style={[styles.comment, styles.noReviews]}>
+        <View style={styles.noReviews}>
           <Icon name={'chatbubbles-outline'} size={50} color={Colors.black} />
-          <Typography.Default style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 15 }}>
-            Нет отзывов
-          </Typography.Default>
+          <Typography.Default type='semiBold'>Нет отзывов</Typography.Default>
         </View>
       ) : (
         threeComments.map((item, i) => {
@@ -51,11 +37,12 @@ export const PlacesToVisitComments = ({ data }: Props) => {
           const commentDate = new Date(date).toLocaleDateString()
 
           return (
-            <Animatable.View animation={zoomIn} key={i} duration={700} delay={100} style={styles.comment}>
+            <View key={i}>
+              {i !== 0 && <View style={styles.line} />}
               <View style={styles.commentSection}>
                 <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
                 <View>
-                  <Typography.Default mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 15 }}>
+                  <Typography.Default mb={3} type='semiBold'>
                     {user}
                   </Typography.Default>
                   <View style={styles.commentGrade}>
@@ -63,20 +50,22 @@ export const PlacesToVisitComments = ({ data }: Props) => {
                       const isColored = item < grade
                       return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
                     })}
-                    <Typography.Description lineH={16} ml={5}>
-                      {commentDate}
-                    </Typography.Description>
+                    <Typography.Description ml={5}>{commentDate}</Typography.Description>
                   </View>
                 </View>
               </View>
-              {comment ? <Typography.Default style={{ fontSize: 14 }}>{comment}</Typography.Default> : null}
-            </Animatable.View>
+              {comment ? (
+                <Typography.Description mt={5} ml={20}>
+                  {comment}
+                </Typography.Description>
+              ) : null}
+            </View>
           )
         })
       )}
       {commentsSize !== 0 && (
         <TouchableOpacity onPress={handleGoToComments}>
-          <Typography.Default textAlign={'center'} mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 15 }}>
+          <Typography.Default textAlign={'center'} mt={15} mb={3} type='semiBold'>
             Все отзывы
           </Typography.Default>
         </TouchableOpacity>

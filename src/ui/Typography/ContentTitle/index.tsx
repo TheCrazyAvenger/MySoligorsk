@@ -5,12 +5,12 @@ import React from 'react'
 import { Text as RNText } from 'react-native'
 import { styles } from './styles'
 
-export const Description: React.FC<TextPropsTypes> = ({
+export const ContentTitle: React.FC<TextPropsTypes> = ({
   children,
   style,
-  color = Colors.black,
-  size = 14,
-  lineH = 15,
+  color = Colors.titleText,
+  size = 17,
+  lineH = 22,
   textAlign = 'auto',
   ...rest
 }) => {

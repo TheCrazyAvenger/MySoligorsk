@@ -21,7 +21,7 @@ export const PlacesToVisitHeader = ({ animatedIndex, title }: BottomSheetBackdro
   }))
 
   const containerStyle = useMemo(
-    () => [styles.header, containerAnimatedStyle, { height: HEADER_MIN_HEIGHT, paddingTop: insets.top }],
+    () => [styles.header, containerAnimatedStyle, { height: HEADER_MIN_HEIGHT, paddingTop: insets.top + 10 }],
     [containerAnimatedStyle]
   )
 
@@ -29,12 +29,12 @@ export const PlacesToVisitHeader = ({ animatedIndex, title }: BottomSheetBackdro
 
   return (
     <Animated.View style={containerStyle}>
-      <TouchableOpacity style={[{ marginLeft: 20 }]} onPress={handleGoBack}>
-        <Icon name='arrow-back' color={Colors.black} size={30} />
+      <TouchableOpacity style={[styles.back, { top: insets.top + 15 }]} onPress={handleGoBack}>
+        <Icon name='arrow-back' color={Colors.black} size={27} />
       </TouchableOpacity>
-      <Typography.H3 ml={10} style={styles.contentTitle}>
+      <Typography.ContentTitle ml={10} size={20} style={{ textTransform: 'none' }}>
         {title}
-      </Typography.H3>
+      </Typography.ContentTitle>
     </Animated.View>
   )
 }

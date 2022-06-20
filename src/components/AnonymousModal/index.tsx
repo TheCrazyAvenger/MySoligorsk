@@ -42,11 +42,9 @@ export const AnonymousModal = ({ visible, hideModal }: Props) => {
           <Typography.H2 ph={25} style={{ textAlign: 'center', fontFamily: Fonts.openSansSemiBold }}>
             Вы уверены что хотите продолжить без регистрации?
           </Typography.H2>
-          <Typography.Default size={16} pv={24}>
-            Без регистрации приложение не будет:
-          </Typography.Default>
+          <Typography.Default pv={24}>Без регистрации приложение не будет:</Typography.Default>
           {regPluses.map((item, i) => (
-            <Typography.Default key={i} size={16}>
+            <Typography.Default key={i}>
               {i + 1}. {item}
             </Typography.Default>
           ))}

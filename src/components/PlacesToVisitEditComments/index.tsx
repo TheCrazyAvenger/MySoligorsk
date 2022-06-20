@@ -36,12 +36,10 @@ export const PlacesToVisitEditComments = ({ grade, sendComment, handleClose }: P
 
   return (
     <View style={styles.container}>
-      <Typography.Default style={styles.contentTitle}>Ваш отзыв</Typography.Default>
-      <Typography.Default mb={20} style={{ fontSize: 15 }}>
-        Ваш отзыв будет виден всем пользователям
-      </Typography.Default>
+      <Typography.ContentTitle>Ваш отзыв</Typography.ContentTitle>
+      <Typography.Default mb={20}>Ваш отзыв будет виден всем пользователям</Typography.Default>
       <View>
-        <Typography.Default style={styles.contentText} mb={10}>
+        <Typography.Default type='semiBold' mb={10}>
           Оценка
         </Typography.Default>
         <View style={styles.reviewHeader}>
@@ -55,7 +53,7 @@ export const PlacesToVisitEditComments = ({ grade, sendComment, handleClose }: P
           />
         </View>
         <View style={styles.commentHeader}>
-          <Typography.Default style={styles.contentText}>Комментарий</Typography.Default>
+          <Typography.Default type='semiBold'>Комментарий</Typography.Default>
           <Typography.Description ml={5} lineH={22}>
             {value.length}/250
           </Typography.Description>

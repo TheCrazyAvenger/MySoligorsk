@@ -1,4 +1,4 @@
-import { Colors, Fonts } from '@/constants'
+import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
@@ -23,8 +23,5 @@ export const styles = StyleSheet.create({
     height: '63%',
     borderRadius: 10,
     marginBottom: 2,
-  },
-  itemTitle: {
-    fontFamily: Fonts.openSansBold,
   },
 })

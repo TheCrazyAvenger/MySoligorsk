@@ -1,4 +1,3 @@
-import { Colors, Fonts } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
@@ -19,10 +18,5 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
     marginBottom: 10,
     elevation: 5,
-  },
-  contentTitle: {
-    fontFamily: Fonts.openSansBold,
-    color: Colors.black,
-    textTransform: 'uppercase',
   },
 })

@@ -1,28 +1,14 @@
-import { Colors, Fonts } from '@/constants'
+import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
-    padding: 20,
-  },
-  comment: {
-    backgroundColor: '#F2F2F2',
-    borderRadius: 30,
-    marginBottom: 20,
-    padding: 20,
-    paddingVertical: 15,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    paddingVertical: 20,
   },
   commentSection: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 20,
   },
   avatar: {
     width: 40,
@@ -30,18 +16,18 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     marginRight: 8,
   },
-  contentTitle: {
-    fontFamily: Fonts.openSansBold,
-    color: Colors.black,
-    textTransform: 'uppercase',
-  },
   noReviews: {
     alignItems: 'center',
-    // marginTop: 30,
     paddingVertical: 30,
   },
   commentGrade: {
     flexDirection: 'row',
     marginBottom: 2,
+  },
+  line: {
+    width: '100%',
+    height: 1,
+    backgroundColor: Colors.lightGrey,
+    marginVertical: 15,
   },
 })

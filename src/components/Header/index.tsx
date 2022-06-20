@@ -15,7 +15,7 @@ const ArrowLeftIcon = () => {
 
   return (
     <TouchableOpacity style={[styles.back]} onPress={() => navigation.goBack()}>
-      <Icon name='arrow-back' color={Colors.black} size={28} />
+      <Icon name='arrow-back' color={Colors.black} size={27} />
     </TouchableOpacity>
   )
 }

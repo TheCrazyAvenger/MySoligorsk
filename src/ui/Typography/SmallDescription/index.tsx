@@ -5,11 +5,11 @@ import React from 'react'
 import { Text as RNText } from 'react-native'
 import { styles } from './styles'
 
-export const Description: React.FC<TextPropsTypes> = ({
+export const SmallDescription: React.FC<TextPropsTypes> = ({
   children,
   style,
   color = Colors.black,
-  size = 14,
+  size = 12.5,
   lineH = 15,
   textAlign = 'auto',
   ...rest

@@ -1,14 +1,8 @@
-import { Colors, Fonts } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
     padding: 20,
-  },
-  contentTitle: {
-    fontFamily: Fonts.openSansBold,
-    color: Colors.black,
-    textTransform: 'uppercase',
   },
   reviewHeader: {
     marginBottom: 30,
@@ -24,9 +18,6 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  contentText: {
-    fontFamily: Fonts.openSansSemiBold,
   },
   commentHeader: {
     flexDirection: 'row',

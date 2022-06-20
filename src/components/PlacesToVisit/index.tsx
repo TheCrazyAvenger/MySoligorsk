@@ -17,6 +17,15 @@ const DUMMY_PLACES = [
       lat: 52.7926454,
       lon: 27.5414154,
     },
+    info: {
+      phones: [{ title: 'Доставка', number: '+375291913364' }],
+      address: { title: 'Железнодорожная 21А', lat: 52.7926454, lon: 27.5414154 },
+      web: '',
+      socials: [
+        { icon: 'instagram', url: 'https://www.instagram.com/shavahouse_slg/' },
+        { icon: 'account-box', url: 'https://vk.com/shavahouse' },
+      ],
+    },
     workingHours: [
       { id: 0, day: 'Воскресенье', open: '11:00', close: '23:00' },
       { id: 1, day: 'Понедельник', open: '11:00', close: '23:00' },
@@ -32,35 +41,35 @@ const DUMMY_PLACES = [
         {
           title: 'Шаурма Карри',
           description: '4.6р. - 8р.',
-          image: require('@/assets/images/1.jpg'),
+          imageUri: 'https://just-eat.by/image/cache/data/shops/24722/40674-300x300.jpg',
           onPress: 'https://www.instagram.com/shavahouse_slg/',
           id: '0',
         },
         {
           title: 'Шаурма Чикен',
           description: '8р.',
-          image: require('@/assets/images/2.jpg'),
+          imageUri: 'https://just-eat.by/image/cache/data/shops/24722/40674-300x300.jpg',
           onPress: 'https://www.instagram.com/shavahouse_slg/',
           id: '1',
         },
         {
           title: 'Шаурма Грибная',
           description: '5р. - 7р.',
-          image: require('@/assets/images/3.jpg'),
+          imageUri: 'https://just-eat.by/image/cache/data/shops/24722/40674-300x300.jpg',
           onPress: 'https://www.instagram.com/shavahouse_slg/',
           id: '2',
         },
         {
           title: 'Шаурма Туна',
           description: '8.5р.',
-          image: require('@/assets/images/4.jpg'),
+          imageUri: 'https://just-eat.by/image/cache/data/shops/24722/40674-300x300.jpg',
           onPress: 'https://www.instagram.com/shavahouse_slg/',
           id: '3',
         },
         {
           title: 'Шаурма Фреш',
           description: '6.5р.',
-          image: require('@/assets/images/5.jpg'),
+          imageUri: 'https://just-eat.by/image/cache/data/shops/24722/40674-300x300.jpg',
           onPress: 'https://www.instagram.com/shavahouse_slg/',
           id: '4',
         },
@@ -103,6 +112,16 @@ const DUMMY_PLACES = [
       lat: 52.7923472,
       lon: 27.5421693,
     },
+    info: {
+      phones: [{ title: 'Доставка', number: '+375291913364' }],
+      address: { title: 'Железнодорожная 21А', lat: 52.7923472, lon: 27.5421693 },
+      web: 'green-market.by',
+      socials: [
+        { icon: 'instagram', url: 'https://www.instagram.com/greenmarketby/' },
+        { icon: 'account-box', url: 'https://vk.com/greenmarketby' },
+        { icon: 'facebook', url: 'https://www.facebook.com/greenmarketby/' },
+      ],
+    },
     workingHours: [
       { id: 0, day: 'Воскресенье', open: '9:00', close: '23:00' },
       { id: 1, day: 'Понедельник', open: '9:00', close: '23:00' },
@@ -123,6 +142,16 @@ const DUMMY_PLACES = [
     location: {
       lat: 52.7928931,
       lon: 27.5444218,
+    },
+    info: {
+      phones: [{ title: 'Доставка', number: '+375291913364' }],
+      address: { title: 'Ленинского комсомола 38', lat: 52.7928931, lon: 27.5444218 },
+      web: 'franshisa.by',
+      socials: [
+        { icon: 'instagram', url: 'https://www.instagram.com/myata.soligorsk/' },
+        { icon: 'account-box', url: 'https://vk.com/myata.soligorsk' },
+        { icon: 'facebook', url: '  https://www.facebook.com/pages/category/Lounge/myatasoligorsk-229866455043348/' },
+      ],
     },
     workingHours: [
       { id: 0, day: 'Воскресенье', open: '18:00', close: '2:00' },
@@ -145,6 +174,16 @@ const DUMMY_PLACES = [
       lat: 52.7897416,
       lon: 27.5329346,
     },
+    info: {
+      phones: [{ title: 'Доставка', number: '+375291913364' }],
+      address: { title: 'Константина Заслонова 29', lat: 52.7897416, lon: 27.5329346 },
+      web: 'korona.by',
+      socials: [
+        { icon: 'instagram', url: 'https://www.instagram.com/koronaby/' },
+        { icon: 'account-box', url: 'https://vk.com/koronaby' },
+        { icon: 'facebook', url: 'https://www.facebook.com/koronaby/' },
+      ],
+    },
     workingHours: [
       { id: 0, day: 'Воскресенье', open: '9:00', close: '23:00' },
       { id: 1, day: 'Понедельник', open: '9:00', close: '23:00' },
@@ -165,6 +204,15 @@ const DUMMY_PLACES = [
     location: {
       lat: 52.7838424,
       lon: 27.5033468,
+    },
+    info: {
+      phones: [{ title: 'Доставка', number: '+375291913364' }],
+      address: { title: 'Молодежная 27А', lat: 52.7838424, lon: 27.5033468 },
+      web: '',
+      socials: [
+        { icon: 'instagram', url: 'https://www.instagram.com/donerstyle__soligorsk/' },
+        { icon: 'account-box', url: 'https://vk.com/public204081964' },
+      ],
     },
     workingHours: [
       { id: 0, day: 'Воскресенье', open: '11:00', close: '22:00' },
@@ -270,6 +318,15 @@ const DUMMY_PLACES = [
     location: {
       lat: 52.7895714,
       lon: 27.5209499,
+    },
+    info: {
+      phones: [{ title: 'Доставка', number: '+375291913364' }],
+      address: { title: 'просп. Мира 16Б', lat: 52.7895714, lon: 27.5209499 },
+      web: 'шеф.com',
+      socials: [
+        { icon: 'instagram', url: 'https://www.instagram.com/chef.slk/' },
+        { icon: 'account-box', url: 'https://vk.com/chefslk' },
+      ],
     },
     workingHours: [
       { id: 0, day: 'Воскресенье', open: '11:00', close: '23:00' },

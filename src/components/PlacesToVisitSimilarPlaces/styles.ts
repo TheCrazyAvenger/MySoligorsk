@@ -2,11 +2,6 @@ import { Colors, Fonts } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  contentTitle: {
-    fontFamily: Fonts.openSansBold,
-    color: Colors.black,
-    textTransform: 'uppercase',
-  },
   content: {
     flex: 1,
   },
@@ -40,12 +35,6 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontFamily: Fonts.openSansBold,
-  },
-  time: {
-    color: Colors.white,
-    marginLeft: 1,
-    marginTop: 6,
-    fontSize: 12.5,
   },
   likeButton: {
     position: 'absolute',
