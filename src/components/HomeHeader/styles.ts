@@ -7,13 +7,9 @@ export const styles = StyleSheet.create({
     marginTop: 40,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // alignItems: 'center',
   },
   headerTitle: {
     fontSize: 30,
-    fontFamily: Fonts.openSansBold,
-  },
-  headerSubtitle: {
     fontFamily: Fonts.openSansBold,
   },
   avatar: {

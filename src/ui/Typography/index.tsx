@@ -1,4 +1,3 @@
-import { ContentTitle } from './ContentTitle'
 import { Default } from './Default'
 import { Description } from './Description'
 import { H2 } from './H2'
@@ -12,13 +11,12 @@ import { TitleText } from './TitleText'
 
 export const Typography = {
   TitleText,
-  Subtitle,
   Linked,
   Default,
-  ContentTitle,
   Label,
   Description,
   SmallDescription,
+  Subtitle,
   H2,
   H3,
   H4,

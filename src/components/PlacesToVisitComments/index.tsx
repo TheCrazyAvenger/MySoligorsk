@@ -22,9 +22,7 @@ export const PlacesToVisitComments = ({ data }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Typography.ContentTitle ml={20} mb={10}>{`Отзывы ${
-        commentsSize !== 0 ? `(${commentsSize})` : ''
-      }`}</Typography.ContentTitle>
+      <Typography.H4 ml={20} mb={10}>{`Отзывы ${commentsSize !== 0 ? `(${commentsSize})` : ''}`}</Typography.H4>
       {data.length === 0 ? (
         <View style={styles.noReviews}>
           <Icon name={'chatbubbles-outline'} size={50} color={Colors.black} />

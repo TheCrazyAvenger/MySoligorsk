@@ -48,11 +48,20 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.openSansSemiBold,
     color: Colors.white,
     fontSize: 14,
-    marginLeft: 1,
   },
   likeButton: {
     position: 'absolute',
     bottom: 50,
     right: 40,
+  },
+  hoursContainer: {
+    backgroundColor: Colors.white,
+    position: 'absolute',
+    justifyContent: 'center',
+    bottom: 53,
+    height: 25,
+    left: 40,
+    paddingHorizontal: 9,
+    borderRadius: 30,
   },
 })

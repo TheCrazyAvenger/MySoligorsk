@@ -1,4 +1,4 @@
-import { Colors } from '@/constants'
+import { Colors, Fonts } from '@/constants'
 import { Typography } from '@/ui'
 import { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
@@ -32,9 +32,9 @@ export const PlacesToVisitHeader = ({ animatedIndex, title }: BottomSheetBackdro
       <TouchableOpacity style={[styles.back, { top: insets.top + 15 }]} onPress={handleGoBack}>
         <Icon name='arrow-back' color={Colors.black} size={27} />
       </TouchableOpacity>
-      <Typography.ContentTitle ml={10} size={20} style={{ textTransform: 'none' }}>
+      <Typography.H3 size={19} style={{ fontFamily: Fonts.openSansBold }}>
         {title}
-      </Typography.ContentTitle>
+      </Typography.H3>
     </Animated.View>
   )
 }

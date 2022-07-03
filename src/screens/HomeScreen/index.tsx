@@ -3,6 +3,7 @@ import { HomeHeader, PlacesToVisit, TabBarScreenLayout, WeatherCard } from '@/co
 import { Spinner } from '@/ui'
 import React from 'react'
 import { ScrollView } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 import { styles } from './styles'
 
 export const HomeScreen = () => {
@@ -17,7 +18,9 @@ export const HomeScreen = () => {
       <ScrollView style={styles.container}>
         <HomeHeader />
         <PlacesToVisit />
-        {weatheeData && <WeatherCard data={weatheeData} />}
+        <Animatable.View animation={'fadeInUp'} duration={1000} delay={100}>
+          {weatheeData && <WeatherCard data={weatheeData} />}
+        </Animatable.View>
       </ScrollView>
     </TabBarScreenLayout>
   )

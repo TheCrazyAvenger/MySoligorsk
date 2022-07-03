@@ -32,7 +32,7 @@ export const PlacesToVisitContentItem = ({ item }: Props) => {
         <Typography.Default numberOfLines={2} lineH={19} mt={2} type='semiBold'>
           {item.title}
         </Typography.Default>
-        <Typography.Description mt={3}>{item.description}</Typography.Description>
+        <Typography.Subtitle mt={3}>{item.description}</Typography.Subtitle>
       </View>
     </TouchableOpacity>
   )

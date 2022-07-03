@@ -15,10 +15,9 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Image, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { SharedElement } from 'react-navigation-shared-element'
 import { styles } from './styles'
 
 interface Comment {
@@ -102,10 +101,8 @@ export const PlacestoVisitDetailsScreen = () => {
   }
 
   return (
-    <View style={[StyleSheet.absoluteFillObject]}>
-      <SharedElement id={`item.${id}.photo`} style={[styles.image]}>
-        <Image style={[StyleSheet.absoluteFillObject, { height }]} resizeMode='cover' blurRadius={5} source={image} />
-      </SharedElement>
+    <GestureHandlerRootView style={[StyleSheet.absoluteFillObject]}>
+      <Image style={[StyleSheet.absoluteFillObject, { height }]} resizeMode='cover' blurRadius={5} source={image} />
       {showBackButton && (
         <TouchableOpacity onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
           <Icon name='arrow-back' color={Colors.white} size={27} />
@@ -113,12 +110,8 @@ export const PlacestoVisitDetailsScreen = () => {
       )}
 
       <View style={[styles.header, { height: HEADER_MAX_HEIGHT }]}>
-        <SharedElement id={`item.${id}.title`}>
-          <Animated.Text style={styles.title}>{title}</Animated.Text>
-        </SharedElement>
-        <SharedElement id={`item.${id}.subTitle`}>
-          <Text style={styles.subTitle}>{category}</Text>
-        </SharedElement>
+        <Animated.Text style={styles.title}>{title}</Animated.Text>
+        <Text style={styles.subTitle}>{category}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
           <Icon name={'star'} color={'orange'} size={21} />
           <Typography.H3 ml={5} color={Colors.white}>
@@ -128,7 +121,7 @@ export const PlacestoVisitDetailsScreen = () => {
       </View>
 
       <BottomSheet
-        animateOnMount={false}
+        // animateOnMount={false}
         ref={mainBottomSheetRef}
         backdropComponent={(props) => <PlacesToVisitHeader title={title} {...props} />}
         index={0}
@@ -142,7 +135,7 @@ export const PlacestoVisitDetailsScreen = () => {
               <Animatable.View animation={'fadeInUp'}>
                 {content ? (
                   <View style={{ marginBottom: 20 }}>
-                    <Typography.ContentTitle ml={20}>{content.title}</Typography.ContentTitle>
+                    <Typography.H4 ml={20}>{content.title}</Typography.H4>
                     <FlatList
                       data={content.items}
                       keyExtractor={keyExtractor}
@@ -177,6 +170,6 @@ export const PlacestoVisitDetailsScreen = () => {
           <PlacesToVisitEditComments grade={grade} sendComment={handleSendComment} handleClose={handleCloseComment} />
         </BottomSheetScrollView>
       </BottomSheet>
-    </View>
+    </GestureHandlerRootView>
   )
 }

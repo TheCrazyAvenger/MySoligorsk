@@ -1,4 +1,3 @@
-import { Colors } from '@/constants'
 import { selectUser } from '@/selectors'
 import { Typography } from '@/ui'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -39,9 +38,9 @@ export const HomeHeader = () => {
     <View style={styles.container}>
       <View>
         <Typography.H2 style={styles.headerTitle}>{getWelcomeMessage()}</Typography.H2>
-        <Typography.Description pt={8} color={Colors.iconGrey} style={styles.headerSubtitle}>
+        <Typography.Subtitle pt={8}>
           {firstname}, {startPhrazes[currentPhraze]}
-        </Typography.Description>
+        </Typography.Subtitle>
       </View>
       <TouchableOpacity onPress={handleLogout}>
         <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />

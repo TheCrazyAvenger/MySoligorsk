@@ -41,4 +41,14 @@ export const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
   },
+  hoursContainer: {
+    backgroundColor: Colors.white,
+    position: 'absolute',
+    justifyContent: 'center',
+    bottom: 20,
+    height: 27,
+    left: 20,
+    paddingHorizontal: 9,
+    borderRadius: 30,
+  },
 })

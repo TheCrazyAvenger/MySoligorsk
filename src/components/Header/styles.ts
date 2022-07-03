@@ -19,9 +19,9 @@ export const styles = StyleSheet.create({
     height: 32,
   },
   text: {
-    fontSize: 20,
+    fontSize: 19,
     lineHeight: 25,
     color: Colors.titleText,
-    fontFamily: Fonts.openSansSemiBold,
+    fontFamily: Fonts.openSansBold,
   },
 })

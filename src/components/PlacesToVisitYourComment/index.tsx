@@ -16,7 +16,7 @@ export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment }: Pro
   return (
     <View>
       <View style={styles.container}>
-        <Typography.ContentTitle>Ваш отзыв</Typography.ContentTitle>
+        <Typography.H4>Ваш отзыв</Typography.H4>
         <Typography.Default mb={20}>Поделитесь вашими впечатлениями</Typography.Default>
         {comment ? (
           <View style={styles.comment}>

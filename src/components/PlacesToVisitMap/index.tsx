@@ -31,7 +31,7 @@ export const PlacesToVisitMap = ({ lat, lon, title }: Props) => {
 
   return (
     <>
-      <Typography.ContentTitle ml={20}>Карта</Typography.ContentTitle>
+      <Typography.H4 ml={20}>Карта</Typography.H4>
       <View style={styles.mapContainer}>
         <TouchableOpacity
           activeOpacity={0.9}

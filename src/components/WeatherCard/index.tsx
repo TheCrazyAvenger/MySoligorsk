@@ -3,7 +3,6 @@ import { getWeatherBackground } from '@/helpers'
 import { Typography } from '@/ui'
 import React from 'react'
 import { Image, View } from 'react-native'
-import * as Animatable from 'react-native-animatable'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
@@ -31,16 +30,9 @@ export const WeatherCard = ({ data }: Props) => {
   return (
     <View>
       <View style={styles.header}>
-        <Typography.H4 size={17} pl={10}>
-          Погода
-        </Typography.H4>
+        <Typography.H4 pl={10}>Погода</Typography.H4>
       </View>
-      <Animatable.View
-        animation={'fadeInLeft'}
-        duration={1000}
-        delay={100}
-        style={[styles.card, { backgroundColor: getWeatherBackground(iocnName) }]}
-      >
+      <View style={[styles.card, { backgroundColor: getWeatherBackground(iocnName) }]}>
         <View style={styles.cityContainer}>
           <Typography.H3 color={Colors.white} pr={5}>
             Солигорск
@@ -77,7 +69,7 @@ export const WeatherCard = ({ data }: Props) => {
             condition={'кПа'}
           />
         </View>
-      </Animatable.View>
+      </View>
     </View>
   )
 }

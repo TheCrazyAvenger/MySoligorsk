@@ -36,7 +36,7 @@ export const PlacesToVisitEditComments = ({ grade, sendComment, handleClose }: P
 
   return (
     <View style={styles.container}>
-      <Typography.ContentTitle>Ваш отзыв</Typography.ContentTitle>
+      <Typography.H4>Ваш отзыв</Typography.H4>
       <Typography.Default mb={20}>Ваш отзыв будет виден всем пользователям</Typography.Default>
       <View>
         <Typography.Default type='semiBold' mb={10}>

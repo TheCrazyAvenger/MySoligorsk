@@ -32,9 +32,9 @@ export const PlacesToVisitContacts = ({ item }: Props) => {
 
   return (
     <>
-      <Typography.ContentTitle ml={20} mb={5}>
+      <Typography.H4 ml={20} mb={5}>
         Информация
-      </Typography.ContentTitle>
+      </Typography.H4>
       <View style={styles.container}>
         <View style={styles.infoItem}>
           <Icon name={'location'} size={23} color={Colors.iconGrey} />
@@ -51,10 +51,7 @@ export const PlacesToVisitContacts = ({ item }: Props) => {
           <View style={{ marginLeft: 15 }}>
             <Typography.Default type='semiBold'>Телефон</Typography.Default>
             <Typography.Description onPress={handleOpenPhone} mt={10} color={Colors.primary}>
-              {phones[0].number}{' '}
-              <Typography.Default type='semiBold' size={14}>
-                • {phones[0].title}
-              </Typography.Default>
+              {phones[0].number} <Typography.Subtitle>• {phones[0].title}</Typography.Subtitle>
             </Typography.Description>
           </View>
         </View>
