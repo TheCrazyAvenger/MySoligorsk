@@ -13,10 +13,10 @@ export const Skeleton = ({ width = '100%', height = '100%', style }: Props) => {
   return (
     <View style={[styles.container, style]}>
       <SkeletonContent
-        animationDirection='horizontalLeft'
-        containerStyle={[styles.skeleton, { width, height }]}
+        animationDirection='horizontalRight'
+        containerStyle={[styles.skeleton, { width, height }, style]}
         isLoading={true}
-        layout={[{ key: 'item', width: '100%', height: '100%', marginBottom: 6 }]}
+        layout={[{ key: 'item', width: '100%', height: '100%' }]}
       ></SkeletonContent>
     </View>
   )

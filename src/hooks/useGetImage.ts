@@ -8,16 +8,21 @@ type Props = {
 export const useGetImage = ({ placeName }: Props) => {
   const [loading, setLoading] = useState(true)
   const [imageUrl, setImageUrl] = useState<any>(null)
+
+  const reference = storage().ref(`/places/${placeName}/verified/main.png`)
+
   useEffect(() => {
     setLoading(true)
-    storage()
-      .ref(`/places/${placeName}/verified/main.png`)
+    reference
       .getDownloadURL()
       .then((url) => {
         setImageUrl(url)
         setLoading(false)
       })
-      .catch((e) => console.log('Errors while downloading => ', e))
+      .catch((e) => {
+        setLoading(false)
+        console.log('Errors while downloading => ', e)
+      })
   }, [placeName])
 
   return { uri: imageUrl, loading }

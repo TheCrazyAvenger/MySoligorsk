@@ -1,7 +1,8 @@
 import { Colors } from '@/constants'
 import { Divider, Typography } from '@/ui'
 import React from 'react'
-import { Linking, Platform, TouchableOpacity, View } from 'react-native'
+import { Linking, Platform, View } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { styles } from './styles'
@@ -76,9 +77,9 @@ export const PlacesToVisitContacts = ({ item }: Props) => {
             const handleOpenSocial = () => Linking.openURL(item.url)
 
             return (
-              <TouchableOpacity key={i} onPress={handleOpenSocial} style={styles.socialItem}>
+              <TouchableRipple borderless key={i} onPress={handleOpenSocial} style={styles.socialItem}>
                 <MaterialIcon name={item.icon} size={25} color={Colors.white} />
-              </TouchableOpacity>
+              </TouchableRipple>
             )
           })}
         </View>

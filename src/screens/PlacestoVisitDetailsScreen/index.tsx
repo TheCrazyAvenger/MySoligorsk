@@ -10,13 +10,14 @@ import {
   PlacesToVisitYourComment,
 } from '@/components'
 import { Colors } from '@/constants'
-import { useGetImage } from '@/hooks'
+import { useGetImage, useGetImagesList } from '@/hooks'
 import { Spinner, Typography } from '@/ui'
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, Image, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native'
+import { Animated, Image, StyleSheet, useWindowDimensions, View } from 'react-native'
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Snackbar, TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
@@ -56,6 +57,7 @@ export const PlacestoVisitDetailsScreen = () => {
     .slice(0, 5)
 
   const { uri, loading } = useGetImage({ placeName: title })
+  const { uris, loading: imagesListLoading } = useGetImagesList({ placeName: title, size: 5 })
 
   const [commentsArr, setCommentsArr] = useState<Comment[]>(comments)
   const [userComment, setUserComment] = useState<Comment | null>(null)
@@ -98,12 +100,28 @@ export const PlacestoVisitDetailsScreen = () => {
     setGrade(0)
   }
 
+  const [visibleSnackBar, setVisibleSnackBar] = React.useState(false)
+  const handleHideSnackBar = () => setVisibleSnackBar(false)
+
+  const isLoading = loading || imagesListLoading
+
   return (
     <GestureHandlerRootView style={[StyleSheet.absoluteFillObject]}>
-      {loading ? (
+      {isLoading ? (
         <Spinner />
       ) : (
         <>
+          <Snackbar
+            visible={visibleSnackBar}
+            onDismiss={handleHideSnackBar}
+            style={{ zIndex: 1000 }}
+            action={{
+              label: 'Окей',
+            }}
+          >
+            Фотографии успешно загружены
+          </Snackbar>
+
           <Image
             style={[StyleSheet.absoluteFillObject, { height }]}
             resizeMode='cover'
@@ -111,9 +129,9 @@ export const PlacestoVisitDetailsScreen = () => {
             source={{ uri }}
           />
           {showBackButton && (
-            <TouchableOpacity onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
+            <TouchableRipple onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
               <Icon name='arrow-back' color={Colors.white} size={27} />
-            </TouchableOpacity>
+            </TouchableRipple>
           )}
 
           <View style={[styles.header, { height: HEADER_MAX_HEIGHT }]}>
@@ -143,7 +161,7 @@ export const PlacestoVisitDetailsScreen = () => {
                       />
                     </View>
                   ) : null}
-                  <PlacesToVisitPhotos uri={uri} />
+                  <PlacesToVisitPhotos uris={uris} title={title} showSnackbar={setVisibleSnackBar} />
                   <PlacesToVisitContacts item={info} />
                   <PlacesToVisitMap lat={lat} lon={lon} title={title} />
                   {similarPlaces?.length > 0 && (

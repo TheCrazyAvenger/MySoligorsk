@@ -9,10 +9,10 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     width: 230,
     height: 320,
+    marginLeft: 20,
     marginBottom: 30,
     borderRadius: 20,
     backgroundColor: Colors.white,
-
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

@@ -1,6 +1,6 @@
 import { Button, Input, Typography } from '@/ui'
 import React, { useEffect, useState } from 'react'
-import { View } from 'react-native-animatable'
+import { View } from 'react-native'
 import { AirbnbRating } from 'react-native-elements'
 import { styles } from './styles'
 
@@ -70,7 +70,7 @@ export const PlacesToVisitEditComments = ({ grade, sendComment, handleClose }: P
         <Button loading={loading} onPress={handleSendComment} disabled={grade === 0} buttonStyle={{ marginBottom: 20 }}>
           Отправить
         </Button>
-        <Button outlined onPress={handleClose} disabled={grade === 0} buttonStyle={{}}>
+        <Button outlined onPress={handleClose} disabled={grade === 0}>
           Отмена
         </Button>
       </View>

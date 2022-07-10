@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     marginTop: 40,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   headerTitle: {
     fontSize: 30,

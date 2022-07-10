@@ -16,6 +16,8 @@ export enum Screens {
   acquaintanceNames = 'Acquaintance: Names',
   placestoVisitDetails = 'Places To Visit: Details',
   placesToVisitComments = 'Places To Visit: Comments',
+  placesToVisitPhoto = 'Places To Visit: Photo',
+  placesToVisitPhotos = 'Places To Visit: Photos',
 }
 
 export enum Navigators {

@@ -3,7 +3,8 @@ import { useGetImage } from '@/hooks'
 import { Skeleton, Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Animated, StyleSheet, View } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { styles } from './styles'
 
@@ -56,8 +57,8 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Prop
       {loading ? (
         <Skeleton width={placesToVisitTheme.ITEM_WIDTH} height={placesToVisitTheme.ITEM_HEIGHT} />
       ) : (
-        <TouchableOpacity
-          activeOpacity={0.7}
+        <TouchableRipple
+          borderless
           onPress={handleGoToDetails}
           style={[styles.container, { marginRight: isLast ? ITEM_WIDTH : 0 }]}
         >
@@ -76,13 +77,13 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Prop
                 </Typography.SmallDescription>
               </Animated.View>
               <Animated.View style={[styles.likeButton, { opacity }]}>
-                <TouchableOpacity onPress={handleLike} activeOpacity={0.7}>
+                <TouchableRipple onPress={handleLike} borderless style={{ borderRadius: 20 }}>
                   <Icon name={like ? 'favorite' : 'favorite-outline'} size={30} color={Colors.white} />
-                </TouchableOpacity>
+                </TouchableRipple>
               </Animated.View>
             </Animated.View>
           </View>
-        </TouchableOpacity>
+        </TouchableRipple>
       )}
       {isLast && (
         <Typography.Default style={{ position: 'absolute', right: ITEM_WIDTH / 2.8, top: ITEM_HEIGHT / 2 }}>

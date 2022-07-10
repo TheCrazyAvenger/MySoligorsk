@@ -3,7 +3,8 @@ import { Typography } from '@/ui'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import auth from '@react-native-firebase/auth'
 import React, { useMemo } from 'react'
-import { Image, TouchableOpacity, View } from 'react-native'
+import { Image, View } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import { useSelector } from 'react-redux'
 import { styles } from './styles'
 
@@ -42,9 +43,9 @@ export const HomeHeader = () => {
           {firstname}, {startPhrazes[currentPhraze]}
         </Typography.Subtitle>
       </View>
-      <TouchableOpacity onPress={handleLogout}>
+      <TouchableRipple borderless style={{ borderRadius: 20 }} onPress={handleLogout}>
         <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
-      </TouchableOpacity>
+      </TouchableRipple>
     </View>
   )
 }

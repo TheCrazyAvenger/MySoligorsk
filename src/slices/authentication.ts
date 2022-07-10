@@ -27,7 +27,7 @@ const authenticationSlice = createSlice({
       return {
         ...state,
         isAnonymous: action.payload.isAnonymous,
-        loginInfo: { ...action.payload },
+        loginInfo: { ...action.payload.loginInfo },
         isLoggedIn: true,
         isRegistered: action.payload.isRegistered,
       }

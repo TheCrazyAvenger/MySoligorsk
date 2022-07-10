@@ -3,7 +3,8 @@ import { Typography } from '@/ui'
 import { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 import { useNavigation } from '@react-navigation/native'
 import React, { useMemo } from 'react'
-import { TouchableOpacity, useWindowDimensions } from 'react-native'
+import { useWindowDimensions } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -29,9 +30,9 @@ export const PlacesToVisitHeader = ({ animatedIndex, title }: BottomSheetBackdro
 
   return (
     <Animated.View style={containerStyle}>
-      <TouchableOpacity style={[styles.back, { top: insets.top + 15 }]} onPress={handleGoBack}>
+      <TouchableRipple borderless style={[styles.back, { top: insets.top + 15 }]} onPress={handleGoBack}>
         <Icon name='arrow-back' color={Colors.black} size={27} />
-      </TouchableOpacity>
+      </TouchableRipple>
       <Typography.H3 size={19} style={{ fontFamily: Fonts.openSansBold }}>
         {title}
       </Typography.H3>

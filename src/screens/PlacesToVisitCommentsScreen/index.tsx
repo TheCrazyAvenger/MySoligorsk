@@ -1,8 +1,8 @@
-import { Colors, Fonts } from '@/constants'
+import { Colors } from '@/constants'
 import { Divider, Typography } from '@/ui'
 import { useRoute } from '@react-navigation/native'
 import React from 'react'
-import { ScrollView, View } from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
@@ -24,21 +24,29 @@ export const PlacesToVisitCommentsScreen = () => {
 
         return (
           <View key={i}>
-            <Typography.Default mb={3} style={{ fontFamily: Fonts.openSansSemiBold, fontSize: 16 }}>
-              {user}
-            </Typography.Default>
-            <View style={styles.commentGrade}>
-              {Array.from(Array(5).keys()).map((item) => {
-                const isColored = item < grade
-                return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
-              })}
-              <Typography.Description lineH={16} ml={5}>
-                {commentDate}
-              </Typography.Description>
+            {i !== 0 && <Divider />}
+            <View style={styles.commentSection}>
+              <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+              <View>
+                <Typography.Default mb={3} type='semiBold'>
+                  {user}
+                </Typography.Default>
+                <View style={styles.commentGrade}>
+                  {Array.from(Array(5).keys()).map((item) => {
+                    const isColored = item < grade
+                    return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
+                  })}
+                  <Typography.Subtitle mt={2} ml={5}>
+                    {commentDate}
+                  </Typography.Subtitle>
+                </View>
+              </View>
             </View>
-            <Typography.Default style={{ fontSize: 16 }}>{comment}</Typography.Default>
-
-            {i !== data.length - 1 && <Divider />}
+            {comment ? (
+              <Typography.Description mt={5} ml={20}>
+                {comment}
+              </Typography.Description>
+            ) : null}
           </View>
         )
       })}

@@ -2,7 +2,7 @@ import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  itemContainer: {
+  container: {
     borderRadius: 10,
     backgroundColor: Colors.white,
     padding: 10,

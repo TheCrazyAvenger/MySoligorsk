@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 0,
     left: 20,
+    borderRadius: 20,
   },
   title: {
     fontFamily: Fonts.openSansBold,

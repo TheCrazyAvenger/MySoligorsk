@@ -1,14 +1,8 @@
 import { Colors } from '@/constants'
 import React, { ReactNode } from 'react'
-import {
-  ActivityIndicator,
-  GestureResponderEvent,
-  StyleProp,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  ViewStyle,
-} from 'react-native'
+import { ActivityIndicator, GestureResponderEvent, StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
 export type ButtonProps = {
@@ -20,6 +14,7 @@ export type ButtonProps = {
   textStyle?: StyleProp<TextStyle>
   loading?: boolean
   error?: boolean
+  icon?: string
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -31,9 +26,11 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   loading,
   error,
+  icon,
 }) => {
   return (
-    <TouchableOpacity
+    <TouchableRipple
+      borderless
       style={[
         styles.button,
         outlined && styles.outlinedButton,
@@ -44,17 +41,21 @@ export const Button: React.FC<ButtonProps> = ({
       onPress={onPress}
       disabled={disabled || loading}
     >
-      <Text
-        style={[
-          styles.text,
-          outlined && styles.outlinedText,
-          (disabled || loading) && styles.disabledText,
-          (disabled || loading) && outlined && styles.disabledOutlinedText,
-          textStyle,
-        ]}
-      >
-        {loading ? <ActivityIndicator color={Colors.white} /> : children}
-      </Text>
-    </TouchableOpacity>
+      <View style={styles.buttonInner}>
+        {icon ? <Icon name={icon} color={Colors.white} size={25} style={{ marginRight: 7 }} /> : null}
+        <Text
+          style={[
+            styles.text,
+            outlined && styles.outlinedText,
+            (disabled || loading) && styles.disabledText,
+            (disabled || loading) && outlined && styles.disabledOutlinedText,
+            icon ? { fontSize: 15 } : null,
+            textStyle,
+          ]}
+        >
+          {loading ? <ActivityIndicator color={Colors.white} /> : children}
+        </Text>
+      </View>
+    </TouchableRipple>
   )
 }

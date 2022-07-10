@@ -1,19 +1,25 @@
-import { Colors, Fonts } from '@/constants'
+import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingTop: 20,
     backgroundColor: Colors.white,
   },
-  contentTitle: {
-    fontFamily: Fonts.openSansBold,
-    color: Colors.black,
-    textTransform: 'uppercase',
+  commentSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 8,
   },
   noReviews: {
     alignItems: 'center',
-    marginTop: 30,
+    paddingVertical: 30,
   },
   commentGrade: {
     flexDirection: 'row',

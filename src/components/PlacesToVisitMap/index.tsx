@@ -1,8 +1,9 @@
 import { Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Linking, Platform, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native'
+import { Linking, Platform, StyleSheet, useWindowDimensions, View } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
+import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { styles } from './styles'
 
@@ -33,11 +34,7 @@ export const PlacesToVisitMap = ({ lat, lon, title }: Props) => {
     <>
       <Typography.H4 ml={20}>Карта</Typography.H4>
       <View style={styles.mapContainer}>
-        <TouchableOpacity
-          activeOpacity={0.9}
-          onPress={openExternalApp}
-          style={[styles.mapView, { height: width / 1.15 }]}
-        >
+        <TouchableRipple borderless onPress={openExternalApp} style={[styles.mapView, { height: width / 1.15 }]}>
           <MapView
             scrollEnabled={false}
             zoomEnabled={false}
@@ -53,7 +50,7 @@ export const PlacesToVisitMap = ({ lat, lon, title }: Props) => {
           >
             <Marker coordinate={{ latitude: lat, longitude: lon }} />
           </MapView>
-        </TouchableOpacity>
+        </TouchableRipple>
       </View>
     </>
   )

@@ -1,6 +1,11 @@
 import { Header } from '@/components'
 import { Navigators, Screens } from '@/constants'
-import { PlacesToVisitCommentsScreen, PlacestoVisitDetailsScreen } from '@/screens'
+import {
+  PlacesToVisitCommentsScreen,
+  PlacestoVisitDetailsScreen,
+  PlacesToVisitPhotoScreen,
+  PlacesToVisitPhotosScreen,
+} from '@/screens'
 import { selectIsRegistered } from '@/selectors'
 import { createNativeStackNavigator, NativeStackNavigationOptions } from '@react-navigation/native-stack'
 import React from 'react'
@@ -15,6 +20,14 @@ const stackNavigatorOptions: NativeStackNavigationOptions = {
   headerBackTitleVisible: false,
   animation: 'fade_from_bottom',
   header: (props: any) => <Header {...props} />,
+}
+
+const photoOptions: NativeStackNavigationOptions = {
+  headerShadowVisible: false,
+  headerBackTitleVisible: false,
+  animation: 'fade_from_bottom',
+  title: 'Фото',
+  header: (props: any) => <Header dark {...props} />,
 }
 
 const bottomTabNavigatorOptions = {
@@ -44,16 +57,24 @@ export const ApplicationStackNavigator = () => {
       )}
 
       <Stack.Screen name={Navigators.bottomTabs} component={BottomTabNavigator} options={bottomTabNavigatorOptions} />
-      <Stack.Screen
-        name={Screens.placestoVisitDetails}
-        component={PlacestoVisitDetailsScreen}
-        options={placesToVisitOptions}
-      />
-      <Stack.Screen
-        name={Screens.placesToVisitComments}
-        component={PlacesToVisitCommentsScreen}
-        options={{ title: 'Отзывы' }}
-      />
+      <Stack.Group>
+        <Stack.Screen
+          name={Screens.placestoVisitDetails}
+          component={PlacestoVisitDetailsScreen}
+          options={placesToVisitOptions}
+        />
+        <Stack.Screen
+          name={Screens.placesToVisitComments}
+          component={PlacesToVisitCommentsScreen}
+          options={{ title: 'Отзывы' }}
+        />
+        <Stack.Screen
+          name={Screens.placesToVisitPhotos}
+          component={PlacesToVisitPhotosScreen}
+          options={{ title: 'Фото' }}
+        />
+        <Stack.Screen name={Screens.placesToVisitPhoto} component={PlacesToVisitPhotoScreen} options={photoOptions} />
+      </Stack.Group>
     </Stack.Navigator>
   )
 }
