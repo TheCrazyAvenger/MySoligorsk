@@ -5,16 +5,17 @@ import {
   PlacesToVisitEditComments,
   PlacesToVisitHeader,
   PlacesToVisitMap,
+  PlacesToVisitPhotos,
   PlacesToVisitSimilarPlaces,
   PlacesToVisitYourComment,
 } from '@/components'
 import { Colors } from '@/constants'
+import { useGetImage } from '@/hooks'
 import { Spinner, Typography } from '@/ui'
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, Image, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native'
-import * as Animatable from 'react-native-animatable'
+import { Animated, Image, StyleSheet, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -35,7 +36,6 @@ export const PlacestoVisitDetailsScreen = () => {
   const bottomSheetRef = useRef<any>()
   const mainBottomSheetRef = useRef<any>()
 
-  const [loading, setLoading] = useState(true)
   const [grade, setGrade] = useState(0)
   const [showBackButton, setShowBackButton] = useState(true)
   const handleSetGrade = (value: number) => {
@@ -48,16 +48,14 @@ export const PlacestoVisitDetailsScreen = () => {
   const HEADER_MAX_HEIGHT = height * 0.6
   const HEADER_MIN_HEIGHT = height * 0.1
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 400)
-  }, [])
-
   const { image, title, id, category, content, location, comments, info } = route.params.data
   const { lat, lon } = location
 
   const similarPlaces = route.params.places
     ?.filter((item: any) => item.tags?.includes(category) && item.title !== title)
     .slice(0, 5)
+
+  const { uri, loading } = useGetImage({ placeName: title })
 
   const [commentsArr, setCommentsArr] = useState<Comment[]>(comments)
   const [userComment, setUserComment] = useState<Comment | null>(null)
@@ -102,74 +100,79 @@ export const PlacestoVisitDetailsScreen = () => {
 
   return (
     <GestureHandlerRootView style={[StyleSheet.absoluteFillObject]}>
-      <Image style={[StyleSheet.absoluteFillObject, { height }]} resizeMode='cover' blurRadius={5} source={image} />
-      {showBackButton && (
-        <TouchableOpacity onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
-          <Icon name='arrow-back' color={Colors.white} size={27} />
-        </TouchableOpacity>
-      )}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Image
+            style={[StyleSheet.absoluteFillObject, { height }]}
+            resizeMode='cover'
+            blurRadius={5}
+            source={{ uri }}
+          />
+          {showBackButton && (
+            <TouchableOpacity onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
+              <Icon name='arrow-back' color={Colors.white} size={27} />
+            </TouchableOpacity>
+          )}
 
-      <View style={[styles.header, { height: HEADER_MAX_HEIGHT }]}>
-        <Animated.Text style={styles.title}>{title}</Animated.Text>
-        <Text style={styles.subTitle}>{category}</Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
-          <Icon name={'star'} color={'orange'} size={21} />
-          <Typography.H3 ml={5} color={Colors.white}>
-            {avarageRate ? avarageRate.toFixed(1) : '0.0'}
-          </Typography.H3>
-        </View>
-      </View>
-
-      <BottomSheet
-        // animateOnMount={false}
-        ref={mainBottomSheetRef}
-        backdropComponent={(props) => <PlacesToVisitHeader title={title} {...props} />}
-        index={0}
-        snapPoints={[height - HEADER_MAX_HEIGHT + 50, height - HEADER_MIN_HEIGHT + 50]}
-      >
-        <BottomSheetScrollView>
-          <View style={styles.content}>
-            {loading ? (
-              <Spinner style={{ position: 'relative', height: height - HEADER_MAX_HEIGHT / 1.1, width: '100%' }} />
-            ) : (
-              <Animatable.View animation={'fadeInUp'}>
-                {content ? (
-                  <View style={{ marginBottom: 20 }}>
-                    <Typography.H4 ml={20}>{content.title}</Typography.H4>
-                    <FlatList
-                      data={content.items}
-                      keyExtractor={keyExtractor}
-                      renderItem={renderItem}
-                      contentContainerStyle={{ paddingLeft: 20 }}
-                      horizontal
-                      showsHorizontalScrollIndicator={false}
-                    />
-                  </View>
-                ) : null}
-                <PlacesToVisitContacts item={info} />
-                <PlacesToVisitMap lat={lat} lon={lon} title={title} />
-                {similarPlaces?.length > 0 && (
-                  <PlacesToVisitSimilarPlaces data={similarPlaces} places={route.params.places} />
-                )}
-                <PlacesToVisitYourComment handleSetGrade={handleSetGrade} grade={grade} comment={userComment} />
-                <PlacesToVisitComments data={commentsArr} />
-              </Animatable.View>
-            )}
+          <View style={[styles.header, { height: HEADER_MAX_HEIGHT }]}>
+            <Animated.Text style={styles.title}>{title}</Animated.Text>
           </View>
-        </BottomSheetScrollView>
-      </BottomSheet>
 
-      <BottomSheet
-        index={0}
-        enablePanDownToClose
-        enableContentPanningGesture={false}
-        ref={bottomSheetRef}
-        snapPoints={[0.01, height]}
-      >
-        <BottomSheetScrollView>
-          <PlacesToVisitEditComments grade={grade} sendComment={handleSendComment} handleClose={handleCloseComment} />
-        </BottomSheetScrollView>
-      </BottomSheet>
+          <BottomSheet
+            // animateOnMount={false}
+            ref={mainBottomSheetRef}
+            backdropComponent={(props) => <PlacesToVisitHeader title={title} {...props} />}
+            index={0}
+            snapPoints={[height - HEADER_MAX_HEIGHT + 50, height - HEADER_MIN_HEIGHT + 50]}
+          >
+            <BottomSheetScrollView>
+              <View style={styles.content}>
+                <View>
+                  {content ? (
+                    <View style={{ marginBottom: 20 }}>
+                      <Typography.H4 ml={20}>{content.title}</Typography.H4>
+                      <FlatList
+                        data={content.items}
+                        keyExtractor={keyExtractor}
+                        renderItem={renderItem}
+                        contentContainerStyle={{ paddingLeft: 20 }}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                      />
+                    </View>
+                  ) : null}
+                  <PlacesToVisitPhotos uri={uri} />
+                  <PlacesToVisitContacts item={info} />
+                  <PlacesToVisitMap lat={lat} lon={lon} title={title} />
+                  {similarPlaces?.length > 0 && (
+                    <PlacesToVisitSimilarPlaces data={similarPlaces} places={route.params.places} />
+                  )}
+                  <PlacesToVisitYourComment handleSetGrade={handleSetGrade} grade={grade} comment={userComment} />
+                  <PlacesToVisitComments data={commentsArr} />
+                </View>
+              </View>
+            </BottomSheetScrollView>
+          </BottomSheet>
+
+          <BottomSheet
+            index={0}
+            enablePanDownToClose
+            enableContentPanningGesture={false}
+            ref={bottomSheetRef}
+            snapPoints={[0.01, height]}
+          >
+            <BottomSheetScrollView>
+              <PlacesToVisitEditComments
+                grade={grade}
+                sendComment={handleSendComment}
+                handleClose={handleCloseComment}
+              />
+            </BottomSheetScrollView>
+          </BottomSheet>
+        </>
+      )}
     </GestureHandlerRootView>
   )
 }

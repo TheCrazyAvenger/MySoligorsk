@@ -1,5 +1,5 @@
 import { Colors } from '@/constants'
-import { Typography } from '@/ui'
+import { Divider, Typography } from '@/ui'
 import React from 'react'
 import { Linking, Platform, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -45,7 +45,7 @@ export const PlacesToVisitContacts = ({ item }: Props) => {
             </Typography.Description>
           </View>
         </View>
-        <View style={styles.line} />
+        <Divider />
         <View style={styles.infoItem}>
           <Icon name={'call'} size={23} color={Colors.iconGrey} />
           <View style={{ marginLeft: 15 }}>
@@ -57,7 +57,7 @@ export const PlacesToVisitContacts = ({ item }: Props) => {
         </View>
         {item?.web ? (
           <>
-            <View style={styles.line} />
+            <Divider />
 
             <View style={styles.infoItem}>
               <Icon name={'globe-outline'} color={Colors.iconGrey} size={23} />

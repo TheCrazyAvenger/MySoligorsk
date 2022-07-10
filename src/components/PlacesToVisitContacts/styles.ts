@@ -11,12 +11,7 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingHorizontal: 20,
   },
-  line: {
-    width: '100%',
-    height: 1,
-    backgroundColor: Colors.lightGrey,
-    marginVertical: 10,
-  },
+
   socialItem: {
     marginLeft: 20,
     marginTop: 21,

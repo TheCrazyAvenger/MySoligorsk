@@ -12,7 +12,6 @@ const DUMMY_PLACES = [
     title: 'Шава Хаўз',
     category: 'Шаурмечная',
     tags: ['Шаурмечная', 'Кафе'],
-    image: require('@/assets/images/shavahouse.png'),
     location: {
       lat: 52.7926454,
       lon: 27.5414154,
@@ -107,7 +106,6 @@ const DUMMY_PLACES = [
     title: 'Green',
     category: 'ТЦ',
     tags: 'ТЦ',
-    image: require('@/assets/images/green.png'),
     location: {
       lat: 52.7923472,
       lon: 27.5421693,
@@ -138,7 +136,6 @@ const DUMMY_PLACES = [
   {
     title: 'Мята',
     category: 'Кальянная',
-    image: require('@/assets/images/mint.jpg'),
     location: {
       lat: 52.7928931,
       lon: 27.5444218,
@@ -169,7 +166,6 @@ const DUMMY_PLACES = [
     title: 'Корона',
     category: 'ТЦ',
     tags: 'ТЦ',
-    image: require('@/assets/images/crown.png'),
     location: {
       lat: 52.7897416,
       lon: 27.5329346,
@@ -200,7 +196,6 @@ const DUMMY_PLACES = [
     title: 'Донер Стайл',
     category: 'Шаурмечная',
     tags: ['Шаурмечная', 'Кафе'],
-    image: require('@/assets/images/donerstayl.jpg'),
     location: {
       lat: 52.7838424,
       lon: 27.5033468,
@@ -314,7 +309,6 @@ const DUMMY_PLACES = [
     title: 'Шеф',
     category: 'Шаурмечная',
     tags: ['Шаурмечная', 'Кафе'],
-    image: require('@/assets/images/chef.png'),
     location: {
       lat: 52.7895714,
       lon: 27.5209499,

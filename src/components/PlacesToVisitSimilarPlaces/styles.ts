@@ -48,6 +48,7 @@ export const styles = StyleSheet.create({
     bottom: 20,
     height: 27,
     left: 20,
+    paddingVertical: 4,
     paddingHorizontal: 9,
     borderRadius: 30,
   },

@@ -1,5 +1,5 @@
 import { Colors, Fonts } from '@/constants'
-import { Typography } from '@/ui'
+import { Divider, Typography } from '@/ui'
 import { useRoute } from '@react-navigation/native'
 import React from 'react'
 import { ScrollView, View } from 'react-native'
@@ -38,7 +38,7 @@ export const PlacesToVisitCommentsScreen = () => {
             </View>
             <Typography.Default style={{ fontSize: 16 }}>{comment}</Typography.Default>
 
-            {i !== data.length - 1 && <View style={styles.line} />}
+            {i !== data.length - 1 && <Divider />}
           </View>
         )
       })}

@@ -14,44 +14,42 @@ type Props = {
 
 export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment }: Props) => {
   return (
-    <View>
-      <View style={styles.container}>
-        <Typography.H4>Ваш отзыв</Typography.H4>
-        <Typography.Default mb={20}>Поделитесь вашими впечатлениями</Typography.Default>
-        {comment ? (
-          <View style={styles.comment}>
-            <View style={styles.commentSection}>
-              <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
-              <View>
-                <Typography.Default mb={3} type='semiBold'>
-                  {comment.user}
-                </Typography.Default>
-                <View style={styles.commentGrade}>
-                  {Array.from(Array(5).keys()).map((item) => {
-                    const isColored = item < comment.grade
-                    return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
-                  })}
-                  <Typography.Description lineH={16} ml={5}>
-                    {comment.commentDate}
-                  </Typography.Description>
-                </View>
+    <View style={styles.container}>
+      <Typography.H4>Ваш отзыв</Typography.H4>
+      {!comment && <Typography.Default mb={10}>Поделитесь вашими впечатлениями</Typography.Default>}
+      {comment ? (
+        <View style={styles.comment}>
+          <View style={styles.commentSection}>
+            <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+            <View>
+              <Typography.Default mb={3} type='semiBold'>
+                {comment.user}
+              </Typography.Default>
+              <View style={styles.commentGrade}>
+                {Array.from(Array(5).keys()).map((item) => {
+                  const isColored = item < comment.grade
+                  return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
+                })}
+                <Typography.Description lineH={16} ml={5}>
+                  {comment.commentDate}
+                </Typography.Description>
               </View>
             </View>
-            {comment.comment ? <Typography.Description mt={5}>{comment.comment}</Typography.Description> : null}
           </View>
-        ) : (
-          <View style={styles.reviewHeader}>
-            <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
-            <AirbnbRating
-              onFinishRating={handleSetGrade}
-              showRating={false}
-              defaultRating={grade}
-              size={35}
-              selectedColor={'orange'}
-            />
-          </View>
-        )}
-      </View>
+          {comment.comment ? <Typography.Description mt={5}>{comment.comment}</Typography.Description> : null}
+        </View>
+      ) : (
+        <View style={styles.reviewHeader}>
+          <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+          <AirbnbRating
+            onFinishRating={handleSetGrade}
+            showRating={false}
+            defaultRating={grade}
+            size={35}
+            selectedColor={'orange'}
+          />
+        </View>
+      )}
     </View>
   )
 }

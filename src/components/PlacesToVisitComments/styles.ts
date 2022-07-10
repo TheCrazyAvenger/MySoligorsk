@@ -1,4 +1,3 @@
-import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
@@ -23,11 +22,5 @@ export const styles = StyleSheet.create({
   commentGrade: {
     flexDirection: 'row',
     marginBottom: 2,
-  },
-  line: {
-    width: '100%',
-    height: 1,
-    backgroundColor: Colors.lightGrey,
-    marginVertical: 15,
   },
 })

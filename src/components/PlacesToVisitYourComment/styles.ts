@@ -1,4 +1,3 @@
-import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
@@ -6,34 +5,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   comment: {
-    backgroundColor: Colors.white,
-    borderRadius: 30,
-    marginBottom: 20,
-    padding: 20,
-    paddingVertical: 15,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    marginTop: 10,
+    marginBottom: 5,
   },
   reviewHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F2F2F2',
-    borderRadius: 30,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    marginBottom: 5,
   },
   avatar: {
     width: 40,

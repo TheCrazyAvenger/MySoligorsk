@@ -19,10 +19,4 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 2,
   },
-  line: {
-    width: '100%',
-    height: 0.5,
-    backgroundColor: Colors.black,
-    marginVertical: 10,
-  },
 })

@@ -1,5 +1,5 @@
 import { Colors, Screens } from '@/constants'
-import { Typography } from '@/ui'
+import { Divider, Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useMemo } from 'react'
 import { Image, TouchableOpacity, View } from 'react-native'
@@ -22,7 +22,9 @@ export const PlacesToVisitComments = ({ data }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Typography.H4 ml={20} mb={10}>{`Отзывы ${commentsSize !== 0 ? `(${commentsSize})` : ''}`}</Typography.H4>
+      <Typography.H4 ml={20} mb={10}>
+        Отзывы
+      </Typography.H4>
       {data.length === 0 ? (
         <View style={styles.noReviews}>
           <Icon name={'chatbubbles-outline'} size={50} color={Colors.black} />
@@ -36,7 +38,7 @@ export const PlacesToVisitComments = ({ data }: Props) => {
 
           return (
             <View key={i}>
-              {i !== 0 && <View style={styles.line} />}
+              {i !== 0 && <Divider />}
               <View style={styles.commentSection}>
                 <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
                 <View>
@@ -48,7 +50,9 @@ export const PlacesToVisitComments = ({ data }: Props) => {
                       const isColored = item < grade
                       return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
                     })}
-                    <Typography.Description ml={5}>{commentDate}</Typography.Description>
+                    <Typography.Subtitle mt={2} ml={5}>
+                      {commentDate}
+                    </Typography.Subtitle>
                   </View>
                 </View>
               </View>

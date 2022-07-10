@@ -1,5 +1,14 @@
+import { Colors } from '@/constants'
 import React, { ReactNode } from 'react'
-import { GestureResponderEvent, StyleProp, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
+import {
+  ActivityIndicator,
+  GestureResponderEvent,
+  StyleProp,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from 'react-native'
 import { styles } from './styles'
 
 export type ButtonProps = {
@@ -44,7 +53,7 @@ export const Button: React.FC<ButtonProps> = ({
           textStyle,
         ]}
       >
-        {loading ? 'Загрузка...' : children}
+        {loading ? <ActivityIndicator color={Colors.white} /> : children}
       </Text>
     </TouchableOpacity>
   )

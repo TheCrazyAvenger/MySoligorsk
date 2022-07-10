@@ -1,5 +1,6 @@
 import { Colors, Fonts, Screens } from '@/constants'
-import { Typography } from '@/ui'
+import { useGetImage } from '@/hooks'
+import { Skeleton, Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
@@ -22,8 +23,10 @@ export const PlacesToVisitSimilarPlaces = ({ data, places }: Props) => {
       </Typography.H4>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
         {data.map((item: any, i: number) => {
-          const { title, image, category, workingHours } = item
+          const { title, category, workingHours } = item
           const isLast = i === data.length - 1
+
+          const { uri, loading } = useGetImage({ placeName: title })
 
           const currentDay = new Date().getDay()
           const currentWorkingHours = workingHours[currentDay]
@@ -34,14 +37,16 @@ export const PlacesToVisitSimilarPlaces = ({ data, places }: Props) => {
           const handleLike = () => setLike((prev) => !prev)
           const handleGoToDetails = () => navigation.replace(Screens.placestoVisitDetails, { data: item, places })
 
-          return (
+          return loading ? (
+            <Skeleton key={title} width={230} height={320} />
+          ) : (
             <TouchableOpacity
               key={i}
               activeOpacity={0.7}
               onPress={handleGoToDetails}
               style={[styles.container, { marginLeft: 20, marginRight: isLast ? 20 : 0 }]}
             >
-              <Image style={[StyleSheet.absoluteFillObject, styles.image]} source={image} resizeMode={'cover'} />
+              <Image style={[StyleSheet.absoluteFillObject, styles.image]} source={{ uri }} resizeMode={'cover'} />
               <View style={styles.imageInner}>
                 <Typography.H2 style={styles.title} color={Colors.white}>
                   {title}
@@ -51,7 +56,7 @@ export const PlacesToVisitSimilarPlaces = ({ data, places }: Props) => {
                 </Typography.Default>
 
                 <View style={styles.hoursContainer}>
-                  <Typography.SmallDescription mt={2}>
+                  <Typography.SmallDescription style={{ fontFamily: Fonts.openSansSemiBold }} size={11}>
                     {open} - {close}
                   </Typography.SmallDescription>
                 </View>
