@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
     lineHeight: 76,
     color: Colors.white,
     fontSize: 70,
-    marginLeft: -5,
   },
   subTitle: {
     fontFamily: Fonts.openSansSemiBold,
@@ -51,5 +50,9 @@ export const styles = StyleSheet.create({
   },
   itemTitle: {
     fontFamily: Fonts.openSansBold,
+  },
+  reviewSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 })

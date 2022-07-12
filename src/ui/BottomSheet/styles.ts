@@ -6,4 +6,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
+  info: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
 })

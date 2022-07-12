@@ -2,9 +2,6 @@ import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  container: {
-    marginBottom: 30,
-  },
   imageContainer: {
     height: 200,
     marginLeft: 20,
@@ -25,7 +22,7 @@ export const styles = StyleSheet.create({
     height: 200,
     width: 200,
     marginHorizontal: 20,
-    marginBottom: 20,
+    marginBottom: 30,
     borderRadius: 20,
     overflow: 'hidden',
     backgroundColor: Colors.white,

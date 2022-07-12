@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20,
+    paddingBottom: 20,
   },
   commentSection: {
     flexDirection: 'row',

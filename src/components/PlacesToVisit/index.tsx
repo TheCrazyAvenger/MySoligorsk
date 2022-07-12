@@ -11,7 +11,7 @@ const DUMMY_PLACES = [
   {
     title: 'Шава Хаўз',
     category: 'Шаурмечная',
-    tags: ['Шаурмечная', 'Кафе'],
+    categories: ['Шаурмечная', 'Кафе'],
     location: {
       lat: 52.7926454,
       lon: 27.5414154,
@@ -105,13 +105,13 @@ const DUMMY_PLACES = [
   {
     title: 'Green',
     category: 'ТЦ',
-    tags: 'ТЦ',
+    categories: ['ТЦ'],
     location: {
       lat: 52.7923472,
       lon: 27.5421693,
     },
     info: {
-      phones: [{ title: 'Доставка', number: '+375291913364' }],
+      phones: [],
       address: { title: 'Железнодорожная 21А', lat: 52.7923472, lon: 27.5421693 },
       web: 'green-market.by',
       socials: [
@@ -136,6 +136,7 @@ const DUMMY_PLACES = [
   {
     title: 'Мята',
     category: 'Кальянная',
+    categories: ['Кальянная'],
     location: {
       lat: 52.7928931,
       lon: 27.5444218,
@@ -147,7 +148,7 @@ const DUMMY_PLACES = [
       socials: [
         { icon: 'instagram', url: 'https://www.instagram.com/myata.soligorsk/' },
         { icon: 'account-box', url: 'https://vk.com/myata.soligorsk' },
-        { icon: 'facebook', url: '  https://www.facebook.com/pages/category/Lounge/myatasoligorsk-229866455043348/' },
+        { icon: 'facebook', url: 'https://www.facebook.com/pages/category/Lounge/myatasoligorsk-229866455043348/' },
       ],
     },
     workingHours: [
@@ -165,7 +166,7 @@ const DUMMY_PLACES = [
   {
     title: 'Корона',
     category: 'ТЦ',
-    tags: 'ТЦ',
+    categories: ['ТЦ'],
     location: {
       lat: 52.7897416,
       lon: 27.5329346,
@@ -195,7 +196,7 @@ const DUMMY_PLACES = [
   {
     title: 'Донер Стайл',
     category: 'Шаурмечная',
-    tags: ['Шаурмечная', 'Кафе'],
+    categories: ['Шаурмечная', 'Кафе'],
     location: {
       lat: 52.7838424,
       lon: 27.5033468,
@@ -308,7 +309,7 @@ const DUMMY_PLACES = [
   {
     title: 'Шеф',
     category: 'Шаурмечная',
-    tags: ['Шаурмечная', 'Кафе'],
+    categories: ['Шаурмечная', 'Кафе'],
     location: {
       lat: 52.7895714,
       lon: 27.5209499,

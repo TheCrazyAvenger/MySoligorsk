@@ -1,17 +1,17 @@
 import { Button, Input, Typography } from '@/ui'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { AirbnbRating } from 'react-native-elements'
 import { styles } from './styles'
 
-type Props = {
-  handleClose: (...args: any) => any
-  sendComment: (...args: any) => any
-  grade: number
-}
+export const PlacesToVisitEditCommentsScreen = () => {
+  const route = useRoute<any>()
+  const navigation = useNavigation()
 
-export const PlacesToVisitEditComments = ({ grade, sendComment, handleClose }: Props) => {
   const [loading, setLoading] = useState(false)
+
+  const { grade } = route.params
 
   const [userGrade, setUserGrade] = useState(grade)
   const handleSetGrade = (value: number) => setUserGrade(Number(value))
@@ -30,9 +30,11 @@ export const PlacesToVisitEditComments = ({ grade, sendComment, handleClose }: P
       comment: value.trim(),
       date: new Date().toString(),
     }
-    sendComment(comment)
+    // sendComment(comment)
     setLoading(false)
   }
+
+  const handleGoBack = () => navigation.goBack()
 
   return (
     <View style={styles.container}>
@@ -70,7 +72,7 @@ export const PlacesToVisitEditComments = ({ grade, sendComment, handleClose }: P
         <Button loading={loading} onPress={handleSendComment} disabled={grade === 0} buttonStyle={{ marginBottom: 20 }}>
           Отправить
         </Button>
-        <Button outlined onPress={handleClose} disabled={grade === 0}>
+        <Button outlined onPress={handleGoBack} disabled={grade === 0}>
           Отмена
         </Button>
       </View>

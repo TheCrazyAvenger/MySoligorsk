@@ -1,7 +1,8 @@
 import { Colors } from '@/constants'
-import { Divider, Typography } from '@/ui'
-import React from 'react'
-import { Linking, Platform, View } from 'react-native'
+import { getWorkingHoursMessage } from '@/helpers'
+import { BottomSheet, Divider, Typography } from '@/ui'
+import React, { useMemo, useState } from 'react'
+import { Linking, Platform, TouchableOpacity, useWindowDimensions, View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -9,11 +10,12 @@ import { styles } from './styles'
 
 type Props = {
   item: any
+  workingHours: { close: string; day: string; id: number; open: string }[]
 }
 
-export const PlacesToVisitContacts = ({ item }: Props) => {
+export const PlacesToVisitContacts = ({ item, workingHours }: Props) => {
   const { phones, address, web, socials } = item
-  // const { title, lat, lon } = address
+  const { width } = useWindowDimensions()
 
   const handleOpenPhone = () => Linking.openURL(`tel:${'+375291913364'}`)
   const handleOpenMap = () => {
@@ -31,6 +33,26 @@ export const PlacesToVisitContacts = ({ item }: Props) => {
     Linking.openURL(`https://${web}`)
   }
 
+  const currentDay = new Date().getDay()
+  const workingHoursData = useMemo(() => {
+    const lastDay = {
+      title: workingHours[0].day,
+      description: `${workingHours[0].open} - ${workingHours[0].close}`,
+      isSelected: currentDay === 0,
+    }
+    const otherDays = workingHours.map((item, i) => ({
+      title: item.day,
+      description: `${item.open} - ${item.close}`,
+      isSelected: currentDay === i,
+    }))
+
+    return [...otherDays.filter((_, i) => i !== 0), lastDay]
+  }, [workingHours])
+  const [isMenuVisible, setIsMenuVisible] = useState(false)
+  const handleOpenMenu = () => setIsMenuVisible(true)
+
+  const workingHoursMessage = useMemo(() => getWorkingHoursMessage(workingHours), [workingHours])
+
   return (
     <>
       <Typography.H4 ml={20} mb={5}>
@@ -41,38 +63,46 @@ export const PlacesToVisitContacts = ({ item }: Props) => {
           <Icon name={'location'} size={23} color={Colors.iconGrey} />
           <View style={{ marginLeft: 15 }}>
             <Typography.Default type='semiBold'>Адрес</Typography.Default>
-            <Typography.Description onPress={handleOpenMap} mt={10} color={Colors.primary}>
-              {address.title}
-            </Typography.Description>
+            <TouchableOpacity activeOpacity={0.4} onPress={handleOpenMap}>
+              <Typography.Description mt={10} color={Colors.primary}>
+                {address.title}
+              </Typography.Description>
+            </TouchableOpacity>
           </View>
         </View>
-        <Divider />
-        <View style={styles.infoItem}>
-          <Icon name={'call'} size={23} color={Colors.iconGrey} />
-          <View style={{ marginLeft: 15 }}>
-            <Typography.Default type='semiBold'>Телефон</Typography.Default>
-            <Typography.Description onPress={handleOpenPhone} mt={10} color={Colors.primary}>
-              {phones[0].number} <Typography.Subtitle>• {phones[0].title}</Typography.Subtitle>
-            </Typography.Description>
-          </View>
-        </View>
-        {item?.web ? (
+        {item?.phones?.length ? (
           <>
             <Divider />
-
             <View style={styles.infoItem}>
-              <Icon name={'globe-outline'} color={Colors.iconGrey} size={23} />
+              <Icon name={'call'} size={23} color={Colors.iconGrey} />
               <View style={{ marginLeft: 15 }}>
-                <Typography.Default type='semiBold'>Сайт</Typography.Default>
-                <Typography.Description onPress={handleOpenWeb} mt={10} color={Colors.primary}>
-                  {web}
+                <Typography.Default type='semiBold'>Телефон</Typography.Default>
+                <Typography.Description onPress={handleOpenPhone} mt={10} color={Colors.primary}>
+                  {phones[0].number}{' '}
+                  <Typography.Subtitle> {phones[0].title ? `• ${phones[0].title}` : ''}</Typography.Subtitle>
                 </Typography.Description>
               </View>
             </View>
           </>
         ) : null}
+        {item?.web ? (
+          <>
+            <Divider />
+            <View style={styles.infoItem}>
+              <Icon name={'globe-outline'} color={Colors.iconGrey} size={23} />
+              <View style={{ marginLeft: 15 }}>
+                <Typography.Default type='semiBold'>Сайт</Typography.Default>
+                <TouchableOpacity activeOpacity={0.4} onPress={handleOpenWeb}>
+                  <Typography.Description mt={10} color={Colors.primary}>
+                    {web}
+                  </Typography.Description>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </>
+        ) : null}
 
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', marginLeft: 35 }}>
           {socials.map((item: any, i: number) => {
             const handleOpenSocial = () => Linking.openURL(item.url)
 
@@ -83,6 +113,24 @@ export const PlacesToVisitContacts = ({ item }: Props) => {
             )
           })}
         </View>
+
+        <Divider />
+
+        <View style={styles.infoItem}>
+          <Icon name={'time-outline'} color={Colors.iconGrey} size={23} />
+          <View style={{ marginLeft: 15 }}>
+            <Typography.Default type='semiBold'>Время работы</Typography.Default>
+            <View style={[styles.timeInfo, { maxWidth: width - 40 }]}>
+              <Typography.Description color={workingHoursMessage.color}>
+                {workingHoursMessage.title}
+              </Typography.Description>
+              <TouchableOpacity activeOpacity={0.4} onPress={handleOpenMenu}>
+                <Typography.Subtitle> • Подробнее</Typography.Subtitle>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <BottomSheet data={workingHoursData} onClose={setIsMenuVisible} isVisible={isMenuVisible} />
       </View>
     </>
   )

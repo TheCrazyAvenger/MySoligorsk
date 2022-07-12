@@ -16,7 +16,7 @@ export const PlacesToVisitPhotosScreen = () => {
 
   const { title } = route.params
 
-  const { uris, loading } = useGetImagesList({ placeName: title, size: 5 })
+  const { uris, loading } = useGetImagesList({ placeName: title, size: 100 })
 
   const token = useSelector(selectToken)
   const { loading: loadingPhoto, sendPhoto } = useSendImage({ placeName: title, token })
@@ -72,19 +72,13 @@ export const PlacesToVisitPhotosScreen = () => {
       <Modal statusBarTranslucent visible={loadingPhoto}>
         <Spinner />
       </Modal>
-      <Button
-        icon={'camera'}
-        buttonStyle={{ marginHorizontal: 20, marginBottom: 16, width: 200, paddingVertical: 7 }}
-        onPress={handleOpenMenu}
-      >
-        Добавить фото
-      </Button>
+
       {loading || !uris ? (
         <Spinner />
       ) : (
         <ScrollView contentContainerStyle={styles.content}>
-          {uris.map((item: any) => {
-            const handleGoToPhoto = () => navigation.navigate(Screens.placesToVisitPhoto, { uri: item })
+          {uris.map((item: any, index: number) => {
+            const handleGoToPhoto = () => navigation.navigate(Screens.placesToVisitPhoto, { uris, index, title })
 
             return (
               <TouchableRipple
@@ -104,6 +98,13 @@ export const PlacesToVisitPhotosScreen = () => {
           })}
         </ScrollView>
       )}
+      <Button
+        icon={'camera'}
+        buttonStyle={{ marginHorizontal: 20, marginVertical: 10, width: 200, paddingVertical: 7 }}
+        onPress={handleOpenMenu}
+      >
+        Добавить фото
+      </Button>
     </View>
   )
 }

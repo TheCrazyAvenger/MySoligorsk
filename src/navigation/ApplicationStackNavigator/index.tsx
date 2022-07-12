@@ -23,11 +23,7 @@ const stackNavigatorOptions: NativeStackNavigationOptions = {
 }
 
 const photoOptions: NativeStackNavigationOptions = {
-  headerShadowVisible: false,
-  headerBackTitleVisible: false,
-  animation: 'fade_from_bottom',
-  title: 'Фото',
-  header: (props: any) => <Header dark {...props} />,
+  headerShown: false,
 }
 
 const bottomTabNavigatorOptions = {
