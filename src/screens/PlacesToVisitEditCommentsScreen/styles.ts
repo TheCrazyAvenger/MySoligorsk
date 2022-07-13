@@ -1,23 +1,14 @@
+import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
     padding: 20,
+    backgroundColor: Colors.white,
   },
   reviewHeader: {
-    marginBottom: 30,
-    alignItems: 'center',
-    backgroundColor: '#F2F2F2',
-    borderRadius: 30,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    marginBottom: 20,
+    alignItems: 'flex-start',
   },
   commentHeader: {
     flexDirection: 'row',

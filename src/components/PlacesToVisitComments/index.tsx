@@ -1,7 +1,7 @@
 import { Colors, Screens } from '@/constants'
 import { Divider, Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Image, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
@@ -13,9 +13,6 @@ type Props = {
 export const PlacesToVisitComments = ({ data }: Props) => {
   const navigation = useNavigation<any>()
 
-  const threeComments = useMemo(() => data.slice(0, 3), [data])
-  const commentsSize = useMemo(() => data.length, [data])
-
   const handleGoToComments = () => {
     navigation.navigate(Screens.placesToVisitComments, { data })
   }
@@ -25,7 +22,7 @@ export const PlacesToVisitComments = ({ data }: Props) => {
       <Typography.H4 ml={20} mb={10}>
         Отзывы
       </Typography.H4>
-      {threeComments.map((item, i) => {
+      {data.map((item, i) => {
         const { user, comment, grade, date } = item
 
         const commentDate = new Date(date).toLocaleDateString()
@@ -51,20 +48,19 @@ export const PlacesToVisitComments = ({ data }: Props) => {
               </View>
             </View>
             {comment ? (
-              <Typography.Description mt={5} ml={20}>
+              <Typography.Description mt={5} ml={20} numberOfLines={3}>
                 {comment}
               </Typography.Description>
             ) : null}
           </View>
         )
       })}
-      {commentsSize !== 0 && (
-        <TouchableOpacity onPress={handleGoToComments}>
-          <Typography.Default textAlign={'center'} mt={15} mb={3} type='semiBold'>
-            Все отзывы
-          </Typography.Default>
-        </TouchableOpacity>
-      )}
+
+      <TouchableOpacity onPress={handleGoToComments}>
+        <Typography.Default textAlign={'center'} mt={15} mb={3} type='semiBold'>
+          Все отзывы
+        </Typography.Default>
+      </TouchableOpacity>
     </View>
   )
 }

@@ -52,7 +52,7 @@ export const PlacesToVisitPhotosScreen = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false)
   const menuData = [
     { title: 'Сделать фото', icon: 'camera', onPress: handleMakePhoto },
-    { title: 'Выбрать из галереи (макс. 5)', icon: 'images', onPress: handlePickPhotoFromGalery },
+    { title: 'Выбрать из галереи (макс. 6)', icon: 'images', onPress: handlePickPhotoFromGalery },
   ]
   const handleOpenMenu = () => setIsMenuVisible(true)
 
@@ -66,7 +66,7 @@ export const PlacesToVisitPhotosScreen = () => {
           label: 'Окей',
         }}
       >
-        Фотографии успешно загружены
+        Фотографии загружены
       </Snackbar>
       <BottomSheet data={menuData} onClose={setIsMenuVisible} isVisible={isMenuVisible} />
       <Modal statusBarTranslucent visible={loadingPhoto}>

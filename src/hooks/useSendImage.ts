@@ -11,7 +11,7 @@ export const useSendImage = ({ placeName, token }: Props) => {
 
   const sendPhoto = async ({ result, callback }: any) => {
     setLoading(true)
-    await result?.assets?.slice(0, 5).map((item: any) => {
+    await result?.assets?.slice(0, 6).map((item: any) => {
       const photoUri = item.uri
       const fileName = `${placeName}_${token}_${Math.random()}`
       const reference = storage().ref(`/places/${placeName}/unverified/${fileName}`)

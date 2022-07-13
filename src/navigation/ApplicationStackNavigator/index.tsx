@@ -1,4 +1,4 @@
-import { Header } from '@/components'
+import { Header, PlacesToVisitEditCommentsScreen } from '@/components'
 import { Navigators, Screens } from '@/constants'
 import {
   PlacesToVisitCommentsScreen,
@@ -70,6 +70,11 @@ export const ApplicationStackNavigator = () => {
           options={{ title: 'Фото' }}
         />
         <Stack.Screen name={Screens.placesToVisitPhoto} component={PlacesToVisitPhotoScreen} options={photoOptions} />
+        <Stack.Screen
+          name={Screens.placesToVisitEditComments}
+          options={{ title: 'Ваш отзыв' }}
+          component={PlacesToVisitEditCommentsScreen}
+        />
       </Stack.Group>
     </Stack.Navigator>
   )

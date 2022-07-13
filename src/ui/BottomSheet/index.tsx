@@ -28,11 +28,16 @@ export const BottomSheet = ({ data, isVisible, onClose, center = false }: Props)
       {data.map((item, i) => (
         <TouchableRipple key={i} borderless onPress={item.onPress}>
           <ListItem containerStyle={{ backgroundColor: item.isSelected ? '#A4CFF7' : Colors.white }}>
-            <ListItem.Content style={[styles.container, { justifyContent: center ? 'center' : 'flex-start' }]}>
+            <ListItem.Content style={styles.container}>
               {item.icon ? (
                 <Icon name={item.icon} color={Colors.iconGrey} size={23} style={{ marginRight: 15 }} />
               ) : null}
-              <View style={[styles.info, { justifyContent: item.description ? 'space-between' : 'flex-start' }]}>
+              <View
+                style={[
+                  styles.info,
+                  { justifyContent: center ? 'center' : item.description ? 'space-between' : 'flex-start' },
+                ]}
+              >
                 <Typography.Default color={item.isSelected ? Colors.white : Colors.black} type='semiBold'>
                   {item.title}
                 </Typography.Default>

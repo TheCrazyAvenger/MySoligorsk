@@ -8,12 +8,13 @@ import {
   PlacesToVisitSimilarPlaces,
   PlacesToVisitYourComment,
 } from '@/components'
-import { Colors } from '@/constants'
-import { useGetImage, useGetImagesList } from '@/hooks'
+import { Colors, Screens } from '@/constants'
+import { getWorkingHoursMessage } from '@/helpers'
+import { useGetComments, useGetImage, useGetImagesList } from '@/hooks'
 import { Spinner, Typography } from '@/ui'
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { Image, StyleSheet, useWindowDimensions, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Snackbar, TouchableRipple } from 'react-native-paper'
@@ -34,14 +35,10 @@ export const PlacestoVisitDetailsScreen = () => {
   const insets = useSafeAreaInsets()
   const { height } = useWindowDimensions()
 
-  const [grade, setGrade] = useState(0)
-  const [showBackButton, setShowBackButton] = useState(true)
-  const handleSetGrade = (value: number) => {}
-
   const HEADER_MAX_HEIGHT = height * 0.6
   const HEADER_MIN_HEIGHT = height * 0.1
 
-  const { title, category, content, location, comments, workingHours, info, categories } = route.params.data
+  const { title, category, content, location, workingHours, info, categories } = route.params.data
   const { lat, lon } = location
 
   const similarPlaces = route.params.places
@@ -51,33 +48,14 @@ export const PlacestoVisitDetailsScreen = () => {
   const { uri, loading } = useGetImage({ placeName: title })
   const { uris, loading: imagesListLoading } = useGetImagesList({ placeName: title, size: 5 })
 
-  const [commentsArr, setCommentsArr] = useState<Comment[]>(comments)
-  const [userComment, setUserComment] = useState<Comment | null>(null)
-
-  useEffect(() => {
-    setCommentsArr(
-      comments.filter((item: any) => {
-        if (item.user === 'Илья Павлющик') {
-          setUserComment(item)
-          return false
-        } else {
-          return true
-        }
-      })
-    )
-  }, [comments])
+  const { comments, userComment, avarageRate, loading: commentsLoading } = useGetComments({ placeName: title })
+  const handleGoToReview = (value: number) => {
+    navigation.navigate(Screens.placesToVisitEditComments, { grade: value, title })
+  }
 
   const handleGoBack = () => navigation.goBack()
 
-  const avarageRate = useMemo(
-    () => commentsArr.reduce((acc: number, next: any) => acc + next.grade, 0) / commentsArr.length,
-    [commentsArr]
-  )
-
-  const handleSendComment = async (comment: Comment) => {
-    await setCommentsArr((prev) => [comment, ...prev])
-    await setUserComment(comment)
-  }
+  const workingHoursMessage = getWorkingHoursMessage(workingHours)
 
   const [visibleSnackBar, setVisibleSnackBar] = React.useState(false)
   const handleHideSnackBar = () => setVisibleSnackBar(false)
@@ -86,7 +64,7 @@ export const PlacestoVisitDetailsScreen = () => {
 
   return (
     <GestureHandlerRootView style={[StyleSheet.absoluteFillObject]}>
-      {isLoading ? (
+      {isLoading || commentsLoading ? (
         <Spinner />
       ) : (
         <>
@@ -107,11 +85,10 @@ export const PlacestoVisitDetailsScreen = () => {
             blurRadius={5}
             source={{ uri }}
           />
-          {showBackButton && (
-            <TouchableRipple onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
-              <Icon name='arrow-back' color={Colors.white} size={27} />
-            </TouchableRipple>
-          )}
+
+          <TouchableRipple onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
+            <Icon name='arrow-back' color={Colors.white} size={27} />
+          </TouchableRipple>
 
           <View style={[styles.header, { height: HEADER_MAX_HEIGHT }]}>
             <Typography.Default style={styles.title}>{title}</Typography.Default>
@@ -124,11 +101,16 @@ export const PlacestoVisitDetailsScreen = () => {
                 </Typography.H3>
               </View>
             </View>
+            <Typography.Subtitle
+              mt={16}
+              color={workingHoursMessage.color === Colors.grass ? Colors.white : workingHoursMessage.color}
+            >
+              {workingHoursMessage.title}
+            </Typography.Subtitle>
           </View>
 
           <BottomSheet
             // animateOnMount={false}
-
             backdropComponent={(props) => <PlacesToVisitHeader title={title} {...props} />}
             index={0}
             snapPoints={[height - HEADER_MAX_HEIGHT + 50, height - HEADER_MIN_HEIGHT + 50]}
@@ -140,8 +122,8 @@ export const PlacestoVisitDetailsScreen = () => {
                   <PlacesToVisitContacts item={info} workingHours={workingHours} />
                   {content ? <PlacesToVisitContent content={content} /> : null}
                   <PlacesToVisitMap lat={lat} lon={lon} title={title} />
-                  <PlacesToVisitYourComment handleSetGrade={handleSetGrade} grade={grade} comment={userComment} />
-                  {commentsArr?.length ? <PlacesToVisitComments data={commentsArr} /> : null}
+                  <PlacesToVisitYourComment handleSetGrade={handleGoToReview} grade={0} comment={userComment} />
+                  {comments?.length ? <PlacesToVisitComments data={comments} /> : null}
                   {similarPlaces?.length > 0 && (
                     <PlacesToVisitSimilarPlaces data={similarPlaces} places={route.params.places} />
                   )}

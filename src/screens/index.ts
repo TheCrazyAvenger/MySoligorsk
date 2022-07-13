@@ -12,6 +12,7 @@ import { HomeScreen as Home } from './HomeScreen'
 import { MenuScreen as Menu } from './MenuScreen'
 import { PlacesToVisitCommentsScreen as PlacesToVisitComments } from './PlacesToVisitCommentsScreen'
 import { PlacestoVisitDetailsScreen as PlacestoVisitDetails } from './PlacestoVisitDetailsScreen'
+import { PlacesToVisitEditCommentsScreen as PlacesToVisitEditComments } from './PlacesToVisitEditCommentsScreen'
 import { PlacesToVisitPhotoScreen as PlacesToVisitPhoto } from './PlacesToVisitPhotoScreen'
 import { PlacesToVisitPhotosScreen as PlacesToVisitPhotos } from './PlacesToVisitPhotosScreen'
 import { SignInScreen as SignIn } from './SignInScreen'
@@ -31,6 +32,7 @@ export const HomeScreen = withStatusBar(Home)
 export const MenuScreen = withStatusBar(Menu)
 export const PlacesToVisitCommentsScreen = withStatusBar(PlacesToVisitComments)
 export const PlacestoVisitDetailsScreen = withStatusBar(PlacestoVisitDetails)
+export const PlacesToVisitEditCommentsScreen = withStatusBar(PlacesToVisitEditComments)
 export const PlacesToVisitPhotoScreen = withStatusBar(PlacesToVisitPhoto)
 export const PlacesToVisitPhotosScreen = withStatusBar(PlacesToVisitPhotos)
 export const SignInScreen = withStatusBar(SignIn)

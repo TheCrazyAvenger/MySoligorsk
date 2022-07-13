@@ -23,15 +23,25 @@ type Props = {
 }
 
 export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Props) => {
+  if (!data) {
+    return (
+      <Skeleton
+        style={[{ marginLeft: 10, paddingHorizontal: 0 }]}
+        width={placesToVisitTheme.ITEM_WIDTH}
+        height={placesToVisitTheme.ITEM_HEIGHT}
+      />
+    )
+  }
+
   const navigation = useNavigation<any>()
-  const { title, category, image, id, workingHours } = data
   const { FULL_SIZE, ITEM_WIDTH, ITEM_HEIGHT } = placesToVisitTheme
+
+  const { title, category, id, workingHours } = data
+  const [like, setLike] = useState(id === 1 ? true : false)
 
   const currentDay = new Date().getDay()
   const currentWorkingHours = workingHours[currentDay]
   const { open, close } = currentWorkingHours
-
-  const [like, setLike] = useState(id === 1 ? true : false)
 
   const handleLike = () => setLike((prev) => !prev)
   const handleGoToDetails = () => navigation.navigate(Screens.placestoVisitDetails, { data, places })
@@ -54,8 +64,12 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Prop
 
   return (
     <View style={styles.content}>
-      {loading ? (
-        <Skeleton width={placesToVisitTheme.ITEM_WIDTH} height={placesToVisitTheme.ITEM_HEIGHT} />
+      {loading || !data ? (
+        <Skeleton
+          style={[{ marginLeft: 10, paddingHorizontal: 0 }]}
+          width={placesToVisitTheme.ITEM_WIDTH}
+          height={placesToVisitTheme.ITEM_HEIGHT}
+        />
       ) : (
         <TouchableRipple
           borderless
