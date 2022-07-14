@@ -1,4 +1,5 @@
 import { Colors, Screens } from '@/constants'
+import { selectUser } from '@/selectors'
 import { BottomSheet, Spinner, Typography } from '@/ui'
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
@@ -9,12 +10,14 @@ import ImageViewer from 'react-native-image-zoom-viewer'
 import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { useSelector } from 'react-redux'
 import { styles } from './styles'
 
 export const PlacesToVisitPhotoScreen = () => {
   const route = useRoute<any>()
   const navigation = useNavigation<any>()
   const insets = useSafeAreaInsets()
+  const { firstname, lastname } = useSelector(selectUser)
 
   const { uris, index, title, showReport } = route.params
   const imageUrls = useMemo(() => uris.map((url: string) => ({ url })), [uris])
@@ -61,7 +64,7 @@ export const PlacesToVisitPhotoScreen = () => {
       .add({
         report,
         uid,
-        user: 'Илья Павлющик',
+        user: `${firstname} ${lastname}`,
         image_url: uris[reportIndex!],
       })
       .then(() => {

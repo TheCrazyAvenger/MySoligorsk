@@ -1,5 +1,5 @@
 import { Screens } from '@/constants'
-import { CityScreen, HomeScreen, MenuScreen } from '@/screens'
+import { BusesScreen, HomeScreen, MenuScreen } from '@/screens'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -21,13 +21,11 @@ export const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={Screens.city}
-        component={CityScreen}
+        name={Screens.buses}
+        component={BusesScreen}
         options={{
-          title: 'Город',
-          tabBarIcon: ({ color, focused }) => (
-            <Icon name={`business${focused ? '' : '-outline'}`} size={24} color={color} />
-          ),
+          title: 'Транспорт',
+          tabBarIcon: ({ color, focused }) => <Icon name={`bus${focused ? '' : '-outline'}`} size={24} color={color} />,
         }}
       />
       <Tab.Screen

@@ -8,7 +8,7 @@ type UserState = {
 }
 
 const initialState: UserState = {
-  firstname: 'Илья',
+  firstname: null,
   lastname: null,
   email: null,
 }

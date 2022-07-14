@@ -8,8 +8,8 @@ import { styles } from './styles'
 export const Label: React.FC<TextPropsTypes> = ({
   children,
   style,
-  color = Colors.iconGrey,
-  size = 15,
+  color = Colors.black,
+  size = 16,
   lineH = 20,
   textAlign = 'auto',
   ...rest

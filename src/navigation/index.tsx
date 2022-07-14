@@ -1,8 +1,10 @@
 import { selectIsLoggedIn } from '@/selectors'
+import { setUser } from '@/slices'
 import { setIsWaitForVerification } from '@/slices/applicationSettings'
 import { removeLogin, setLogin } from '@/slices/authentication'
 import { Spinner } from '@/ui'
 import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +15,7 @@ export const RootNavigator = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
   const dispatch = useDispatch()
 
+  const [loading, setLoading] = useState(false)
   const [initializing, setInitializing] = useState(true)
   const onAuthStateChanged = async (user: any) => {
     if (user) {
@@ -38,6 +41,35 @@ export const RootNavigator = () => {
 
       const { providerId, email, uid, isAnonymous } = user
 
+      setLoading(true)
+      await firestore()
+        .collection('Users')
+        .doc(uid)
+        .get()
+        .then((responce) => {
+          const data = responce.data()
+          const { firstname, lastname }: any = data
+
+          dispatch(
+            setUser({
+              firstname: isAnonymous ? 'Anonymous' : firstname,
+              lastname: isAnonymous ? uid : lastname,
+              email,
+            })
+          )
+          setLoading(false)
+        })
+        .catch(() => {
+          isAnonymous &&
+            dispatch(
+              setUser({
+                firstname: 'Anonymous',
+                lastname: uid.slice(0, 9),
+                email: 'No email',
+              })
+            )
+          setLoading(false)
+        })
       dispatch(
         setLogin({
           isAnonymous,
@@ -63,7 +95,7 @@ export const RootNavigator = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {initializing && <Spinner />}
+      {(loading || initializing) && <Spinner />}
       {isLoggedIn ? <ApplicationStackNavigator /> : <AuthenticationStackNavigator />}
     </View>
   )

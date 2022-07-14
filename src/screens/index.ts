@@ -6,6 +6,7 @@ import { AcquaintanceFinishScreen as AcquaintanceFinish } from './AcquaintanceFi
 import { AcquaintanceInterestsScreen as AcquaintanceInterests } from './AcquaintanceInterestsScreen'
 import { AcquaintanceNamesScreen as AcquaintanceNames } from './AcquaintanceNamesScreen'
 import { AcquaintanceStartScreen as AcquaintanceStart } from './AcquaintanceStartScreen'
+import { BusesScreen as Buses } from './BusesScreen'
 import { CityScreen as City } from './CityScreen'
 import { CompleteScreen as Complete } from './CompleteScreen'
 import { EmailVerificationScreen as EmailVerification } from './EmailVerificationScreen'
@@ -27,6 +28,7 @@ export const AcquaintanceFinishScreen = withStatusBar(AcquaintanceFinish)
 export const AcquaintanceInterestsScreen = withStatusBar(AcquaintanceInterests)
 export const AcquaintanceStartScreen = withStatusBar(AcquaintanceStart)
 export const AcquaintanceNamesScreen = withStatusBar(AcquaintanceNames)
+export const BusesScreen = withStatusBar(Buses)
 export const CityScreen = withStatusBar(City)
 export const CompleteScreen = withStatusBar(Complete)
 export const EmailVerificationScreen = withStatusBar(EmailVerification)

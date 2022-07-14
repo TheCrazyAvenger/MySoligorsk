@@ -1,10 +1,24 @@
-import { Fonts } from '@/constants'
+import { Colors, Fonts } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
-    margin: 20,
-    marginTop: 40,
+    padding: 20,
+    paddingTop: 0,
+  },
+  header: {
+    alignItems: 'center',
+  },
+  avatarContainer: {
+    width: 140,
+    height: 140,
+    backgroundColor: Colors.lightGrey,
+    borderRadius: 70,
+    overflow: 'hidden',
+  },
+  avatar: {
+    width: '100%',
+    height: '100%',
   },
   headerTitle: {
     fontSize: 30,

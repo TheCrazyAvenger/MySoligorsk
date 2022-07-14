@@ -2,6 +2,8 @@ export enum Screens {
   home = 'Home',
   city = 'City',
   menu = 'Menu',
+  buses = 'Buses',
+  settings = 'Settings',
   welcome = 'Welcome',
   signUp = 'Sign Up',
   signIn = 'Sign In',

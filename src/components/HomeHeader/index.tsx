@@ -1,7 +1,7 @@
+import { Screens } from '@/constants'
 import { selectUser } from '@/selectors'
 import { Typography } from '@/ui'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import auth from '@react-native-firebase/auth'
+import { useNavigation } from '@react-navigation/native'
 import React, { useMemo } from 'react'
 import { Image, View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
@@ -17,10 +17,13 @@ const startPhrazes = [
 ]
 
 export const HomeHeader = () => {
-  const { firstname, lastname } = useSelector(selectUser)
+  const naviagtion = useNavigation<any>()
+  const { firstname } = useSelector(selectUser)
 
   const time = new Date().getHours()
   const currentPhraze = useMemo(() => Math.floor(Math.random() * (4 - 0 + 1)) + 0, [])
+
+  const handleGoToMenu = () => naviagtion.navigate(Screens.menu)
 
   const getWelcomeMessage = () => {
     if (time >= 0 && time <= 5) return 'Доброй ночи'
@@ -28,11 +31,6 @@ export const HomeHeader = () => {
     if (time >= 13 && time <= 16) return 'Добрый день'
     if (time >= 17 && time <= 24) return 'Добрый вечер'
     else return 'Здравствуйте'
-  }
-
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem('isSignIn')
-    auth().signOut()
   }
 
   return (
@@ -43,7 +41,7 @@ export const HomeHeader = () => {
           {firstname}, {startPhrazes[currentPhraze]}
         </Typography.Subtitle>
       </View>
-      <TouchableRipple borderless style={{ borderRadius: 20 }} onPress={handleLogout}>
+      <TouchableRipple borderless style={{ borderRadius: 20 }} onPress={handleGoToMenu}>
         <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
       </TouchableRipple>
     </View>

@@ -1,7 +1,7 @@
 import { FormImagePicker } from '@/components/FormImagePicker'
 import { Colors, Screens } from '@/constants'
 import { useSendImage } from '@/hooks'
-import { selectToken } from '@/selectors'
+import { selectToken, selectUser } from '@/selectors'
 import { Button, Input, Spinner, Typography } from '@/ui'
 import firestore from '@react-native-firebase/firestore'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -17,6 +17,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
   const navigation = useNavigation<any>()
   const token = useSelector(selectToken)
   const { grade, title, isEdit = false, comment = null } = route.params
+  const { firstname, lastname } = useSelector(selectUser)
 
   const buttonTitle = isEdit ? 'Изменить' : 'Отправить'
 
@@ -31,7 +32,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
   useEffect(() => {
     setUserGrade(grade)
   }, [grade])
-  console.log(grade)
+
   const [value, setValue] = useState(isEdit ? comment.comment : '')
   const handleOnChangeText = (value: string) => setValue(value)
 
@@ -47,7 +48,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
     setError(null)
     setLoading(true)
     const comment = {
-      user: 'Илья Павлющик',
+      user: `${firstname} ${lastname}`,
       grade: userGrade,
       comment: value.trim(),
       date: new Date().toLocaleDateString(),
