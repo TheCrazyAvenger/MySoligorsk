@@ -1,3 +1,4 @@
+import { Colors, Screens } from '@/constants'
 import { useFocusEffect, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { Platform, StatusBar, View } from 'react-native'
@@ -7,12 +8,18 @@ export const withStatusBar = (Screen: any) => {
     const route = useRoute()
     useFocusEffect(() => {
       switch (route.name) {
-        // case Screens.home:
-        //   if (Platform.OS === 'android') {
-        //     StatusBar.setBackgroundColor(Colors.primary)
-        //   }
-        //   StatusBar.setBarStyle('light-content')
-        //   break
+        case Screens.placestoVisitDetails:
+          if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor('transparent')
+          }
+          StatusBar.setBarStyle('light-content')
+          break
+        case Screens.placesToVisitPhoto:
+          if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor(Colors.black)
+          }
+          StatusBar.setBarStyle('light-content')
+          break
         default:
           if (Platform.OS === 'android') {
             StatusBar.setBackgroundColor('white')

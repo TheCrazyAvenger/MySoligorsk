@@ -44,7 +44,7 @@ export const FormWrapper = ({
                 {title}
               </Typography.TitleText>
               {description ? (
-                <Typography.Default size={15} mt={24} style={styles.text}>
+                <Typography.Default mt={24} style={styles.text}>
                   {description}
                 </Typography.Default>
               ) : null}

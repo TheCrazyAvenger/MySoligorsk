@@ -24,7 +24,7 @@ export enum Colors {
   titleColorGold = '#FFBD00',
   yellow = '#F1E438',
   titleColorPlatinum = '#219653',
-  titleColorPalladium = '#F2994A',
+  orange = '#F2994A',
   paymentDivider = '#E0E7F1',
   payPal = '#F6C657',
   grass = '#27AE60',

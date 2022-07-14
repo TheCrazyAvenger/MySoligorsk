@@ -1,12 +1,10 @@
 import { FormWrapper } from '@/components'
 import auth from '@react-native-firebase/auth'
-import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated } from 'react-native'
 import BackgroundTimer from 'react-native-background-timer'
 
 export const EmailVerificationScreen = () => {
-  const navigation = useNavigation<any>()
   const opacity = useRef(new Animated.Value(0)).current
   useEffect(() => {
     Animated.timing(opacity, { toValue: 1, duration: 500, useNativeDriver: false }).start()
@@ -46,9 +44,7 @@ export const EmailVerificationScreen = () => {
       BackgroundTimer.stopBackgroundTimer()
     }
 
-    return () => {
-      BackgroundTimer.stopBackgroundTimer()
-    }
+    return () => BackgroundTimer.stopBackgroundTimer()
   }, [timerOn])
 
   useEffect(() => {
