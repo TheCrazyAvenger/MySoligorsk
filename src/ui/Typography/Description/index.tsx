@@ -8,8 +8,8 @@ import { styles } from './styles'
 export const Description: React.FC<TextPropsTypes> = ({
   children,
   style,
-  color = Colors.iconGrey,
-  size = 13,
+  color = Colors.black,
+  size = 14,
   lineH = 15,
   textAlign = 'auto',
   ...rest

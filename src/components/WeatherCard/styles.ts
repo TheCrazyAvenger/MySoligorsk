@@ -2,6 +2,10 @@ import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
+  skeleton: {
+    paddingHorizontal: 20,
+    marginBottom: 30,
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -7,6 +7,7 @@ export type TextPropsTypes = {
   lineH?: any
   textAlign?: String
   underline?: StyleProp<Boolean>
+  type?: 'regular' | 'semiBold'
   pa?: any
   pv?: any
   ph?: any
