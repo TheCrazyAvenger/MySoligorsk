@@ -40,8 +40,6 @@ export const PlacesToVisitCommentsScreen = () => {
         {data.map((item: IComment, i: number) => {
           const { user, comment, grade, date } = item
 
-          const commentDate = new Date(date).toLocaleDateString()
-
           return (
             <View key={i}>
               {i !== 0 && <Divider />}
@@ -57,7 +55,7 @@ export const PlacesToVisitCommentsScreen = () => {
                       return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
                     })}
                     <Typography.Subtitle mt={2} ml={5}>
-                      {commentDate}
+                      {date}
                     </Typography.Subtitle>
                   </View>
                 </View>
