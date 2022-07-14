@@ -2,7 +2,7 @@ import { Colors } from '@/constants'
 import { BottomSheet as RNBottomSheet, ListItem } from '@rneui/themed'
 import React from 'react'
 import { View } from 'react-native'
-import { TouchableRipple } from 'react-native-paper'
+import { Snackbar, TouchableRipple } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Typography } from '../Typography'
 import { styles } from './styles'
@@ -12,9 +12,12 @@ type Props = {
   isVisible: boolean
   onClose: (condition: boolean) => any
   center?: boolean
+  error?: string | null
+  hideError?: any
+  selectedColor?: string
 }
 
-export const BottomSheet = ({ data, isVisible, onClose, center = false }: Props) => {
+export const BottomSheet = ({ data, isVisible, onClose, center = false, error, hideError, selectedColor }: Props) => {
   const handleClose = () => {
     onClose(false)
   }
@@ -27,10 +30,15 @@ export const BottomSheet = ({ data, isVisible, onClose, center = false }: Props)
     >
       {data.map((item, i) => (
         <TouchableRipple key={i} borderless onPress={item.onPress}>
-          <ListItem containerStyle={{ backgroundColor: item.isSelected ? '#A4CFF7' : Colors.white }}>
+          <ListItem containerStyle={{ backgroundColor: item.isSelected ? selectedColor ?? '#A4CFF7' : Colors.white }}>
             <ListItem.Content style={styles.container}>
               {item.icon ? (
-                <Icon name={item.icon} color={Colors.iconGrey} size={23} style={{ marginRight: 15 }} />
+                <Icon
+                  name={item.icon}
+                  color={item.isSelected ? Colors.white : Colors.iconGrey}
+                  size={23}
+                  style={{ marginRight: 15 }}
+                />
               ) : null}
               <View
                 style={[
@@ -51,6 +59,16 @@ export const BottomSheet = ({ data, isVisible, onClose, center = false }: Props)
           </ListItem>
         </TouchableRipple>
       ))}
+      <Snackbar
+        visible={!!error}
+        onDismiss={hideError}
+        style={{ zIndex: 100000 }}
+        action={{
+          label: 'Окей',
+        }}
+      >
+        {error}
+      </Snackbar>
     </RNBottomSheet>
   )
 }

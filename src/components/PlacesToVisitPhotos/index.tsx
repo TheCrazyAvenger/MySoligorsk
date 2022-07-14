@@ -11,7 +11,6 @@ import { styles } from './styles'
 type Props = {
   uris: string[]
   title: string
-  showSnackbar: (condition: boolean) => any
 }
 
 export const PlacesToVisitPhotos = ({ uris, title }: Props) => {
@@ -23,7 +22,8 @@ export const PlacesToVisitPhotos = ({ uris, title }: Props) => {
   const keyExtractor = (item: any) => item
   const renderItem = ({ item, index }: any) => {
     const isLast = index === uris.length - 1
-    const handleGoToPhoto = () => navigation.navigate(Screens.placesToVisitPhoto, { uris, index, title })
+    const handleGoToPhoto = () =>
+      navigation.navigate(Screens.placesToVisitPhoto, { uris, index, title, showReport: true })
 
     return (
       <View key={index} style={[isLast && { flexDirection: 'row' }]}>

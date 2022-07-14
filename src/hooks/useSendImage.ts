@@ -8,21 +8,25 @@ type Props = {
 
 export const useSendImage = ({ placeName, token }: Props) => {
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const cleanError = () => setError(null)
 
   const sendPhoto = async ({ result, callback }: any) => {
     setLoading(true)
+    setError(null)
     await result?.assets?.slice(0, 6).map((item: any) => {
       const photoUri = item.uri
       const fileName = `${placeName}_${token}_${Math.random()}`
       const reference = storage().ref(`/places/${placeName}/unverified/${fileName}`)
-      reference.putFile(photoUri).catch((e) => {
+      reference.putFile(photoUri).catch(() => {
+        setError('Что-то пошло не так')
         setLoading(false)
-        console.log('Errors while downloading => ', e)
       })
     })
+
     setLoading(false)
-    callback && callback()
+    error === null && callback && callback()
   }
 
-  return { sendPhoto, loading }
+  return { sendPhoto, loading, error, cleanError }
 }

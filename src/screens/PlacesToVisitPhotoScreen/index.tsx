@@ -1,4 +1,4 @@
-import { Colors } from '@/constants'
+import { Colors, Screens } from '@/constants'
 import { BottomSheet, Spinner, Typography } from '@/ui'
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
@@ -6,17 +6,17 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useMemo, useState } from 'react'
 import { Modal, StatusBar, View } from 'react-native'
 import ImageViewer from 'react-native-image-zoom-viewer'
-import { Snackbar, TouchableRipple } from 'react-native-paper'
+import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
 export const PlacesToVisitPhotoScreen = () => {
   const route = useRoute<any>()
-  const navigation = useNavigation()
+  const navigation = useNavigation<any>()
   const insets = useSafeAreaInsets()
 
-  const { uris, index, title } = route.params
+  const { uris, index, title, showReport } = route.params
   const imageUrls = useMemo(() => uris.map((url: string) => ({ url })), [uris])
 
   const handleGoBack = () => navigation.goBack()
@@ -32,12 +32,14 @@ export const PlacesToVisitPhotoScreen = () => {
         >
           {currentIndex + ' / ' + allSize}
         </Typography.Default>
-        <TouchableRipple
-          onPress={() => handleOpenReportMenu(index)}
-          style={[styles.rightButton, { top: 20 + insets.top }]}
-        >
-          <Icon name='flag-outline' color={Colors.white} size={20} />
-        </TouchableRipple>
+        {showReport && (
+          <TouchableRipple
+            onPress={() => handleOpenReportMenu(index)}
+            style={[styles.rightButton, { top: 20 + insets.top }]}
+          >
+            <Icon name='flag-outline' color={Colors.white} size={20} />
+          </TouchableRipple>
+        )}
       </>
     )
   }
@@ -45,6 +47,7 @@ export const PlacesToVisitPhotoScreen = () => {
   const [reportIndex, setReportIndex] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const handleHideSnackBar = () => setError(null)
   const reportImage = (report: string) => {
     setIsLoading(true)
     setError(null)
@@ -62,14 +65,12 @@ export const PlacesToVisitPhotoScreen = () => {
         image_url: uris[reportIndex!],
       })
       .then(() => {
-        setVisibleSnackBar(true)
         setIsReportMenuVisible(false)
         setIsLoading(false)
+        handleComplete()
       })
       .catch(() => {
-        setVisibleSnackBar(true)
         setError('Что-то пошло не так')
-        setIsReportMenuVisible(false)
         setIsLoading(false)
       })
   }
@@ -81,11 +82,15 @@ export const PlacesToVisitPhotoScreen = () => {
   ]
   const handleOpenReportMenu = (index: number) => {
     setReportIndex(index)
+    setError(null)
     setIsReportMenuVisible(true)
   }
 
-  const [visibleSnackBar, setVisibleSnackBar] = useState(false)
-  const handleHideSnackBar = () => setVisibleSnackBar(false)
+  const handleComplete = () =>
+    navigation.navigate(Screens.completeScreen, {
+      title: 'Жалоба отправлена',
+      description: 'Жалоба будет рассмотренна модераторами в ближайшее время',
+    })
 
   return (
     <View style={styles.container}>
@@ -104,17 +109,14 @@ export const PlacesToVisitPhotoScreen = () => {
         renderHeader={renderHeader}
         renderIndicator={renderIndicator}
       />
-      <BottomSheet center data={menuData} onClose={setIsReportMenuVisible} isVisible={isReportMenuVisible} />
-      <Snackbar
-        visible={visibleSnackBar}
-        onDismiss={handleHideSnackBar}
-        style={{ zIndex: 1000 }}
-        action={{
-          label: 'Окей',
-        }}
-      >
-        {error ?? 'Жалоба отправлена'}
-      </Snackbar>
+      <BottomSheet
+        error={error}
+        hideError={handleHideSnackBar}
+        center
+        data={menuData}
+        onClose={setIsReportMenuVisible}
+        isVisible={isReportMenuVisible}
+      />
     </View>
   )
 }

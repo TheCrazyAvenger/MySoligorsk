@@ -3,8 +3,15 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
-    padding: 20,
     backgroundColor: Colors.white,
+  },
+  inner: {
+    paddingHorizontal: 20,
+  },
+  buttons: {
+    backgroundColor: Colors.white,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
   },
   reviewHeader: {
     marginBottom: 20,

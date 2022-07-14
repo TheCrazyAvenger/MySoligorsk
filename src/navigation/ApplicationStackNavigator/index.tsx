@@ -1,6 +1,7 @@
 import { Header, PlacesToVisitEditCommentsScreen } from '@/components'
 import { Navigators, Screens } from '@/constants'
 import {
+  CompleteScreen,
   PlacesToVisitCommentsScreen,
   PlacestoVisitDetailsScreen,
   PlacesToVisitPhotoScreen,
@@ -24,6 +25,11 @@ const stackNavigatorOptions: NativeStackNavigationOptions = {
 
 const photoOptions: NativeStackNavigationOptions = {
   headerShown: false,
+}
+
+const completeOptions: NativeStackNavigationOptions = {
+  headerShown: false,
+  animation: 'default',
 }
 
 const bottomTabNavigatorOptions = {
@@ -75,6 +81,7 @@ export const ApplicationStackNavigator = () => {
           options={{ title: 'Ваш отзыв' }}
           component={PlacesToVisitEditCommentsScreen}
         />
+        <Stack.Screen name={Screens.completeScreen} options={completeOptions} component={CompleteScreen} />
       </Stack.Group>
     </Stack.Navigator>
   )

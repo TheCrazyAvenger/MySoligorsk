@@ -1,5 +1,6 @@
 export * from './BottomSheet'
 export * from './Button'
+export * from './Complete'
 export * from './Divider'
 export * from './Input'
 export * from './Skeleton'

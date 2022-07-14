@@ -17,7 +17,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { Image, StyleSheet, useWindowDimensions, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { Snackbar, TouchableRipple } from 'react-native-paper'
+import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
@@ -48,7 +48,7 @@ export const PlacestoVisitDetailsScreen = () => {
   const { uri, loading } = useGetImage({ placeName: title })
   const { uris, loading: imagesListLoading } = useGetImagesList({ placeName: title, size: 5 })
 
-  const { comments, userComment, avarageRate, loading: commentsLoading } = useGetComments({ placeName: title })
+  const { comments, userComment, avarageRate, loading: commentsLoading } = useGetComments({ placeName: title, size: 5 })
   const handleGoToReview = (value: number) => {
     navigation.navigate(Screens.placesToVisitEditComments, { grade: value, title })
   }
@@ -56,9 +56,6 @@ export const PlacestoVisitDetailsScreen = () => {
   const handleGoBack = () => navigation.goBack()
 
   const workingHoursMessage = getWorkingHoursMessage(workingHours)
-
-  const [visibleSnackBar, setVisibleSnackBar] = React.useState(false)
-  const handleHideSnackBar = () => setVisibleSnackBar(false)
 
   const isLoading = loading || imagesListLoading
 
@@ -68,17 +65,6 @@ export const PlacestoVisitDetailsScreen = () => {
         <Spinner />
       ) : (
         <>
-          <Snackbar
-            visible={visibleSnackBar}
-            onDismiss={handleHideSnackBar}
-            style={{ zIndex: 1000 }}
-            action={{
-              label: 'Окей',
-            }}
-          >
-            Фотографии успешно загружены
-          </Snackbar>
-
           <Image
             style={[StyleSheet.absoluteFillObject, { height }]}
             resizeMode='cover'
@@ -117,13 +103,18 @@ export const PlacestoVisitDetailsScreen = () => {
           >
             <BottomSheetScrollView>
               <View style={styles.content}>
-                <PlacesToVisitPhotos uris={uris} title={title} showSnackbar={setVisibleSnackBar} />
+                <PlacesToVisitPhotos uris={uris} title={title} />
                 <View>
                   <PlacesToVisitContacts item={info} workingHours={workingHours} />
                   {content ? <PlacesToVisitContent content={content} /> : null}
                   <PlacesToVisitMap lat={lat} lon={lon} title={title} />
-                  <PlacesToVisitYourComment handleSetGrade={handleGoToReview} grade={0} comment={userComment} />
-                  {comments?.length ? <PlacesToVisitComments data={comments} /> : null}
+                  <PlacesToVisitYourComment
+                    title={title}
+                    handleSetGrade={handleGoToReview}
+                    grade={0}
+                    comment={userComment}
+                  />
+                  {comments?.length ? <PlacesToVisitComments title={title} data={comments} /> : null}
                   {similarPlaces?.length > 0 && (
                     <PlacesToVisitSimilarPlaces data={similarPlaces} places={route.params.places} />
                   )}

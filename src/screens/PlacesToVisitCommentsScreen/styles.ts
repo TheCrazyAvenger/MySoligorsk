@@ -3,8 +3,11 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    flex: 1,
     backgroundColor: Colors.white,
+  },
+  content: {
+    paddingRight: 20,
   },
   commentSection: {
     flexDirection: 'row',
@@ -24,5 +27,12 @@ export const styles = StyleSheet.create({
   commentGrade: {
     flexDirection: 'row',
     marginBottom: 2,
+  },
+  button: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+    width: 'auto',
+    alignSelf: 'flex-start',
+    paddingVertical: 7,
   },
 })

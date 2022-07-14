@@ -8,13 +8,14 @@ import { styles } from './styles'
 
 type Props = {
   data: { user: string; grade: number; comment: string; date: string }[]
+  title: string
 }
 
-export const PlacesToVisitComments = ({ data }: Props) => {
+export const PlacesToVisitComments = ({ data, title }: Props) => {
   const navigation = useNavigation<any>()
 
   const handleGoToComments = () => {
-    navigation.navigate(Screens.placesToVisitComments, { data })
+    navigation.navigate(Screens.placesToVisitComments, { title })
   }
 
   return (
@@ -24,8 +25,6 @@ export const PlacesToVisitComments = ({ data }: Props) => {
       </Typography.H4>
       {data.map((item, i) => {
         const { user, comment, grade, date } = item
-
-        const commentDate = new Date(date).toLocaleDateString()
 
         return (
           <View key={i}>
@@ -42,7 +41,7 @@ export const PlacesToVisitComments = ({ data }: Props) => {
                     return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
                   })}
                   <Typography.Subtitle mt={2} ml={5}>
-                    {commentDate}
+                    {date}
                   </Typography.Subtitle>
                 </View>
               </View>
@@ -56,11 +55,13 @@ export const PlacesToVisitComments = ({ data }: Props) => {
         )
       })}
 
-      <TouchableOpacity onPress={handleGoToComments}>
-        <Typography.Default textAlign={'center'} mt={15} mb={3} type='semiBold'>
-          Все отзывы
-        </Typography.Default>
-      </TouchableOpacity>
+      {data?.length === 5 && (
+        <TouchableOpacity onPress={handleGoToComments}>
+          <Typography.Default textAlign={'center'} mt={15} mb={3} type='semiBold'>
+            Все отзывы
+          </Typography.Default>
+        </TouchableOpacity>
+      )}
     </View>
   )
 }

@@ -18,7 +18,6 @@ interface Comment {
 export const useGetComments = ({ placeName, size = 10 }: Props) => {
   const [commentsArr, setCommentsArr] = useState<any>([])
   const [userComment, setUserComment] = useState<Comment | null>(null)
-  const [matchesLength, setMatchesLength] = useState(0)
   const [avarageRate, setAverageRate] = useState(0)
   const [loading, setLoading] = useState(false)
 
@@ -26,10 +25,9 @@ export const useGetComments = ({ placeName, size = 10 }: Props) => {
 
   const onResult = async (response: any) => {
     const data = await response.data()
-
+    setUserComment(null)
     await setCommentsArr([
       ...Object.values(data)
-
         .filter((item: any) => {
           if (item?.uid === token) {
             setUserComment(item)
@@ -42,7 +40,9 @@ export const useGetComments = ({ placeName, size = 10 }: Props) => {
         .reverse(),
     ])
 
-    await setAverageRate(commentsArr.reduce((acc: number, next: any) => acc + next.grade, 0) / commentsArr.length)
+    await setAverageRate(
+      Object.values(data).reduce((acc: number, next: any) => acc + next.grade, 0) / Object.values(data).length
+    )
     setLoading(false)
   }
 

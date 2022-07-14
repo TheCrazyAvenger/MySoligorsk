@@ -7,6 +7,7 @@ import { AcquaintanceInterestsScreen as AcquaintanceInterests } from './Acquaint
 import { AcquaintanceNamesScreen as AcquaintanceNames } from './AcquaintanceNamesScreen'
 import { AcquaintanceStartScreen as AcquaintanceStart } from './AcquaintanceStartScreen'
 import { CityScreen as City } from './CityScreen'
+import { CompleteScreen as Complete } from './CompleteScreen'
 import { EmailVerificationScreen as EmailVerification } from './EmailVerificationScreen'
 import { HomeScreen as Home } from './HomeScreen'
 import { MenuScreen as Menu } from './MenuScreen'
@@ -27,6 +28,7 @@ export const AcquaintanceInterestsScreen = withStatusBar(AcquaintanceInterests)
 export const AcquaintanceStartScreen = withStatusBar(AcquaintanceStart)
 export const AcquaintanceNamesScreen = withStatusBar(AcquaintanceNames)
 export const CityScreen = withStatusBar(City)
+export const CompleteScreen = withStatusBar(Complete)
 export const EmailVerificationScreen = withStatusBar(EmailVerification)
 export const HomeScreen = withStatusBar(Home)
 export const MenuScreen = withStatusBar(Menu)

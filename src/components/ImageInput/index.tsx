@@ -1,5 +1,6 @@
-import { Colors } from '@/constants'
+import { Colors, Screens } from '@/constants'
 import { BottomSheet } from '@/ui'
+import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Image, StyleSheet, useWindowDimensions, View } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
@@ -8,24 +9,20 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
 type Props = {
+  title?: string
+  uris?: string[]
   uri?: string
+  index?: number
   onChange: (...args: any) => any
   showClose?: boolean
 }
 
-export const ImageInput = ({ uri, onChange, showClose = false }: Props) => {
+export const ImageInput = ({ title, uri, uris, index, onChange, showClose = false }: Props) => {
+  const navigation = useNavigation<any>()
   const { width } = useWindowDimensions()
 
-  const openGalery = () => {
-    launchImageLibrary({ mediaType: 'photo', selectionLimit: 4, quality: 0.5 })
-      .then((image) => {
-        image?.assets && onChange(image.assets?.[0].uri)
-      })
-      .catch((e) => {
-        console.log(e)
-      })
-  }
-
+  const handleGoToPhoto = () =>
+    navigation.navigate(Screens.placesToVisitPhoto, { uris, index, title, showReport: false })
   const handleMakePhoto = () => {
     launchCamera({ mediaType: 'photo', quality: 0.5 }).then((image) => {
       image?.assets && onChange(image.assets?.[0].uri)
@@ -57,9 +54,9 @@ export const ImageInput = ({ uri, onChange, showClose = false }: Props) => {
       )}
       <TouchableRipple
         borderless
-        disabled={showClose}
-        style={[styles.container, { width: width / 2.35, height: width / 2.35 }]}
-        onPress={handleOpenMenu}
+        // disabled={showClose
+        style={[styles.container, { width: width / 3.75, height: width / 3.75 }]}
+        onPress={() => (showClose ? handleGoToPhoto() : handleOpenMenu())}
       >
         <View style={[StyleSheet.absoluteFillObject, styles.inner]}>
           {uri ? (

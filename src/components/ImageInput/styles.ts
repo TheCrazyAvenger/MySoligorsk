@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: '#A4CFF7',
     marginBottom: 20,
+    marginLeft: 20,
   },
   inner: {
     alignItems: 'center',
@@ -22,8 +23,8 @@ export const styles = StyleSheet.create({
     top: -10,
     right: -10,
     backgroundColor: Colors.error,
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',

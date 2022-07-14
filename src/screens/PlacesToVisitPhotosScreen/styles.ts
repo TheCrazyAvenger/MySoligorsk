@@ -16,4 +16,10 @@ export const styles = StyleSheet.create({
     height: 200,
     margin: 2,
   },
+  button: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+    width: 200,
+    paddingVertical: 7,
+  },
 })
