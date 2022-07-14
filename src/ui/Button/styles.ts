@@ -2,12 +2,22 @@ import { Colors, Fonts } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
+  container: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    backgroundColor: 'red',
+  },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#629FFA',
-    borderRadius: 30,
+    borderRadius: 20,
     padding: 15,
+  },
+  buttonInner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   disabledErrorButton: {
     backgroundColor: Colors.disabledError,

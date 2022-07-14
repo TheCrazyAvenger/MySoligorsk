@@ -34,7 +34,7 @@ export const WelcomeScreen = () => {
           <Typography.TitleText lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
             Добро пожаловать в Мой Солигорск
           </Typography.TitleText>
-          <Typography.Default size={15} mt={24} mb={96} style={styles.text}>
+          <Typography.Default mt={24} mb={96} style={styles.text}>
             Самый легкий и удобный спутник по нашему любимому городу, как для постоянных жителей, так и для туристов!
           </Typography.Default>
         </View>

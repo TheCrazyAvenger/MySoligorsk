@@ -24,12 +24,15 @@ export const styles = StyleSheet.create({
     marginBottom: 80,
   },
   interestsItem: {
+    marginHorizontal: 15,
+    width: 85,
+  },
+  icon: {
     width: 85,
     height: 85,
     borderRadius: 42.5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 15,
   },
   interestsItemSelected: {
     position: 'absolute',

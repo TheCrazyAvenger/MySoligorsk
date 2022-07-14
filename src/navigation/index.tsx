@@ -37,6 +37,7 @@ export const RootNavigator = () => {
       }
 
       const { providerId, email, uid, isAnonymous } = user
+
       dispatch(
         setLogin({
           isAnonymous,

@@ -6,7 +6,8 @@ import { setOtherInterestSelected } from '@/slices/applicationSettings'
 import { Button, Typography } from '@/ui'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useMemo, useState } from 'react'
-import { ScrollView, TouchableOpacity, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -62,17 +63,21 @@ export const AcquaintanceInterestsScreen = () => {
     const handlePress = () => (isSelected ? handleRemoveInterest(title) : handleAddInterest(title))
 
     return (
-      <TouchableOpacity onPress={handlePress} style={{ alignItems: 'center' }}>
-        {isSelected && (
-          <View style={[styles.interestsItem, styles.interestsItemSelected]}>
-            {getIcon('checkmark', 'Ion', Colors.white)}
+      <View style={[styles.interestsItem]}>
+        <TouchableRipple borderless onPress={handlePress} style={{ borderRadius: 42.5 }}>
+          <View>
+            {isSelected && (
+              <View style={[styles.icon, styles.interestsItemSelected]}>
+                {getIcon('checkmark', 'Ion', Colors.white)}
+              </View>
+            )}
+            <View style={[styles.icon, { backgroundColor: fillColor }]}>{getIcon(icon, iconType, iconColor)}</View>
           </View>
-        )}
-        <View style={[styles.interestsItem, { backgroundColor: fillColor }]}>{getIcon(icon, iconType, iconColor)}</View>
-        <Typography.Default mb={30} style={{ fontFamily: Fonts.openSansSemiBold }} textAlign={'center'}>
+        </TouchableRipple>
+        <Typography.Default mb={30} type='semiBold' textAlign={'center'}>
           {title}
         </Typography.Default>
-      </TouchableOpacity>
+      </View>
     )
   }
 
@@ -94,7 +99,7 @@ export const AcquaintanceInterestsScreen = () => {
           Чем вы увлекаетесь?
         </Typography.TitleText>
 
-        <Typography.Default size={15} mb={30} mt={24} style={styles.text}>
+        <Typography.Default mb={30} mt={24} style={styles.text}>
           Выберите хотя бы одно увлечение, чтобы мы смогли подбирать для вас наиболее удобные и подходящие места
         </Typography.Default>
         <View style={styles.interestsContainer}>

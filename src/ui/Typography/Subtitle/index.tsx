@@ -8,10 +8,9 @@ import { styles } from './styles'
 export const Subtitle: React.FC<TextPropsTypes> = ({
   children,
   style,
-  color = Colors.titleText,
-  size = 15,
-  lineH = 19,
-  underline = false,
+  color = Colors.iconGrey,
+  size = 14,
+  lineH = 15,
   textAlign = 'auto',
   ...rest
 }) => {
@@ -19,7 +18,6 @@ export const Subtitle: React.FC<TextPropsTypes> = ({
     <RNText
       style={[
         styles.text,
-        !!underline && styles.textUnderline,
         {
           color: color,
           fontSize: size,

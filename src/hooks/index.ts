@@ -1,2 +1,6 @@
 export * from './store'
 export * from './useField'
+export * from './useGetComments'
+export * from './useGetImage'
+export * from './useGetImagesList'
+export * from './useSendImage'
