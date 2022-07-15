@@ -17,7 +17,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { Image, StyleSheet, useWindowDimensions, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { TouchableRipple } from 'react-native-paper'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
@@ -34,6 +34,7 @@ export const PlacestoVisitDetailsScreen = () => {
   const navigation = useNavigation<any>()
   const insets = useSafeAreaInsets()
   const { height } = useWindowDimensions()
+  const { colors } = useTheme()
 
   const HEADER_MAX_HEIGHT = height * 0.6
   const HEADER_MIN_HEIGHT = height * 0.1
@@ -97,12 +98,14 @@ export const PlacestoVisitDetailsScreen = () => {
 
           <BottomSheet
             // animateOnMount={false}
+            backgroundStyle={{ backgroundColor: colors.background }}
+            handleIndicatorStyle={{ backgroundColor: colors.text }}
             backdropComponent={(props) => <PlacesToVisitHeader title={title} {...props} />}
             index={0}
             snapPoints={[height - HEADER_MAX_HEIGHT + 50, height - HEADER_MIN_HEIGHT + 50]}
           >
             <BottomSheetScrollView>
-              <View style={styles.content}>
+              <View style={[styles.content, { backgroundColor: colors.background }]}>
                 <PlacesToVisitPhotos uris={uris} title={title} />
                 <View>
                   <PlacesToVisitContacts item={info} workingHours={workingHours} />

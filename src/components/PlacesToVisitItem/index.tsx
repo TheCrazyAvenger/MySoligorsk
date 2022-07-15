@@ -4,7 +4,7 @@ import { Skeleton, Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
-import { TouchableRipple } from 'react-native-paper'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { styles } from './styles'
 
@@ -32,6 +32,8 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Prop
       />
     )
   }
+
+  const { colors } = useTheme()
 
   const navigation = useNavigation<any>()
   const { FULL_SIZE, ITEM_WIDTH, ITEM_HEIGHT } = placesToVisitTheme
@@ -85,7 +87,7 @@ export const PlacesToVisitItem = ({ data, isLast, index, scrollX, places }: Prop
             <Animated.View style={[styles.imageInner, { transform: [{ scale }] }]}>
               <Animated.Text style={[styles.title, { transform: [{ translateX }] }]}>{title}</Animated.Text>
               <Animated.Text style={[styles.subTitle, { transform: [{ translateX }] }]}>{category}</Animated.Text>
-              <Animated.View style={[styles.hoursContainer, { opacity }]}>
+              <Animated.View style={[styles.hoursContainer, { opacity, backgroundColor: colors.background }]}>
                 <Typography.SmallDescription style={{ fontFamily: Fonts.openSansSemiBold }} size={11}>
                   {open} - {close}
                 </Typography.SmallDescription>

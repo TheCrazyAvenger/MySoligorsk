@@ -1,7 +1,7 @@
-import { Colors } from '@/constants'
 import { useFocusEffect, useRoute } from '@react-navigation/core'
 import React, { useState } from 'react'
 import { View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { styles } from './styles'
 
@@ -11,13 +11,15 @@ export const TabBarScreenLayout = ({ children }: any) => {
 
   const route = useRoute()
 
+  const { colors } = useTheme()
+
   useFocusEffect(() => {
     switch (route.name) {
       // case Screens.home:
       //   setBackgroundColor(Colors.primary)
       //   break
       default:
-        setBackgroundColor(Colors.white)
+        setBackgroundColor(colors.background)
     }
   })
 

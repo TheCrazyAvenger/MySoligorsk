@@ -2,14 +2,17 @@ import { Screens } from '@/constants'
 import { BusesScreen, HomeScreen, MenuScreen } from '@/screens'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import React from 'react'
+import { useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
 const Tab = createMaterialBottomTabNavigator()
 
 export const BottomTabNavigator = () => {
+  const { colors }: any = useTheme()
+
   return (
-    <Tab.Navigator shifting labeled barStyle={styles.navigator}>
+    <Tab.Navigator shifting labeled barStyle={[styles.navigator, { backgroundColor: colors.navigation }]}>
       <Tab.Screen
         name={Screens.home}
         component={HomeScreen}

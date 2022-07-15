@@ -1,25 +1,27 @@
-import { Colors } from '@/constants'
 import { getOffset } from '@/helpers'
 import { TextPropsTypes } from '@/ui'
 import React from 'react'
 import { Text as RNText } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 export const Subtitle: React.FC<TextPropsTypes> = ({
   children,
   style,
-  color = Colors.iconGrey,
+  color,
   size = 14,
   lineH = 15,
   textAlign = 'auto',
   ...rest
 }) => {
+  const { colors }: any = useTheme()
+
   return (
     <RNText
       style={[
         styles.text,
         {
-          color: color,
+          color: color ?? colors.grey,
           fontSize: size,
           lineHeight: lineH,
           textAlign: textAlign,

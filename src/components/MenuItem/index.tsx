@@ -2,7 +2,7 @@ import { Colors, Fonts } from '@/constants'
 import { Divider, Typography } from '@/ui'
 import React from 'react'
 import { View } from 'react-native'
-import { TouchableRipple } from 'react-native-paper'
+import { Switch, TouchableRipple, useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
@@ -15,16 +15,19 @@ type Props = {
     moveTo: null | string
     id: number
     onPress?: (...args: any) => any
+    switch?: boolean
+    switchValue?: boolean
   }[]
 }
 
 export const MenuItem = ({ data, title }: Props) => {
+  const { colors }: any = useTheme()
   return (
     <>
-      <Typography.Default mt={20} mb={5} ml={10} type='semiBold' color={Colors.iconGrey}>
+      <Typography.Default mt={20} mb={5} ml={10} type='semiBold' color={Colors.grey}>
         {title}
       </Typography.Default>
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: colors.navigation }]}>
         {data.map((item) => {
           return (
             <View key={item.id}>
@@ -43,7 +46,11 @@ export const MenuItem = ({ data, title }: Props) => {
                       {item.title}
                     </Typography.H4>
                   </View>
-                  <Icon name='chevron-forward' size={20} color={Colors.iconGrey} />
+                  {item.switch ? (
+                    <Switch value={item.switchValue} onChange={item.onPress} color={Colors.primary} />
+                  ) : (
+                    <Icon name='chevron-forward' size={20} color={Colors.grey} />
+                  )}
                 </View>
               </TouchableRipple>
             </View>

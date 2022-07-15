@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleProp, View, ViewStyle } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 type Props = {
@@ -7,5 +8,6 @@ type Props = {
 }
 
 export const Divider = ({ style }: Props) => {
-  return <View style={[styles.line, style]} />
+  const { colors }: any = useTheme()
+  return <View style={[styles.line, { backgroundColor: colors.lightGrey }, style]} />
 }

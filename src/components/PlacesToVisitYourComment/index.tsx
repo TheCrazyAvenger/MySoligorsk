@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { AirbnbRating } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Image, Modal, View } from 'react-native'
-import { TouchableRipple } from 'react-native-paper'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useSelector } from 'react-redux'
 import { styles } from './styles'
@@ -21,6 +21,7 @@ type Props = {
 export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment, title }: Props) => {
   const navigation = useNavigation<any>()
   const token = useSelector(selectToken)
+  const { colors }: any = useTheme()
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<null | string>(null)
@@ -87,7 +88,7 @@ export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment, title
           borderless
           onPress={handleOpenMenu}
         >
-          <Icon name={'ellipsis-horizontal'} size={30} />
+          <Icon name={'ellipsis-horizontal'} size={30} color={colors.grey} />
         </TouchableRipple>
       )}
       {!comment && <Typography.Default mb={10}>Поделитесь вашими впечатлениями</Typography.Default>}
@@ -102,11 +103,11 @@ export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment, title
               <View style={styles.commentGrade}>
                 {Array.from(Array(5).keys()).map((item) => {
                   const isColored = item < comment.grade
-                  return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
+                  return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.grey} />
                 })}
-                <Typography.Description lineH={16} ml={5}>
+                <Typography.Subtitle mt={2} ml={5}>
                   {comment.date}
-                </Typography.Description>
+                </Typography.Subtitle>
               </View>
             </View>
           </View>

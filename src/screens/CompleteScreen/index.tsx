@@ -3,17 +3,19 @@ import { Button, Complete, Typography } from '@/ui'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 export const CompleteScreen = () => {
   const route = useRoute<any>()
   const navigation = useNavigation()
   const { title, description } = route.params
+  const { colors } = useTheme()
 
   const handleGoBack = () => navigation.goBack()
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Complete />
       <Typography.H3 mt={-10}>{title}</Typography.H3>
       <Typography.H4 mt={10} textAlign={'center'} style={[{ fontFamily: Fonts.openSansRegular }]}>

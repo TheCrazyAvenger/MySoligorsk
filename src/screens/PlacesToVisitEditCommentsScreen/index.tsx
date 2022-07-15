@@ -1,5 +1,5 @@
 import { FormImagePicker } from '@/components/FormImagePicker'
-import { Colors, Screens } from '@/constants'
+import { Screens } from '@/constants'
 import { useSendImage } from '@/hooks'
 import { selectToken, selectUser } from '@/selectors'
 import { Button, Input, Spinner, Typography } from '@/ui'
@@ -8,7 +8,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Modal, ScrollView, View } from 'react-native'
 import { AirbnbRating } from 'react-native-elements'
-import { Snackbar } from 'react-native-paper'
+import { Snackbar, useTheme } from 'react-native-paper'
 import { useSelector } from 'react-redux'
 import { styles } from './styles'
 
@@ -18,6 +18,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
   const token = useSelector(selectToken)
   const { grade, title, isEdit = false, comment = null } = route.params
   const { firstname, lastname } = useSelector(selectUser)
+  const { colors } = useTheme()
 
   const buttonTitle = isEdit ? 'Изменить' : 'Отправить'
 
@@ -86,7 +87,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
       <Modal statusBarTranslucent visible={loading}>
         <Spinner />
       </Modal>
-      <ScrollView style={{ backgroundColor: Colors.white }} contentContainerStyle={styles.container}>
+      <ScrollView style={{ backgroundColor: colors.background }} contentContainerStyle={styles.container}>
         <View style={styles.inner}>
           <Typography.Default mb={20}>Ваш отзыв будет виден всем пользователям</Typography.Default>
           <View>
@@ -121,7 +122,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
         </View>
         <FormImagePicker uris={uris} title={title} addHandler={addImageHandler} removeHandler={removeImageHandler} />
       </ScrollView>
-      <View style={styles.buttons}>
+      <View style={[styles.buttons, { backgroundColor: colors.background }]}>
         <Button
           loading={loading}
           onPress={handleSendComment}

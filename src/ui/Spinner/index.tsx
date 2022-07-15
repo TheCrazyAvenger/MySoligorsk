@@ -1,6 +1,7 @@
 import LottieView from 'lottie-react-native'
 import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 type Props = {
@@ -8,5 +9,13 @@ type Props = {
 }
 
 export const Spinner = ({ style }: Props) => {
-  return <LottieView style={[styles.container, style]} source={require('@/assets/spinner.json')} autoPlay loop />
+  const { colors } = useTheme()
+  return (
+    <LottieView
+      style={[styles.container, { backgroundColor: colors.background }, style]}
+      source={require('@/assets/spinner.json')}
+      autoPlay
+      loop
+    />
+  )
 }

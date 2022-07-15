@@ -6,12 +6,35 @@ import React, { useEffect, useRef } from 'react'
 import { LogBox } from 'react-native'
 import 'react-native-gesture-handler'
 import { enableLatestRenderer } from 'react-native-maps'
+import { DarkTheme, DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import SplashScreen from 'react-native-splash-screen'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { Screens } from './constants'
 import { RootNavigator } from './navigation'
+import { selectDarkTheme } from './selectors/applicationSettings'
 import { Typography } from './ui'
+
+const Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    grey: '#828282',
+    lightGrey: '#e3e3e3',
+    navigation: '#F3EDF7',
+  },
+}
+
+const IsDarkTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    background: '#1C1B1F',
+    grey: '#9F9AA1',
+    lightGrey: '#828282',
+    navigation: '#2A2831',
+  },
+}
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
@@ -73,9 +96,19 @@ export const App = () => {
               Environment: {ENVIRONMENT_NAME}
             </Typography.Default>
           )}
-          <RootNavigator />
+          <WrapperApp />
         </NavigationContainer>
       </SafeAreaProvider>
     </Provider>
+  )
+}
+
+const WrapperApp = () => {
+  const darkTheme = useSelector(selectDarkTheme)
+
+  return (
+    <PaperProvider theme={darkTheme ? IsDarkTheme : Theme}>
+      <RootNavigator />
+    </PaperProvider>
   )
 }

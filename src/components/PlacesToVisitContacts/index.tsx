@@ -60,7 +60,7 @@ export const PlacesToVisitContacts = ({ item, workingHours }: Props) => {
       </Typography.H4>
       <View style={styles.container}>
         <View style={styles.infoItem}>
-          <Icon name={'location'} size={23} color={Colors.iconGrey} />
+          <Icon name={'location'} size={23} color={Colors.grey} />
           <View style={{ marginLeft: 15 }}>
             <Typography.Default type='semiBold'>Адрес</Typography.Default>
             <TouchableOpacity activeOpacity={0.4} onPress={handleOpenMap}>
@@ -74,7 +74,7 @@ export const PlacesToVisitContacts = ({ item, workingHours }: Props) => {
           <>
             <Divider />
             <View style={styles.infoItem}>
-              <Icon name={'call'} size={23} color={Colors.iconGrey} />
+              <Icon name={'call'} size={23} color={Colors.grey} />
               <View style={{ marginLeft: 15 }}>
                 <Typography.Default type='semiBold'>Телефон</Typography.Default>
                 <Typography.Description onPress={handleOpenPhone} mt={10} color={Colors.primary}>
@@ -89,7 +89,7 @@ export const PlacesToVisitContacts = ({ item, workingHours }: Props) => {
           <>
             <Divider />
             <View style={styles.infoItem}>
-              <Icon name={'globe-outline'} color={Colors.iconGrey} size={23} />
+              <Icon name={'globe-outline'} color={Colors.grey} size={23} />
               <View style={{ marginLeft: 15 }}>
                 <Typography.Default type='semiBold'>Сайт</Typography.Default>
                 <TouchableOpacity activeOpacity={0.4} onPress={handleOpenWeb}>
@@ -117,7 +117,7 @@ export const PlacesToVisitContacts = ({ item, workingHours }: Props) => {
         <Divider />
 
         <View style={styles.infoItem}>
-          <Icon name={'time-outline'} color={Colors.iconGrey} size={23} />
+          <Icon name={'time-outline'} color={Colors.grey} size={23} />
           <View style={{ marginLeft: 15 }}>
             <Typography.Default type='semiBold'>Время работы</Typography.Default>
             <View style={[styles.timeInfo, { maxWidth: width - 40 }]}>

@@ -1,9 +1,7 @@
-import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   header: {
-    backgroundColor: Colors.white,
     position: 'absolute',
     justifyContent: 'center',
     top: 0,

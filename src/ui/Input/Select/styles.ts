@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 export const styles = StyleSheet.create({
   labelStyle: {
     fontFamily: Fonts.openSansRegular,
-    color: Colors.iconGrey,
+    color: Colors.grey,
     fontSize: 15,
     lineHeight: 19,
     fontWeight: '400',

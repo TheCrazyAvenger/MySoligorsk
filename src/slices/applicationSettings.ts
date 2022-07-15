@@ -5,12 +5,14 @@ type ApplicationSettingsStateType = {
   isWaitForVerification: boolean
   otherInterestSelected: boolean
   showSendAddressButton: boolean
+  darkTheme: boolean
 }
 
 const initialState: ApplicationSettingsStateType = {
   isWaitForVerification: false,
   otherInterestSelected: false,
   showSendAddressButton: false,
+  darkTheme: false,
 }
 
 const applicationSettingsSlice = createSlice({
@@ -26,10 +28,13 @@ const applicationSettingsSlice = createSlice({
     setShowSendAddressButton: (state, action) => {
       return { ...state, showSendAddressButton: action.payload }
     },
+    setDarkTheme: (state, action) => {
+      return { ...state, darkTheme: action.payload }
+    },
   },
 })
 
 export const {
-  actions: { setIsWaitForVerification, setOtherInterestSelected, setShowSendAddressButton },
+  actions: { setIsWaitForVerification, setOtherInterestSelected, setShowSendAddressButton, setDarkTheme },
   reducer: applicationSettingsReducer,
 } = applicationSettingsSlice

@@ -6,13 +6,14 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Image, Modal, ScrollView, StyleSheet, View } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
-import { TouchableRipple } from 'react-native-paper'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import { useSelector } from 'react-redux'
 import { styles } from './styles'
 
 export const PlacesToVisitPhotosScreen = () => {
   const route = useRoute<any>()
   const navigation = useNavigation<any>()
+  const { colors }: any = useTheme()
 
   const { title } = route.params
 
@@ -64,7 +65,7 @@ export const PlacesToVisitPhotosScreen = () => {
     })
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <BottomSheet
         error={error}
         hideError={cleanError}
@@ -102,13 +103,11 @@ export const PlacesToVisitPhotosScreen = () => {
           })}
         </ScrollView>
       )}
-      <Button
-        icon={'camera'}
-        buttonStyle={styles.button}
-        onPress={handleOpenMenu}
-      >
-        Добавить фото
-      </Button>
+      <View style={{ backgroundColor: colors.navigation }}>
+        <Button icon={'camera'} buttonStyle={styles.button} onPress={handleOpenMenu}>
+          Добавить фото
+        </Button>
+      </View>
     </View>
   )
 }

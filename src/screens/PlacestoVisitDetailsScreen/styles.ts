@@ -4,8 +4,6 @@ import { StyleSheet } from 'react-native'
 export const styles = StyleSheet.create({
   content: {
     flex: 1,
-    backgroundColor: Colors.white,
-    paddingTop: 20,
   },
   image: {
     height: '100%',

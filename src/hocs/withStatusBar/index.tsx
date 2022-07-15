@@ -2,10 +2,13 @@ import { Colors, Screens } from '@/constants'
 import { useFocusEffect, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { Platform, StatusBar, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 
 export const withStatusBar = (Screen: any) => {
   return (props: any) => {
     const route = useRoute()
+    const { colors, dark }: any = useTheme()
+
     useFocusEffect(() => {
       switch (route.name) {
         case Screens.placestoVisitDetails:
@@ -22,9 +25,9 @@ export const withStatusBar = (Screen: any) => {
           break
         default:
           if (Platform.OS === 'android') {
-            StatusBar.setBackgroundColor('white')
+            StatusBar.setBackgroundColor(colors.navigation)
           }
-          StatusBar.setBarStyle('dark-content')
+          StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content')
       }
     })
 

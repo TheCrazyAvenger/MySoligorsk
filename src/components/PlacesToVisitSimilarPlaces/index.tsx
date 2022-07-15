@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { ImageBackground, StyleSheet, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { TouchableRipple } from 'react-native-paper'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { styles } from './styles'
 
@@ -16,6 +16,7 @@ type Props = {
 
 export const PlacesToVisitSimilarPlaces = ({ data, places }: Props) => {
   const navigation = useNavigation<any>()
+  const { colors } = useTheme()
 
   return (
     <View style={styles.content}>
@@ -60,7 +61,7 @@ export const PlacesToVisitSimilarPlaces = ({ data, places }: Props) => {
                     {category}
                   </Typography.Default>
 
-                  <View style={styles.hoursContainer}>
+                  <View style={[styles.hoursContainer, { backgroundColor: colors.background }]}>
                     <Typography.SmallDescription style={{ fontFamily: Fonts.openSansSemiBold }} size={11}>
                       {open} - {close}
                     </Typography.SmallDescription>

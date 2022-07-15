@@ -1,10 +1,9 @@
+import { mapDarkStyle } from '@/constants'
 import { Typography } from '@/ui'
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Linking, Platform, StyleSheet, useWindowDimensions, View } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
-import { TouchableRipple } from 'react-native-paper'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 type Props = {
@@ -14,9 +13,9 @@ type Props = {
 }
 
 export const PlacesToVisitMap = ({ lat, lon, title }: Props) => {
-  const navigation = useNavigation<any>()
-  const insets = useSafeAreaInsets()
   const { width } = useWindowDimensions()
+
+  const { dark } = useTheme()
 
   const openExternalApp = () => {
     const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' })
@@ -36,6 +35,7 @@ export const PlacesToVisitMap = ({ lat, lon, title }: Props) => {
       <View style={styles.mapContainer}>
         <TouchableRipple borderless onPress={openExternalApp} style={[styles.mapView, { height: width / 1.15 }]}>
           <MapView
+            customMapStyle={dark ? mapDarkStyle : []}
             scrollEnabled={false}
             zoomEnabled={false}
             showsUserLocation={true}

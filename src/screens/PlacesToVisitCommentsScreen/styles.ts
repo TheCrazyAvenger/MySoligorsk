@@ -6,9 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
-  content: {
-    paddingRight: 20,
-  },
+
   commentSection: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -38,7 +38,7 @@ export const PlacesToVisitComments = ({ data, title }: Props) => {
                 <View style={styles.commentGrade}>
                   {Array.from(Array(5).keys()).map((item) => {
                     const isColored = item < grade
-                    return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
+                    return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.grey} />
                   })}
                   <Typography.Subtitle mt={2} ml={5}>
                     {date}
@@ -47,7 +47,7 @@ export const PlacesToVisitComments = ({ data, title }: Props) => {
               </View>
             </View>
             {comment ? (
-              <Typography.Description mt={5} ml={20} numberOfLines={3}>
+              <Typography.Description mt={5} mh={20} numberOfLines={3}>
                 {comment}
               </Typography.Description>
             ) : null}

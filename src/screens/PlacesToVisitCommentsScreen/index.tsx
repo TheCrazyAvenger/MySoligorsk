@@ -4,6 +4,7 @@ import { Button, Divider, Spinner, Typography } from '@/ui'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { Image, ScrollView, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
@@ -17,6 +18,7 @@ interface IComment {
 export const PlacesToVisitCommentsScreen = () => {
   const navigation = useNavigation<any>()
   const route = useRoute<any>()
+  const { colors } = useTheme()
 
   const { title } = route.params
   const { comments: data, userComment, loading } = useGetComments({ placeName: title, size: 100 })
@@ -35,8 +37,8 @@ export const PlacesToVisitCommentsScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <ScrollView>
         {data.map((item: IComment, i: number) => {
           const { user, comment, grade, date } = item
 
@@ -52,7 +54,7 @@ export const PlacesToVisitCommentsScreen = () => {
                   <View style={styles.commentGrade}>
                     {Array.from(Array(5).keys()).map((item) => {
                       const isColored = item < grade
-                      return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.iconGrey} />
+                      return <Icon key={item} name={'star'} size={16} color={isColored ? 'orange' : Colors.grey} />
                     })}
                     <Typography.Subtitle mt={2} ml={5}>
                       {date}
@@ -61,7 +63,7 @@ export const PlacesToVisitCommentsScreen = () => {
                 </View>
               </View>
               {comment ? (
-                <Typography.Description mt={5} ml={20}>
+                <Typography.Description mt={5} mh={20}>
                   {comment}
                 </Typography.Description>
               ) : null}
@@ -69,9 +71,11 @@ export const PlacesToVisitCommentsScreen = () => {
           )
         })}
       </ScrollView>
-      <Button icon={'chatbubble'} buttonStyle={styles.button} onPress={handleEditComment}>
-        {userComment ? (!userComment?.comment ? 'Добавить комментарий' : 'Редактировать') : 'Написать отзыв'}
-      </Button>
+      <View style={{ backgroundColor: colors.navigation }}>
+        <Button icon={'chatbubble'} buttonStyle={styles.button} onPress={handleEditComment}>
+          {userComment ? (!userComment?.comment ? 'Добавить комментарий' : 'Редактировать') : 'Написать отзыв'}
+        </Button>
+      </View>
     </View>
   )
 }

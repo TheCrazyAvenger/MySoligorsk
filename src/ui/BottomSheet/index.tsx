@@ -2,7 +2,7 @@ import { Colors } from '@/constants'
 import { BottomSheet as RNBottomSheet, ListItem } from '@rneui/themed'
 import React from 'react'
 import { View } from 'react-native'
-import { Snackbar, TouchableRipple } from 'react-native-paper'
+import { Snackbar, TouchableRipple, useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Typography } from '../Typography'
 import { styles } from './styles'
@@ -21,6 +21,7 @@ export const BottomSheet = ({ data, isVisible, onClose, center = false, error, h
   const handleClose = () => {
     onClose(false)
   }
+  const { colors }: any = useTheme()
 
   return (
     <RNBottomSheet
@@ -30,12 +31,14 @@ export const BottomSheet = ({ data, isVisible, onClose, center = false, error, h
     >
       {data.map((item, i) => (
         <TouchableRipple key={i} borderless onPress={item.onPress}>
-          <ListItem containerStyle={{ backgroundColor: item.isSelected ? selectedColor ?? '#A4CFF7' : Colors.white }}>
+          <ListItem
+            containerStyle={{ backgroundColor: item.isSelected ? selectedColor ?? '#A4CFF7' : colors.background }}
+          >
             <ListItem.Content style={styles.container}>
               {item.icon ? (
                 <Icon
                   name={item.icon}
-                  color={item.isSelected ? Colors.white : Colors.iconGrey}
+                  color={item.isSelected ? Colors.white : colors.grey}
                   size={23}
                   style={{ marginRight: 15 }}
                 />
@@ -46,11 +49,11 @@ export const BottomSheet = ({ data, isVisible, onClose, center = false, error, h
                   { justifyContent: center ? 'center' : item.description ? 'space-between' : 'flex-start' },
                 ]}
               >
-                <Typography.Default color={item.isSelected ? Colors.white : Colors.black} type='semiBold'>
+                <Typography.Default color={item.isSelected ? Colors.white : colors.text} type='semiBold'>
                   {item.title}
                 </Typography.Default>
                 {item.description ? (
-                  <Typography.Default color={item.isSelected ? Colors.white : Colors.black} type='semiBold'>
+                  <Typography.Default color={item.isSelected ? Colors.white : colors.text} type='semiBold'>
                     {item.description}
                   </Typography.Default>
                 ) : null}
