@@ -1,6 +1,7 @@
 import { MenuItem } from '@/components'
 import { selectDarkTheme } from '@/selectors/applicationSettings'
 import { setDarkTheme } from '@/slices/applicationSettings'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -8,7 +9,8 @@ export const Interface = () => {
   const dispatch = useDispatch()
   const darkTheme = useSelector(selectDarkTheme)
 
-  const handleSetDarkTheme = () => {
+  const handleSetDarkTheme = async () => {
+    await AsyncStorage.setItem('darkTheme', (!darkTheme).toString())
     dispatch(setDarkTheme(!darkTheme))
   }
 

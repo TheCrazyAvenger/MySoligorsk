@@ -1,8 +1,9 @@
 import { selectIsLoggedIn } from '@/selectors'
 import { setUser } from '@/slices'
-import { setIsWaitForVerification } from '@/slices/applicationSettings'
+import { setDarkTheme, setIsWaitForVerification } from '@/slices/applicationSettings'
 import { removeLogin, setLogin } from '@/slices/authentication'
 import { Spinner } from '@/ui'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import React, { useEffect, useState } from 'react'
@@ -83,6 +84,15 @@ export const RootNavigator = () => {
     }
     if (initializing) setInitializing(false)
   }
+
+  const getDarkTheme = async () => {
+    const darkTheme = await AsyncStorage.getItem('darkTheme')
+    darkTheme && dispatch(setDarkTheme(darkTheme === 'true' ? true : false))
+  }
+
+  useEffect(() => {
+    getDarkTheme()
+  }, [])
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
