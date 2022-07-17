@@ -1,9 +1,9 @@
-import { Colors, Fonts } from '@/constants'
+import { Fonts } from '@/constants'
 import { Button, Typography } from '@/ui'
 import auth from '@react-native-firebase/auth'
 import React, { useState } from 'react'
 import { Modal, View } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 type Props = {
@@ -22,7 +22,8 @@ const regPluses = [
 export const AnonymousModal = ({ visible, hideModal }: Props) => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setIsLoading] = useState(false)
-  const dispatch = useDispatch()
+  const { colors } = useTheme()
+
   const handleAnonymous = () => {
     setError(null)
     setIsLoading(true)
@@ -38,7 +39,7 @@ export const AnonymousModal = ({ visible, hideModal }: Props) => {
   return (
     <Modal visible={visible} transparent statusBarTranslucent animationType='fade'>
       <View style={styles.wrappwer}>
-        <View style={styles.card}>
+        <View style={[styles.card, { backgroundColor: colors.background }]}>
           <Typography.H2 ph={25} style={{ textAlign: 'center', fontFamily: Fonts.openSansSemiBold }}>
             Вы уверены что хотите продолжить без регистрации?
           </Typography.H2>
@@ -59,7 +60,7 @@ export const AnonymousModal = ({ visible, hideModal }: Props) => {
               {error ? (
                 <Typography.Description
                   style={{ position: 'absolute', bottom: -22, alignSelf: 'center' }}
-                  color={Colors.error}
+                  color={colors.error}
                   textAlign={'center'}
                 >
                   {error}

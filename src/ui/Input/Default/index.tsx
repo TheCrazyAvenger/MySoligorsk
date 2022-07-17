@@ -2,6 +2,7 @@ import { Colors } from '@/constants'
 import { useField } from '@/hooks'
 import React, { useCallback, useState } from 'react'
 import { Input as RNEInput } from 'react-native-elements'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 export const Default = ({
@@ -20,6 +21,7 @@ export const Default = ({
   numberOfLines,
   ...otherProps
 }: any) => {
+  const { colors }: any = useTheme()
   const [secureEntry, setSecureEntry] = useState(secureTextEntry)
   const handleRightIconPress = useCallback(() => {
     if (setSecureTextEntry) {
@@ -53,12 +55,13 @@ export const Default = ({
       secureTextEntry={!!(secureEntry || isSecure)}
       placeholderTextColor={Colors.silver}
       containerStyle={[styles.containerStyle, containerPropStyle]}
-      inputStyle={[styles.inputStyle, inputStyle, multiline && styles.multilineInput]}
+      inputStyle={[styles.inputStyle, inputStyle, multiline && styles.multilineInput, { color: colors.text }]}
       inputContainerStyle={[
         styles.inputContainerStyle,
         inputContainerStyle,
         error && styles.inputContainerErrorStyle,
         multiline && styles.multilineInput,
+        { backgroundColor: colors.input, borderColor: colors.inputBorder },
       ]}
       labelStyle={[styles.labelStyle, error && styles.labelErrorStyle]}
       errorStyle={styles.errorStyle}

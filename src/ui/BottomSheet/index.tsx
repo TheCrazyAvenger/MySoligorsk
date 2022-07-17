@@ -32,7 +32,7 @@ export const BottomSheet = ({ data, isVisible, onClose, center = false, error, h
       {data.map((item, i) => (
         <TouchableRipple key={i} borderless onPress={item.onPress}>
           <ListItem
-            containerStyle={{ backgroundColor: item.isSelected ? selectedColor ?? '#A4CFF7' : colors.background }}
+            containerStyle={{ backgroundColor: item.isSelected ? selectedColor ?? '#A4CFF7' : colors.navigation }}
           >
             <ListItem.Content style={styles.container}>
               {item.icon ? (

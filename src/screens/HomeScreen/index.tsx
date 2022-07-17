@@ -1,7 +1,7 @@
 import { useGetWeatherQuery } from '@/api'
 import { HomeHeader, PlacesToVisit, TabBarScreenLayout, WeatherCard } from '@/components'
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { styles } from './styles'
 
 export const HomeScreen = () => {
@@ -13,6 +13,7 @@ export const HomeScreen = () => {
         <HomeHeader />
         <PlacesToVisit />
         <WeatherCard loading={isLoading} data={weatheeData} />
+        <View style={{ marginBottom: 20 }} />
       </ScrollView>
     </TabBarScreenLayout>
   )

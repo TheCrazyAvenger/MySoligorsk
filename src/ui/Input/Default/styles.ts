@@ -14,8 +14,6 @@ export const styles = StyleSheet.create({
   },
   inputContainerStyle: {
     borderWidth: 1,
-    borderColor: '#D1CBCB',
-    backgroundColor: '#F2F2F2',
     borderRadius: 20,
     paddingLeft: 17,
     marginTop: 6,
@@ -33,7 +31,6 @@ export const styles = StyleSheet.create({
     marginBottom: 2,
   },
   inputStyle: {
-    color: Colors.contentText,
     fontFamily: Fonts.openSansRegular,
     fontSize: 16,
     lineHeight: 22,

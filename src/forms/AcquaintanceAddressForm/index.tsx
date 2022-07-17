@@ -5,6 +5,7 @@ import { Input, Typography } from '@/ui'
 import { useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -15,6 +16,7 @@ export const AcquaintanceAddressForm = ({
   handleCloseModal,
   unknownAddressModal,
 }: any) => {
+  const { colors } = useTheme()
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -114,10 +116,10 @@ export const AcquaintanceAddressForm = ({
             ]}
           >
             {errors?.street && touched.street ? (
-              <Typography.Default style={styles.error}>{errors.street}</Typography.Default>
+              <Typography.Default style={[styles.error, { color: colors.error }]}>{errors.street}</Typography.Default>
             ) : null}
             {errors?.house && touched.house ? (
-              <Typography.Default style={styles.error}>{errors.house}</Typography.Default>
+              <Typography.Default style={[styles.error, { color: colors.error }]}>{errors.house}</Typography.Default>
             ) : null}
           </View>
         </View>

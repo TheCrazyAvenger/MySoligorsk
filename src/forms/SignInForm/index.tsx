@@ -4,10 +4,12 @@ import { isErrorsExist } from '@/helpers'
 import { Input } from '@/ui'
 import { useFormik } from 'formik'
 import React, { useEffect } from 'react'
+import { useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { validationSchema } from './validation'
 
 export const SignInForm = ({ onSubmit, initialValues, loading, error }: any) => {
+  const { colors } = useTheme()
   const formik = useFormik({
     initialValues,
     validationSchema,

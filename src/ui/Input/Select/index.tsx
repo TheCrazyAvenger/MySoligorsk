@@ -3,6 +3,7 @@ import { useField } from '@/hooks'
 import React from 'react'
 import { Dimensions } from 'react-native'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 export const Select = ({
@@ -20,6 +21,7 @@ export const Select = ({
   numberOfLines,
   ...otherProps
 }: any) => {
+  const { colors }: any = useTheme()
   const { handleFocus, handleBlur, error } = useField({ onBlur, touched, errorMessage })
 
   return (
@@ -43,8 +45,17 @@ export const Select = ({
         allowFontScaling: false,
         autoCorrect: false,
       }}
-      suggestionsListContainerStyle={{ ...styles.suggestionsListContainerStyle, ...suggestionsListContainerStyle }}
-      inputContainerStyle={[styles.inputContainerStyle, inputContainerStyle, error && styles.inputContainerErrorStyle]}
+      suggestionsListContainerStyle={{
+        ...styles.suggestionsListContainerStyle,
+        ...suggestionsListContainerStyle,
+        backgroundColor: colors.navigation,
+      }}
+      inputContainerStyle={[
+        styles.inputContainerStyle,
+        inputContainerStyle,
+        error && styles.inputContainerErrorStyle,
+        { backgroundColor: colors.input, borderColor: colors.inputBorder },
+      ]}
       rightButtonsContainerStyle={{ ...styles.rightIconContainerStyle, ...rightButtonsContainerStyle }}
       allowFontScaling={false}
     />

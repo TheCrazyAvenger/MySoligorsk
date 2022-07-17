@@ -19,9 +19,16 @@ const Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
+    primary: '#2f80ed',
     grey: '#828282',
     lightGrey: '#e3e3e3',
     navigation: '#F3EDF7',
+    input: '#F2F2F2',
+    inputBorder: '#D1CBCB',
+    error: '#EB5757',
+    disabledError: '#f39a9a',
+    orange: '#F2994A',
+    grass: '#27AE60',
   },
 }
 
@@ -29,10 +36,17 @@ const IsDarkTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
+    primary: '#2f80ed',
     background: '#1C1B1F',
     grey: '#9F9AA1',
     lightGrey: '#828282',
     navigation: '#2A2831',
+    input: '#49454F',
+    inputBorder: '#9D989E',
+    error: '#EB5757',
+    disabledError: '#f39a9a',
+    orange: '#F2994A',
+    grass: '#27AE60',
   },
 }
 

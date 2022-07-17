@@ -1,9 +1,12 @@
 import { Colors, Fonts } from '@/constants'
+import { selectDarkTheme } from '@/selectors/applicationSettings'
 import { Divider, Typography } from '@/ui'
 import React from 'react'
 import { View } from 'react-native'
-import { Switch, TouchableRipple, useTheme } from 'react-native-paper'
+import { Switch, TouchableRipple } from 'react-native-paper'
+import Animated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { useSelector } from 'react-redux'
 import { styles } from './styles'
 
 type Props = {
@@ -21,13 +24,23 @@ type Props = {
 }
 
 export const MenuItem = ({ data, title }: Props) => {
-  const { colors }: any = useTheme()
+  const darkTheme = useSelector(selectDarkTheme)
+
+  const progress = useDerivedValue(() => {
+    return darkTheme ? withTiming(1) : withTiming(0)
+  })
+
+  const rStyle = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(progress.value, [0, 1], ['#F3EDF7', '#2A2831'])
+    return { backgroundColor }
+  })
+
   return (
     <>
       <Typography.Default mt={20} mb={5} ml={10} type='semiBold' color={Colors.grey}>
         {title}
       </Typography.Default>
-      <View style={[styles.container, { backgroundColor: colors.navigation }]}>
+      <Animated.View style={[styles.container, rStyle]}>
         {data.map((item) => {
           return (
             <View key={item.id}>
@@ -56,7 +69,7 @@ export const MenuItem = ({ data, title }: Props) => {
             </View>
           )
         })}
-      </View>
+      </Animated.View>
     </>
   )
 }

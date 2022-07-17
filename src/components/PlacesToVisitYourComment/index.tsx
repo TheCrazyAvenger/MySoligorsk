@@ -76,7 +76,7 @@ export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment, title
       <BottomSheet
         error={error}
         hideError={handleHideSnackBar}
-        selectedColor={Colors.error}
+        selectedColor={colors.error}
         data={menuData}
         onClose={setIsMenuVisible}
         isVisible={isMenuVisible}

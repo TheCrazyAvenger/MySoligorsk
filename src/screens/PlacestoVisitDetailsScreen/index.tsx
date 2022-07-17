@@ -34,7 +34,7 @@ export const PlacestoVisitDetailsScreen = () => {
   const navigation = useNavigation<any>()
   const insets = useSafeAreaInsets()
   const { height } = useWindowDimensions()
-  const { colors } = useTheme()
+  const { colors }: any = useTheme()
 
   const HEADER_MAX_HEIGHT = height * 0.6
   const HEADER_MIN_HEIGHT = height * 0.1
@@ -82,7 +82,7 @@ export const PlacestoVisitDetailsScreen = () => {
             <View style={styles.reviewSection}>
               <Typography.H3 color={Colors.white}>{category} • </Typography.H3>
               <View style={styles.reviewSection}>
-                <Icon name='star' color={Colors.orange} size={19} />
+                <Icon name='star' color={colors.orange} size={19} />
                 <Typography.H3 ml={5} color={Colors.white}>
                   {avarageRate ? avarageRate.toFixed(1) : 'Нет отзывов'}
                 </Typography.H3>
@@ -90,7 +90,7 @@ export const PlacestoVisitDetailsScreen = () => {
             </View>
             <Typography.Subtitle
               mt={16}
-              color={workingHoursMessage.color === Colors.grass ? Colors.white : workingHoursMessage.color}
+              color={workingHoursMessage.color === colors.grass ? Colors.white : workingHoursMessage.color}
             >
               {workingHoursMessage.title}
             </Typography.Subtitle>
@@ -102,7 +102,7 @@ export const PlacestoVisitDetailsScreen = () => {
             handleIndicatorStyle={{ backgroundColor: colors.text }}
             backdropComponent={(props) => <PlacesToVisitHeader title={title} {...props} />}
             index={0}
-            snapPoints={[height - HEADER_MAX_HEIGHT + 50, height - HEADER_MIN_HEIGHT + 50]}
+            snapPoints={[height - HEADER_MAX_HEIGHT + 50, height - HEADER_MIN_HEIGHT + 59]}
           >
             <BottomSheetScrollView>
               <View style={[styles.content, { backgroundColor: colors.background }]}>

@@ -1,4 +1,3 @@
-import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
@@ -22,7 +21,6 @@ export const styles = StyleSheet.create({
     zIndex: 1,
     top: -10,
     right: -10,
-    backgroundColor: Colors.error,
     width: 25,
     height: 25,
     borderRadius: 15,

@@ -7,7 +7,7 @@ import { Button, Typography } from '@/ui'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useMemo, useState } from 'react'
 import { ScrollView, View } from 'react-native'
-import { TouchableRipple } from 'react-native-paper'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -31,6 +31,7 @@ const otherObject = {
 }
 
 export const AcquaintanceInterestsScreen = () => {
+  const { colors } = useTheme()
   const route: any = useRoute()
   const navigation = useNavigation<any>()
   const otherInterestSelected = useSelector(selectOtherInterestSelected)
@@ -94,7 +95,7 @@ export const AcquaintanceInterestsScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       <OtherSelectedModal visible={showOtherModal} hideModal={handleHideOtherModal} />
-      <ScrollView style={[styles.container]}>
+      <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
         <Typography.TitleText mt={50} lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
           Чем вы увлекаетесь?
         </Typography.TitleText>

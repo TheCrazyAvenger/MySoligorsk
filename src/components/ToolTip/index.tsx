@@ -1,6 +1,6 @@
-import { Colors } from '@/constants'
 import React from 'react'
 import { Text } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import Tooltip from 'rn-tooltip'
 import { styles } from './styles'
 
@@ -9,6 +9,8 @@ type CustomTooltipProps = {
 }
 
 export const CustomTooltip: React.FC<CustomTooltipProps> = ({ message, children }) => {
+  const { colors }: any = useTheme()
+
   return (
     <Tooltip
       actionType='press'
@@ -16,8 +18,8 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({ message, children 
       withOverlay={false}
       width='70%'
       height={'auto'}
-      backgroundColor={Colors.white}
-      popover={<Text style={styles.tooltipMessageText}>{message}</Text>}
+      backgroundColor={colors.navigation}
+      popover={<Text style={[styles.tooltipMessageText, { color: colors.text }]}>{message}</Text>}
     >
       {children}
     </Tooltip>

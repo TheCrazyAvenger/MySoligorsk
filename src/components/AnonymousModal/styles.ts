@@ -1,4 +1,3 @@
-import { Colors } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
@@ -10,7 +9,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   card: {
-    backgroundColor: Colors.white,
     borderRadius: 10,
     paddingHorizontal: 20,
     paddingVertical: 24,

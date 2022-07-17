@@ -1,8 +1,9 @@
 import { DismissKeyboardView } from '@/components'
-import { Colors, Fonts } from '@/constants'
+import { Fonts } from '@/constants'
 import { Button, Typography } from '@/ui'
 import React from 'react'
 import { Animated, KeyboardAvoidingView, Platform, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CustomTooltip } from '../ToolTip'
 import { styles } from './styles'
@@ -28,6 +29,7 @@ export const FormWrapper = ({
   scrollViewStyle,
   textBelowButtons,
 }: any) => {
+  const { colors } = useTheme()
   const Container = type === 'ScrollView' ? Animated.ScrollView : Animated.View
 
   return (
@@ -37,7 +39,7 @@ export const FormWrapper = ({
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'position' : undefined}
             keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
-            style={[styles.content, style]}
+            style={[styles.content, style, { backgroundColor: colors.background }]}
           >
             <View style={{ flex: 0.2, justifyContent: 'flex-end' }}>
               <Typography.TitleText style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
@@ -91,7 +93,7 @@ export const FormWrapper = ({
                 </Button>
               ) : null}
               {error ? (
-                <Typography.Description style={{ alignSelf: 'center' }} color={Colors.error} textAlign={'center'}>
+                <Typography.Description style={{ alignSelf: 'center' }} color={colors.error} textAlign={'center'}>
                   {error}
                 </Typography.Description>
               ) : null}

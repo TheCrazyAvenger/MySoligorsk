@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Image, StyleSheet, useWindowDimensions, View } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
-import { TouchableRipple } from 'react-native-paper'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { styles } from './styles'
 
@@ -20,6 +20,7 @@ type Props = {
 export const ImageInput = ({ title, uri, uris, index, onChange, showClose = false }: Props) => {
   const navigation = useNavigation<any>()
   const { width } = useWindowDimensions()
+  const { colors } = useTheme()
 
   const handleGoToPhoto = () =>
     navigation.navigate(Screens.placesToVisitPhoto, { uris, index, title, showReport: false })
@@ -48,7 +49,11 @@ export const ImageInput = ({ title, uri, uris, index, onChange, showClose = fals
   return (
     <View>
       {showClose && (
-        <TouchableRipple borderless onPress={() => onChange(uri)} style={styles.closeButton}>
+        <TouchableRipple
+          borderless
+          onPress={() => onChange(uri)}
+          style={[styles.closeButton, { backgroundColor: colors.error }]}
+        >
           <Icon name={'close'} color={Colors.white} size={20} />
         </TouchableRipple>
       )}

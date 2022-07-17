@@ -12,7 +12,7 @@ export const BottomTabNavigator = () => {
   const { colors }: any = useTheme()
 
   return (
-    <Tab.Navigator shifting labeled barStyle={[styles.navigator, { backgroundColor: colors.navigation }]}>
+    <Tab.Navigator screenOptions={{}} labeled barStyle={[styles.navigator, { backgroundColor: colors.navigation }]}>
       <Tab.Screen
         name={Screens.home}
         component={HomeScreen}

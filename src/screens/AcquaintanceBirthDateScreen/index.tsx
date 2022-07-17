@@ -3,11 +3,13 @@ import { Screens } from '@/constants'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useState } from 'react'
 import DatePicker from 'react-native-date-picker'
+import { useTheme } from 'react-native-paper'
 
 export const AcquaintanceBirthDateScreen = () => {
   const [birthDate, setBirthDate] = useState(new Date())
   const navigation = useNavigation<any>()
   const route: any = useRoute()
+  const { colors } = useTheme()
 
   const handleGoNext = () => {
     navigation.navigate(Screens.acquaintanceInterests, {
@@ -25,6 +27,8 @@ export const AcquaintanceBirthDateScreen = () => {
         maximumDate={new Date()}
         minimumDate={new Date('1920-01-01')}
         onDateChange={setBirthDate}
+        textColor={colors.text}
+        fadeToColor={colors.background}
         mode='date'
       />
     </FormWrapper>

@@ -1,8 +1,9 @@
-import { Colors, Fonts } from '@/constants'
+import { Fonts } from '@/constants'
 import { Button, Input, Typography } from '@/ui'
 import firestore from '@react-native-firebase/firestore'
 import React, { useState } from 'react'
 import { Modal, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
 export const OtherSelectedModal = ({ visible, hideModal }: Props) => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setIsLoading] = useState(false)
+  const { colors } = useTheme()
 
   const [interstValue, setInterestValue] = useState('')
 
@@ -38,7 +40,7 @@ export const OtherSelectedModal = ({ visible, hideModal }: Props) => {
   return (
     <Modal visible={visible} transparent statusBarTranslucent animationType='fade'>
       <View style={styles.wrappwer}>
-        <View style={styles.card}>
+        <View style={[styles.card, { backgroundColor: colors.background }]}>
           <Typography.H2 ph={24} style={{ textAlign: 'center', fontFamily: Fonts.openSansBold }}>
             Вы выбрали "Другое"
           </Typography.H2>
@@ -69,7 +71,7 @@ export const OtherSelectedModal = ({ visible, hideModal }: Props) => {
               {error ? (
                 <Typography.Description
                   style={{ position: 'absolute', bottom: -22, alignSelf: 'center' }}
-                  color={Colors.error}
+                  color={colors.error}
                   textAlign={'center'}
                 >
                   {error}

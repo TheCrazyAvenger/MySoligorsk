@@ -5,6 +5,7 @@ import { Button, Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useRef, useState } from 'react'
 import { Animated, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { styles } from './styles'
 
 const regTooltipMessage =
@@ -15,6 +16,7 @@ export const WelcomeScreen = () => {
   const [showModal, setShowModal] = useState(false)
   const handleOpenAnonimousModal = () => setShowModal(true)
   const handleCloseAnonimousModal = () => setShowModal(false)
+  const { colors } = useTheme()
 
   const opacity = useRef(new Animated.Value(0)).current
 
@@ -29,7 +31,7 @@ export const WelcomeScreen = () => {
     <>
       <AnonymousModal visible={showModal} hideModal={handleCloseAnonimousModal} />
 
-      <Animated.View style={[styles.container, { opacity }]}>
+      <Animated.View style={[styles.container, { opacity, backgroundColor: colors.background }]}>
         <View>
           <Typography.TitleText lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
             Добро пожаловать в Мой Солигорск

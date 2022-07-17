@@ -18,7 +18,7 @@ interface IComment {
 export const PlacesToVisitCommentsScreen = () => {
   const navigation = useNavigation<any>()
   const route = useRoute<any>()
-  const { colors } = useTheme()
+  const { colors }: any = useTheme()
 
   const { title } = route.params
   const { comments: data, userComment, loading } = useGetComments({ placeName: title, size: 100 })
@@ -39,6 +39,7 @@ export const PlacesToVisitCommentsScreen = () => {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView>
+        <View style={{ marginTop: 20 }} />
         {data.map((item: IComment, i: number) => {
           const { user, comment, grade, date } = item
 
@@ -70,6 +71,7 @@ export const PlacesToVisitCommentsScreen = () => {
             </View>
           )
         })}
+        <View style={{ marginBottom: 20 }} />
       </ScrollView>
       <View style={{ backgroundColor: colors.navigation }}>
         <Button icon={'chatbubble'} buttonStyle={styles.button} onPress={handleEditComment}>

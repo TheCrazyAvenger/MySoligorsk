@@ -1,4 +1,4 @@
-import { Colors, Fonts } from '@/constants'
+import { Fonts } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   error: {
-    color: Colors.error,
     marginHorizontal: 20,
     marginBottom: 4,
     fontFamily: Fonts.openSansRegular,

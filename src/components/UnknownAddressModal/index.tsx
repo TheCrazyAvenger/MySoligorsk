@@ -1,4 +1,4 @@
-import { Colors, Fonts, Screens } from '@/constants'
+import { Fonts, Screens } from '@/constants'
 import { selectShowSendAddressButton } from '@/selectors/applicationSettings'
 import { setShowSendAddressButton } from '@/slices/applicationSettings'
 import { Button, Typography } from '@/ui'
@@ -6,6 +6,7 @@ import firestore from '@react-native-firebase/firestore'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Modal, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { useDispatch, useSelector } from 'react-redux'
 import { styles } from './styles'
 
@@ -23,6 +24,7 @@ export const UnknownAddressModal = ({ visible, hideModal, street, house }: Props
   const navigation = useNavigation<any>()
   const dispatch = useDispatch<any>()
   const showSendAddressButton = useSelector(selectShowSendAddressButton)
+  const { colors } = useTheme()
 
   const handleGoNext = async () => {
     hideModal()
@@ -58,7 +60,7 @@ export const UnknownAddressModal = ({ visible, hideModal, street, house }: Props
   return (
     <Modal visible={visible} transparent statusBarTranslucent animationType='fade'>
       <View style={styles.wrappwer}>
-        <View style={styles.card}>
+        <View style={[styles.card, { backgroundColor: colors.background }]}>
           <Typography.H2 ph={24} style={{ textAlign: 'center', fontFamily: Fonts.openSansBold }}>
             Неизвестный адрес "{street} {house}"
           </Typography.H2>
@@ -83,7 +85,7 @@ export const UnknownAddressModal = ({ visible, hideModal, street, house }: Props
               {error ? (
                 <Typography.Description
                   style={{ position: 'absolute', bottom: -22, alignSelf: 'center' }}
-                  color={Colors.error}
+                  color={colors.error}
                   textAlign={'center'}
                 >
                   {error}

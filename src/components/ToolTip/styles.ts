@@ -16,7 +16,6 @@ export const styles = StyleSheet.create({
   tooltipMessageText: {
     fontFamily: Fonts.openSansRegular,
     fontSize: 13,
-    color: Colors.black,
     alignSelf: 'center',
     marginHorizontal: 2,
   },

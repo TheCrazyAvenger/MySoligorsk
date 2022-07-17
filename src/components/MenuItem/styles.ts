@@ -27,8 +27,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   menuItemWrapper: {
-    paddingHorizontal: 10,
-    paddingVertical: 11,
+    paddingHorizontal: 15,
+    paddingVertical: 15,
   },
   menuItemInner: {
     flexDirection: 'row',
