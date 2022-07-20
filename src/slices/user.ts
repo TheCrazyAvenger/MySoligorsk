@@ -5,12 +5,14 @@ type UserState = {
   firstname: string | null
   lastname: string | null
   email: string | null
+  interests: string[] | null
 }
 
 const initialState: UserState = {
   firstname: null,
   lastname: null,
   email: null,
+  interests: null,
 }
 
 const userSlice = createSlice({

@@ -1,6 +1,7 @@
 import { Colors, Fonts } from '@/constants'
 import { selectDarkTheme } from '@/selectors/applicationSettings'
 import { Divider, Typography } from '@/ui'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View } from 'react-native'
 import { Switch, TouchableRipple } from 'react-native-paper'
@@ -15,7 +16,7 @@ type Props = {
     title: string
     color: string
     icon: string
-    moveTo: null | string
+    screen?: null | string
     id: number
     onPress?: (...args: any) => any
     switch?: boolean
@@ -25,6 +26,7 @@ type Props = {
 
 export const MenuItem = ({ data, title }: Props) => {
   const darkTheme = useSelector(selectDarkTheme)
+  const navigation = useNavigation<any>()
 
   const progress = useDerivedValue(() => {
     return darkTheme ? withTiming(1) : withTiming(0)
@@ -34,6 +36,8 @@ export const MenuItem = ({ data, title }: Props) => {
     const backgroundColor = interpolateColor(progress.value, [0, 1], ['#F3EDF7', '#2A2831'])
     return { backgroundColor }
   })
+
+  const handleNavigate = (screen: string) => navigation.navigate(screen)
 
   return (
     <>
@@ -47,7 +51,7 @@ export const MenuItem = ({ data, title }: Props) => {
               {item.id !== 0 && <Divider style={styles.divider} />}
               <TouchableRipple
                 borderless
-                onPress={() => (item.onPress ? item.onPress() : {})}
+                onPress={() => (item.screen ? handleNavigate(item.screen) : item.onPress ? item.onPress() : {})}
                 style={styles.menuItemWrapper}
               >
                 <View style={styles.menuItemInner}>

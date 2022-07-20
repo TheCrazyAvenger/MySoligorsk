@@ -9,7 +9,7 @@ export const Account = () => {
   const dispatch = useDispatch()
   const handleLogout = async () => {
     await AsyncStorage.removeItem('isSignIn')
-    await dispatch(setUser({ firstname: null, lastname: null, email: null }))
+    await dispatch(setUser({ firstname: null, lastname: null, email: null, interests: null }))
     auth().signOut()
   }
 

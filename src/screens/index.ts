@@ -12,6 +12,7 @@ import { CompleteScreen as Complete } from './CompleteScreen'
 import { EmailVerificationScreen as EmailVerification } from './EmailVerificationScreen'
 import { HomeScreen as Home } from './HomeScreen'
 import { MenuScreen as Menu } from './MenuScreen'
+import { MyInterestsScreen as MyInterests } from './MyInterestsScreen'
 import { PlacesToVisitCommentsScreen as PlacesToVisitComments } from './PlacesToVisitCommentsScreen'
 import { PlacestoVisitDetailsScreen as PlacestoVisitDetails } from './PlacestoVisitDetailsScreen'
 import { PlacesToVisitEditCommentsScreen as PlacesToVisitEditComments } from './PlacesToVisitEditCommentsScreen'
@@ -34,6 +35,7 @@ export const CompleteScreen = withStatusBar(Complete)
 export const EmailVerificationScreen = withStatusBar(EmailVerification)
 export const HomeScreen = withStatusBar(Home)
 export const MenuScreen = withStatusBar(Menu)
+export const MyInterestsScreen = withStatusBar(MyInterests)
 export const PlacesToVisitCommentsScreen = withStatusBar(PlacesToVisitComments)
 export const PlacestoVisitDetailsScreen = withStatusBar(PlacestoVisitDetails)
 export const PlacesToVisitEditCommentsScreen = withStatusBar(PlacesToVisitEditComments)

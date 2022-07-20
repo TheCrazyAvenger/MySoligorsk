@@ -49,13 +49,14 @@ export const RootNavigator = () => {
         .get()
         .then((responce) => {
           const data = responce.data()
-          const { firstname, lastname }: any = data
+          const { firstname, lastname, interests }: any = data
 
           dispatch(
             setUser({
               firstname: isAnonymous ? 'Anonymous' : firstname,
               lastname: isAnonymous ? uid : lastname,
               email,
+              interests: isAnonymous ? null : interests,
             })
           )
           setLoading(false)
@@ -67,6 +68,7 @@ export const RootNavigator = () => {
                 firstname: 'Anonymous',
                 lastname: uid.slice(0, 9),
                 email: 'No email',
+                interests: [],
               })
             )
           setLoading(false)

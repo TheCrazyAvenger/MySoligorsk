@@ -89,7 +89,9 @@ export const PlacesToVisitEditCommentsScreen = () => {
       </Modal>
       <ScrollView style={{ backgroundColor: colors.background }} contentContainerStyle={styles.container}>
         <View style={styles.inner}>
-          <Typography.Default mb={20}>Ваш отзыв будет виден всем пользователям</Typography.Default>
+          <Typography.Default mt={20} mb={20}>
+            Ваш отзыв будет виден всем пользователям
+          </Typography.Default>
           <View>
             <Typography.Default type='semiBold' mb={10}>
               Оценка

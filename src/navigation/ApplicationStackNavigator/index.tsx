@@ -2,6 +2,7 @@ import { Header, PlacesToVisitEditCommentsScreen } from '@/components'
 import { Navigators, Screens } from '@/constants'
 import {
   CompleteScreen,
+  MyInterestsScreen,
   PlacesToVisitCommentsScreen,
   PlacestoVisitDetailsScreen,
   PlacesToVisitPhotoScreen,
@@ -82,6 +83,9 @@ export const ApplicationStackNavigator = () => {
           component={PlacesToVisitEditCommentsScreen}
         />
         <Stack.Screen name={Screens.completeScreen} options={completeOptions} component={CompleteScreen} />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen name={Screens.myInterests} options={{ title: 'Мои увлечения' }} component={MyInterestsScreen} />
       </Stack.Group>
     </Stack.Navigator>
   )

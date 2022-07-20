@@ -1,4 +1,5 @@
 import { MenuItem } from '@/components'
+import { Screens } from '@/constants'
 import { selectDarkTheme } from '@/selectors/applicationSettings'
 import { setDarkTheme } from '@/slices/applicationSettings'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -16,35 +17,27 @@ export const Interface = () => {
 
   const interfaceData = [
     {
-      title: 'Настройки',
-      color: '#0085FF',
-      icon: 'settings',
-      moveTo: null,
-      id: 0,
-    },
-    {
       title: 'Мои увлечения',
       color: '#FFC700',
       icon: 'basketball',
-      moveTo: null,
-      id: 1,
+      screen: Screens.myInterests,
+      id: 0,
     },
     {
       title: 'Язык',
       color: '#BD00FF',
       icon: 'language',
-      moveTo: null,
-      id: 2,
+      screen: null,
+      id: 1,
     },
     {
       title: 'Темная тема',
       color: '#00B2CA',
       icon: 'moon',
-      moveTo: null,
       switch: true,
       switchValue: darkTheme,
       onPress: handleSetDarkTheme,
-      id: 3,
+      id: 2,
     },
   ]
 

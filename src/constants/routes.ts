@@ -17,6 +17,7 @@ export enum Screens {
   acquaintanceStart = 'Acquaintance: Start',
   acquaintanceNames = 'Acquaintance: Names',
   completeScreen = 'Complete Screen',
+  myInterests = 'My Interests',
   placesToVisitComments = 'Places To Visit: Comments',
   placestoVisitDetails = 'Places To Visit: Details',
   placesToVisitEditComments = 'Places To Visit: Edit Comment',
