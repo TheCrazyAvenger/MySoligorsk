@@ -32,6 +32,9 @@ const authenticationSlice = createSlice({
         isRegistered: action.payload.isRegistered,
       }
     },
+    setIsRegistered: (state, action) => {
+      return { ...state, isRegistered: action.payload }
+    },
     removeLogin: (state) => {
       return {
         ...state,
@@ -45,6 +48,6 @@ const authenticationSlice = createSlice({
 })
 
 export const {
-  actions: { setLogin, removeLogin },
+  actions: { setLogin, removeLogin, setIsRegistered },
   reducer: authenticationReducer,
 } = authenticationSlice

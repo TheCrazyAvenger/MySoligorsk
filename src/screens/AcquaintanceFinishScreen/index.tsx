@@ -1,11 +1,15 @@
 import { FormWrapper } from '@/components'
+import { setUser } from '@/slices'
+import { setIsRegistered } from '@/slices/authentication'
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { useRoute } from '@react-navigation/native'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 export const AcquaintanceFinishScreen = () => {
   const route: any = useRoute()
+  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -15,6 +19,7 @@ export const AcquaintanceFinishScreen = () => {
     setIsLoading(true)
 
     const uid = auth().currentUser?.uid
+    const email = auth().currentUser?.email
 
     firestore()
       .collection('Users')
@@ -25,9 +30,12 @@ export const AcquaintanceFinishScreen = () => {
           .currentUser?.updateProfile({
             displayName: firstname,
           })
-          .then(() => {
+          .then(async () => {
             auth().currentUser?.reload()
             auth().currentUser?.getIdToken(true)
+            const { firstname, lastname, interests } = route.params.data
+            await dispatch(setUser({ firstname, lastname, email, interests }))
+            dispatch(setIsRegistered(false))
           })
           .catch(() => {
             setError('Что-то пошло не так')

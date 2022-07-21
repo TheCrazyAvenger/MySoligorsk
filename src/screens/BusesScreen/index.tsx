@@ -20,7 +20,14 @@ export const BusesScreen = () => {
     bottomSheetRef?.current?.close()
   }, [isFocused])
 
-  const { dark, colors } = useTheme()
+  const { dark, colors }: any = useTheme()
+
+  useEffect(() => {
+    if (isFocused) {
+      StatusBar.setBackgroundColor(colors.navigation)
+      StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content')
+    }
+  }, [isFocused])
 
   return (
     <GestureHandlerRootView style={[StyleSheet.absoluteFillObject]}>

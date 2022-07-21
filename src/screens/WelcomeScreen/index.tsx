@@ -16,7 +16,7 @@ export const WelcomeScreen = () => {
   const [showModal, setShowModal] = useState(false)
   const handleOpenAnonimousModal = () => setShowModal(true)
   const handleCloseAnonimousModal = () => setShowModal(false)
-  const { colors } = useTheme()
+  const { colors }: any = useTheme()
 
   const opacity = useRef(new Animated.Value(0)).current
 
@@ -30,7 +30,6 @@ export const WelcomeScreen = () => {
   return (
     <>
       <AnonymousModal visible={showModal} hideModal={handleCloseAnonimousModal} />
-
       <Animated.View style={[styles.container, { opacity, backgroundColor: colors.background }]}>
         <View>
           <Typography.TitleText lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>

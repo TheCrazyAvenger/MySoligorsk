@@ -77,10 +77,12 @@ export const PlacesToVisitContacts = ({ item, workingHours }: Props) => {
               <Icon name={'call'} size={23} color={Colors.grey} />
               <View style={{ marginLeft: 15 }}>
                 <Typography.Default type='semiBold'>Телефон</Typography.Default>
-                <Typography.Description onPress={handleOpenPhone} mt={10} color={Colors.primary}>
-                  {phones[0].number}{' '}
-                  <Typography.Subtitle> {phones[0].title ? `• ${phones[0].title}` : ''}</Typography.Subtitle>
-                </Typography.Description>
+                <TouchableOpacity activeOpacity={0.4} onPress={handleOpenPhone}>
+                  <Typography.Description mt={10} color={Colors.primary}>
+                    {phones[0].number}{' '}
+                    <Typography.Subtitle>{phones[0].title ? `• ${phones[0].title}` : ''}</Typography.Subtitle>
+                  </Typography.Description>
+                </TouchableOpacity>
               </View>
             </View>
           </>
@@ -120,14 +122,14 @@ export const PlacesToVisitContacts = ({ item, workingHours }: Props) => {
           <Icon name={'time-outline'} color={Colors.grey} size={23} />
           <View style={{ marginLeft: 15 }}>
             <Typography.Default type='semiBold'>Время работы</Typography.Default>
-            <View style={[styles.timeInfo, { maxWidth: width - 40 }]}>
-              <Typography.Description color={workingHoursMessage.color}>
-                {workingHoursMessage.title}
-              </Typography.Description>
-              <TouchableOpacity activeOpacity={0.4} onPress={handleOpenMenu}>
+            <TouchableOpacity activeOpacity={0.4} onPress={handleOpenMenu}>
+              <View style={[styles.timeInfo, { maxWidth: width - 40 }]}>
+                <Typography.Description color={workingHoursMessage.color}>
+                  {workingHoursMessage.title}
+                </Typography.Description>
                 <Typography.Subtitle> • Подробнее</Typography.Subtitle>
-              </TouchableOpacity>
-            </View>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
         <BottomSheet data={workingHoursData} onClose={setIsMenuVisible} isVisible={isMenuVisible} />

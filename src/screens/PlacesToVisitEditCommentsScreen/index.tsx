@@ -6,7 +6,7 @@ import { Button, Input, Spinner, Typography } from '@/ui'
 import firestore from '@react-native-firebase/firestore'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Modal, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { AirbnbRating } from 'react-native-elements'
 import { Snackbar, useTheme } from 'react-native-paper'
 import { useSelector } from 'react-redux'
@@ -71,7 +71,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
       })
 
     uris && sendPhoto({ result: { assets: [...uris.map((uri: any) => ({ uri }))] } })
-    setLoading(false)
+    // setLoading(false)
     handleComplete()
   }
 
@@ -84,9 +84,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Modal statusBarTranslucent visible={loading}>
-        <Spinner />
-      </Modal>
+      {loading && <Spinner />}
       <ScrollView style={{ backgroundColor: colors.background }} contentContainerStyle={styles.container}>
         <View style={styles.inner}>
           <Typography.Default mt={20} mb={20}>

@@ -1,8 +1,10 @@
 import { selectUser } from '@/selectors'
 import { selectDarkTheme } from '@/selectors/applicationSettings'
 import { Typography } from '@/ui'
-import React from 'react'
-import { Image, View } from 'react-native'
+import { useIsFocused } from '@react-navigation/native'
+import React, { useEffect } from 'react'
+import { Image, StatusBar, View } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import Animated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
@@ -25,6 +27,16 @@ export const MenuScreen = () => {
     const backgroundColor = interpolateColor(progress.value, [0, 1], ['#fff', '#1C1B1F'])
     return { backgroundColor }
   })
+
+  const { dark, colors } = useTheme()
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    if (isFocused) {
+      StatusBar.setBackgroundColor(colors.background)
+      StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content')
+    }
+  }, [isFocused])
 
   return (
     <Animated.ScrollView style={rStyle} contentContainerStyle={[styles.container, { marginTop: insets.top + 50 }]}>

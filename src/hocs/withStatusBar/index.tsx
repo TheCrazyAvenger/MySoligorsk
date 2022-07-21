@@ -15,6 +15,7 @@ export const withStatusBar = (Screen: any) => {
           if (Platform.OS === 'android') {
             StatusBar.setBackgroundColor('transparent')
           }
+          StatusBar.setTranslucent(true)
           StatusBar.setBarStyle('light-content')
           break
         case Screens.placesToVisitPhoto:
@@ -22,6 +23,31 @@ export const withStatusBar = (Screen: any) => {
             StatusBar.setBackgroundColor(Colors.black)
           }
           StatusBar.setBarStyle('light-content')
+          break
+        case Screens.buses:
+          if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor('transparent')
+          }
+          StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content')
+          break
+        case Screens.welcome:
+        case Screens.signIn:
+        case Screens.signUp:
+        case Screens.emailVerification:
+        case Screens.acquaintanceAbout:
+        case Screens.acquaintanceAddress:
+        case Screens.acquaintanceBirthDate:
+        case Screens.acquaintanceFinish:
+        case Screens.acquaintanceInterests:
+        case Screens.acquaintanceNames:
+        case Screens.acquaintanceStart:
+        case Screens.completeScreen:
+        case Screens.menu:
+        case Screens.home:
+          if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor(colors.background)
+          }
+          StatusBar.setBarStyle(dark ? 'light-content' : 'dark-content')
           break
         default:
           if (Platform.OS === 'android') {
@@ -33,7 +59,6 @@ export const withStatusBar = (Screen: any) => {
 
     return (
       <View style={{ flex: 1 }}>
-        <StatusBar backgroundColor={'white'} translucent barStyle='dark-content' />
         <Screen {...props} />
       </View>
     )

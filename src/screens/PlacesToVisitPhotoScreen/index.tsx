@@ -101,7 +101,7 @@ export const PlacesToVisitPhotoScreen = () => {
       <Modal statusBarTranslucent visible={isLoading}>
         <Spinner />
       </Modal>
-      <TouchableRipple onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
+      <TouchableRipple borderless onPress={handleGoBack} style={[styles.backButton, { top: 16 + insets.top }]}>
         <Icon name='arrow-back' color={Colors.white} size={27} />
       </TouchableRipple>
       <ImageViewer
