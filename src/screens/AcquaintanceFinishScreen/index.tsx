@@ -24,7 +24,11 @@ export const AcquaintanceFinishScreen = () => {
     firestore()
       .collection('Users')
       .doc(uid)
-      .set(route.params.data)
+      .set({
+        ...route.params.data,
+        avatar:
+          'https://firebasestorage.googleapis.com/v0/b/mysoligorsk-80c01.appspot.com/o/avatars%2Fblank-profile.png?alt=media&token=27da88d9-dc49-4cab-80aa-8f25a14dd203',
+      })
       .then(() => {
         auth()
           .currentUser?.updateProfile({
@@ -34,7 +38,16 @@ export const AcquaintanceFinishScreen = () => {
             auth().currentUser?.reload()
             auth().currentUser?.getIdToken(true)
             const { firstname, lastname, interests } = route.params.data
-            await dispatch(setUser({ firstname, lastname, email, interests }))
+            await dispatch(
+              setUser({
+                firstname,
+                lastname,
+                email,
+                interests,
+                avatar:
+                  'https://firebasestorage.googleapis.com/v0/b/mysoligorsk-80c01.appspot.com/o/avatars%2Fblank-profile.png?alt=media&token=27da88d9-dc49-4cab-80aa-8f25a14dd203',
+              })
+            )
             dispatch(setIsRegistered(false))
           })
           .catch(() => {

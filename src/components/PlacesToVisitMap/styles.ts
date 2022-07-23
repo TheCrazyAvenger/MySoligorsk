@@ -9,14 +9,6 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 10,
     width: '100%',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
     marginBottom: 10,
-    elevation: 5,
   },
 })

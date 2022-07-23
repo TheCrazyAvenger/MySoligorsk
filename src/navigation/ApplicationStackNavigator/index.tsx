@@ -2,6 +2,7 @@ import { Header, PlacesToVisitEditCommentsScreen } from '@/components'
 import { Navigators, Screens } from '@/constants'
 import {
   CompleteScreen,
+  MyInformationScreen,
   MyInterestsScreen,
   PlacesToVisitCommentsScreen,
   PlacestoVisitDetailsScreen,
@@ -88,6 +89,11 @@ export const ApplicationStackNavigator = () => {
       <Stack.Group>
         <Stack.Screen name={Screens.myInterests} options={{ title: 'Мои увлечения' }} component={MyInterestsScreen} />
         <Stack.Screen name={Screens.sendError} options={{ title: 'Нашли ошибку?' }} component={SendErrorScreen} />
+        <Stack.Screen
+          name={Screens.myInformation}
+          options={{ title: 'Личная информация' }}
+          component={MyInformationScreen}
+        />
       </Stack.Group>
     </Stack.Navigator>
   )

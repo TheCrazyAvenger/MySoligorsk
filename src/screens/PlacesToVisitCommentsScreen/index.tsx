@@ -1,11 +1,13 @@
 import { Colors, Screens } from '@/constants'
 import { useGetComments } from '@/hooks'
+import { selectUser } from '@/selectors'
 import { Button, Divider, Spinner, Typography } from '@/ui'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { Image, ScrollView, View } from 'react-native'
 import { useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { useSelector } from 'react-redux'
 import { styles } from './styles'
 
 interface IComment {
@@ -19,6 +21,7 @@ export const PlacesToVisitCommentsScreen = () => {
   const navigation = useNavigation<any>()
   const route = useRoute<any>()
   const { colors }: any = useTheme()
+  const { avatar } = useSelector(selectUser)
 
   const { title } = route.params
   const { comments: data, userComment, loading } = useGetComments({ placeName: title, size: 100 })
@@ -47,7 +50,7 @@ export const PlacesToVisitCommentsScreen = () => {
             <View key={i}>
               {i !== 0 && <Divider />}
               <View style={styles.commentSection}>
-                <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+                <Image style={styles.avatar} source={{ uri: avatar }} />
                 <View>
                   <Typography.Default mb={3} type='semiBold'>
                     {user}

@@ -11,7 +11,7 @@ const renderText = (text: string) => {
 }
 
 export const AcquaintanceAboutScreen = () => {
-  const [selectedCheckbox, setSelectedCheckbox] = useState<string | null>(null)
+  const [selectedCheckbox, setSelectedCheckbox] = useState<{ name: string; value: string } | null>(null)
   const route: any = useRoute()
   const navigation = useNavigation<any>()
   const { colors } = useTheme()
@@ -21,9 +21,9 @@ export const AcquaintanceAboutScreen = () => {
 
   const handleSetAbout = (id: string) => {
     if (id === '0' || id === '1') {
-      setSelectedCheckbox('local')
+      setSelectedCheckbox({ name: 'local', value: data[+id].title })
     } else {
-      setSelectedCheckbox('visitor')
+      setSelectedCheckbox({ name: 'visitor', value: data[+id].title })
     }
   }
 

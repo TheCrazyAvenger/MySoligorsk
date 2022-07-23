@@ -14,7 +14,7 @@ import { Other } from './components/Other'
 import { styles } from './styles'
 
 export const MenuScreen = () => {
-  const { firstname, lastname, email } = useSelector(selectUser)
+  const { firstname, lastname, email, avatar } = useSelector(selectUser)
   const insets = useSafeAreaInsets()
 
   const darkTheme = useSelector(selectDarkTheme)
@@ -42,7 +42,7 @@ export const MenuScreen = () => {
     <Animated.ScrollView style={rStyle} contentContainerStyle={[styles.container, { marginTop: insets.top + 50 }]}>
       <View style={styles.header}>
         <View style={styles.avatarContainer}>
-          <Image style={styles.avatar} resizeMode={'contain'} source={require('@/assets/images/logo.png')} />
+          <Image style={styles.avatar} resizeMode={'contain'} source={{ uri: avatar }} />
         </View>
         <Typography.H4 mt={10}>
           {firstname} {lastname}

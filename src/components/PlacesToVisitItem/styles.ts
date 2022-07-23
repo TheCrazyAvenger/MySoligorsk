@@ -9,15 +9,6 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: Colors.white,
     marginLeft: placesToVisitTheme.SPACING,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-
-    elevation: 8,
   },
   image: {
     width: '100%',

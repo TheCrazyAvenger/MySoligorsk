@@ -18,7 +18,7 @@ const startPhrazes = [
 
 export const HomeHeader = () => {
   const naviagtion = useNavigation<any>()
-  const { firstname } = useSelector(selectUser)
+  const { firstname, avatar } = useSelector(selectUser)
 
   const time = new Date().getHours()
   const currentPhraze = useMemo(() => Math.floor(Math.random() * (4 - 0 + 1)) + 0, [])
@@ -42,7 +42,7 @@ export const HomeHeader = () => {
         </Typography.Subtitle>
       </View>
       <TouchableRipple borderless style={{ borderRadius: 20 }} onPress={handleGoToMenu}>
-        <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+        <Image style={styles.avatar} source={{ uri: avatar }} />
       </TouchableRipple>
     </View>
   )

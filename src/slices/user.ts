@@ -6,6 +6,7 @@ type UserState = {
   lastname: string | null
   email: string | null
   interests: string[] | null
+  avatar: string | null
 }
 
 const initialState: UserState = {
@@ -13,6 +14,7 @@ const initialState: UserState = {
   lastname: null,
   email: null,
   interests: null,
+  avatar: null,
 }
 
 const userSlice = createSlice({

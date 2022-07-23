@@ -1,5 +1,5 @@
 import { Colors, Screens } from '@/constants'
-import { selectToken } from '@/selectors'
+import { selectToken, selectUser } from '@/selectors'
 import { BottomSheet, Button, Spinner, Typography } from '@/ui'
 import firestore from '@react-native-firebase/firestore'
 import { useNavigation } from '@react-navigation/native'
@@ -21,6 +21,7 @@ type Props = {
 export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment, title }: Props) => {
   const navigation = useNavigation<any>()
   const token = useSelector(selectToken)
+  const { avatar } = useSelector(selectUser)
   const { colors }: any = useTheme()
 
   const [loading, setLoading] = useState(false)
@@ -95,7 +96,7 @@ export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment, title
       {comment ? (
         <View style={styles.comment}>
           <View style={styles.commentSection}>
-            <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+            <Image style={styles.avatar} source={{ uri: avatar }} />
             <View>
               <Typography.Default mb={3} type='semiBold'>
                 {comment.user}
@@ -123,7 +124,7 @@ export const PlacesToVisitYourComment = ({ handleSetGrade, grade, comment, title
         </View>
       ) : (
         <View style={styles.reviewHeader}>
-          <Image style={styles.avatar} source={require('@/assets/images/logo.png')} />
+          <Image style={styles.avatar} source={{ uri: avatar }} />
           <AirbnbRating
             onFinishRating={handleSetGrade}
             showRating={false}

@@ -9,15 +9,6 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 20,
     backgroundColor: Colors.white,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-
-    elevation: 8,
   },
   seeAllContainer: {
     height: 200,
@@ -28,15 +19,6 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
     backgroundColor: Colors.white,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-
-    elevation: 8,
   },
   seeAll: {
     width: '100%',

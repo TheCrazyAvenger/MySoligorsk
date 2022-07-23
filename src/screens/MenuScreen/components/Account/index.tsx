@@ -1,4 +1,5 @@
 import { ConditionModal, MenuItem } from '@/components'
+import { Screens } from '@/constants'
 import { setUser } from '@/slices'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import auth from '@react-native-firebase/auth'
@@ -9,7 +10,7 @@ export const Account = () => {
   const dispatch = useDispatch()
   const handleLogout = async () => {
     await AsyncStorage.removeItem('isSignIn')
-    await dispatch(setUser({ firstname: null, lastname: null, email: null, interests: null }))
+    await dispatch(setUser({ firstname: null, lastname: null, email: null, interests: null, avatar: null }))
     setLogoutModalVisible(false)
     auth().signOut()
   }
@@ -33,7 +34,7 @@ export const Account = () => {
       title: 'Личная информация',
       color: '#FF7A00',
       icon: 'person',
-      screen: null,
+      screen: Screens.myInformation,
       id: 0,
     },
     {

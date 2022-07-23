@@ -2,17 +2,7 @@ import { Colors, Fonts } from '@/constants'
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  containerStyle: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-  },
+  containerStyle: {},
   tooltipMessageText: {
     fontFamily: Fonts.openSansRegular,
     fontSize: 13,
