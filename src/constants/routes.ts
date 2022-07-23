@@ -23,6 +23,7 @@ export enum Screens {
   placesToVisitEditComments = 'Places To Visit: Edit Comment',
   placesToVisitPhoto = 'Places To Visit: Photo',
   placesToVisitPhotos = 'Places To Visit: Photos',
+  sendError = 'Send Error',
 }
 
 export enum Navigators {

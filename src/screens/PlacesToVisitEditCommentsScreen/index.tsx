@@ -1,4 +1,4 @@
-import { FormImagePicker } from '@/components/FormImagePicker'
+import { FormImagePicker } from '@/components'
 import { Screens } from '@/constants'
 import { useSendImage } from '@/hooks'
 import { selectToken, selectUser } from '@/selectors'

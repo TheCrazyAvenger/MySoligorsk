@@ -2,11 +2,12 @@ import storage from '@react-native-firebase/storage'
 import { useState } from 'react'
 
 type Props = {
-  placeName: string
+  placeName?: string
   token: string
+  ref?: string
 }
 
-export const useSendImage = ({ placeName, token }: Props) => {
+export const useSendImage = ({ ref, placeName, token }: Props) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const cleanError = () => setError(null)
@@ -17,7 +18,7 @@ export const useSendImage = ({ placeName, token }: Props) => {
     await result?.assets?.slice(0, 6).map((item: any) => {
       const photoUri = item.uri
       const fileName = `${placeName}_${token}_${Math.random()}`
-      const reference = storage().ref(`/places/${placeName}/unverified/${fileName}`)
+      const reference = storage().ref(ref ? `${ref}/${fileName}` : `/places/${placeName}/unverified/${fileName}`)
       reference.putFile(photoUri).catch(() => {
         setError('Что-то пошло не так')
         setLoading(false)

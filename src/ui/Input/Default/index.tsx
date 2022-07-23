@@ -63,7 +63,7 @@ export const Default = ({
         multiline && styles.multilineInput,
         { backgroundColor: colors.input, borderColor: colors.inputBorder },
       ]}
-      labelStyle={[styles.labelStyle, error && styles.labelErrorStyle]}
+      labelStyle={[styles.labelStyle, error && styles.labelErrorStyle, { color: colors.text }]}
       errorStyle={styles.errorStyle}
       rightIconContainerStyle={styles.rightIconContainerStyle}
       allowFontScaling={false}

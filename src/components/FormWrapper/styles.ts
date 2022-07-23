@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
   },
-
   text: {
     textAlign: 'center',
   },

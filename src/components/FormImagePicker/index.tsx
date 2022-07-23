@@ -1,18 +1,22 @@
+import { Typography } from '@/ui'
 import React from 'react'
-import { View } from 'react-native'
+import { StyleProp, View, ViewStyle } from 'react-native'
 import { ImageInputList } from '../ImageInputList'
 
 type Props = {
   title: string
+  label?: string
   uris: string[]
   addHandler: (...args: any) => any
   removeHandler: (...args: any) => any
+  style?: StyleProp<ViewStyle>
 }
 
-export const FormImagePicker = ({ title, uris, addHandler, removeHandler }: Props) => {
+export const FormImagePicker = ({ style, label, title, uris, addHandler, removeHandler }: Props) => {
   return (
     <View>
-      <ImageInputList title={title} uris={uris} onAdd={addHandler} onRemove={removeHandler} />
+      {label ? <Typography.Default type='semiBold'>{label}</Typography.Default> : null}
+      <ImageInputList style={style} title={title} uris={uris} onAdd={addHandler} onRemove={removeHandler} />
     </View>
   )
 }

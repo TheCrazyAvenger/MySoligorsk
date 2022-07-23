@@ -7,6 +7,7 @@ import {
   PlacestoVisitDetailsScreen,
   PlacesToVisitPhotoScreen,
   PlacesToVisitPhotosScreen,
+  SendErrorScreen,
 } from '@/screens'
 import { selectIsRegistered } from '@/selectors'
 import { createNativeStackNavigator, NativeStackNavigationOptions } from '@react-navigation/native-stack'
@@ -86,6 +87,7 @@ export const ApplicationStackNavigator = () => {
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name={Screens.myInterests} options={{ title: 'Мои увлечения' }} component={MyInterestsScreen} />
+        <Stack.Screen name={Screens.sendError} options={{ title: 'Нашли ошибку?' }} component={SendErrorScreen} />
       </Stack.Group>
     </Stack.Navigator>
   )

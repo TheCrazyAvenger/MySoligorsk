@@ -3,11 +3,10 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   labelStyle: {
-    fontFamily: Fonts.openSansRegular,
-    color: Colors.grey,
-    fontSize: 15,
-    lineHeight: 19,
-    fontWeight: '400',
+    fontFamily: Fonts.openSansSemiBold,
+    fontSize: 14,
+    lineHeight: 15,
+    fontWeight: '600',
   },
   labelErrorStyle: {
     color: Colors.error,

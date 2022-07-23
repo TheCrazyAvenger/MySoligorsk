@@ -1,8 +1,8 @@
 import { Colors, Fonts, interests } from '@/constants'
 import { Divider, Typography } from '@/ui'
 import React, { useMemo } from 'react'
-import { View } from 'react-native'
-import { useTheme } from 'react-native-paper'
+import { ActivityIndicator, View } from 'react-native'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import { default as IonIcon } from 'react-native-vector-icons/Ionicons'
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { styles } from './styles'
@@ -10,6 +10,8 @@ import { styles } from './styles'
 type Props = {
   title: string
   data: string[]
+  onRemove: (interest: string) => void
+  loading: boolean
 }
 
 const getIcon = (name: string, type: string, color: string = Colors.white) => {
@@ -20,7 +22,7 @@ const getIcon = (name: string, type: string, color: string = Colors.white) => {
   )
 }
 
-export const MyInterestsItem = ({ data, title }: Props) => {
+export const MyInterestsItem = ({ data, title, onRemove, loading }: Props) => {
   const { colors }: any = useTheme()
 
   const interestsArr = useMemo(() => {
@@ -49,7 +51,9 @@ export const MyInterestsItem = ({ data, title }: Props) => {
                       </Typography.H4>
                     </View>
 
-                    <IonIcon name='trash' size={20} color={colors.error} />
+                    <TouchableRipple borderless style={styles.trashContainer} onPress={() => onRemove(item.title)}>
+                      {loading ? <ActivityIndicator /> : <IonIcon name='trash' size={20} color={colors.error} />}
+                    </TouchableRipple>
                   </View>
                 </View>
               </View>

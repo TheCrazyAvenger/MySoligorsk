@@ -18,6 +18,7 @@ import { PlacestoVisitDetailsScreen as PlacestoVisitDetails } from './PlacestoVi
 import { PlacesToVisitEditCommentsScreen as PlacesToVisitEditComments } from './PlacesToVisitEditCommentsScreen'
 import { PlacesToVisitPhotoScreen as PlacesToVisitPhoto } from './PlacesToVisitPhotoScreen'
 import { PlacesToVisitPhotosScreen as PlacesToVisitPhotos } from './PlacesToVisitPhotosScreen'
+import { SendErrorScreen as SendError } from './SendErrorScreen'
 import { SignInScreen as SignIn } from './SignInScreen'
 import { SignUpScreen as SignUp } from './SignUpScreen'
 import { WelcomeScreen as Welcome } from './WelcomeScreen'
@@ -41,6 +42,7 @@ export const PlacestoVisitDetailsScreen = withStatusBar(PlacestoVisitDetails)
 export const PlacesToVisitEditCommentsScreen = withStatusBar(PlacesToVisitEditComments)
 export const PlacesToVisitPhotoScreen = withStatusBar(PlacesToVisitPhoto)
 export const PlacesToVisitPhotosScreen = withStatusBar(PlacesToVisitPhotos)
+export const SendErrorScreen = withStatusBar(SendError)
 export const SignInScreen = withStatusBar(SignIn)
 export const SignUpScreen = withStatusBar(SignUp)
 export const WelcomeScreen = withStatusBar(Welcome)

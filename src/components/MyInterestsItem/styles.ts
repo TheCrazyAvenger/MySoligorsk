@@ -40,4 +40,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  trashContainer: {
+    borderRadius: 20,
+  },
 })

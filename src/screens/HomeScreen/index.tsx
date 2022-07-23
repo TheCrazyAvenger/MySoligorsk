@@ -21,7 +21,7 @@ export const HomeScreen = () => {
 
   return (
     <TabBarScreenLayout>
-      <ScrollView style={styles.container} contentContainerStyle={{ marginTop: 20 }}>
+      <ScrollView style={styles.container}>
         <HomeHeader />
         <PlacesToVisit />
         <WeatherCard loading={isLoading} data={weatheeData} />

@@ -1,4 +1,5 @@
 export * from './AcquaintanceAddressForm'
 export * from './AcquaintanceNamesForm'
+export * from './SendErrorForm'
 export * from './SignInForm'
 export * from './SignUpForm'

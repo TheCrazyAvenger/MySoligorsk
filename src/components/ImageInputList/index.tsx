@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StyleProp, View, ViewStyle } from 'react-native'
 import { ImageInput } from '../ImageInput'
 import { styles } from './styles'
 
@@ -8,11 +8,12 @@ type Props = {
   uris: string[]
   onAdd: (...args: any) => any
   onRemove: (...args: any) => any
+  style?: StyleProp<ViewStyle>
 }
 
-export const ImageInputList = ({ title, uris, onAdd, onRemove }: Props) => {
+export const ImageInputList = ({ style, title, uris, onAdd, onRemove }: Props) => {
   return (
-    <View style={styles.imagesList}>
+    <View style={[styles.imagesList, style]}>
       {uris.map((uri, index) => (
         <View key={uri}>
           <ImageInput

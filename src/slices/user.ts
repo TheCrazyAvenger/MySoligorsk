@@ -23,10 +23,14 @@ const userSlice = createSlice({
       state = { ...state, ...action.payload }
       return state
     },
+    setInterest: (state, action) => {
+      console.log(action.payload)
+      state = { ...state, interests: action.payload }
+    },
   },
 })
 
 export const {
-  actions: { setUser },
+  actions: { setUser, setInterest },
   reducer: userReducer,
 } = userSlice
