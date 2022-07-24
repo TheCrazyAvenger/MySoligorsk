@@ -16,7 +16,7 @@ export const MyInterestsScreen = () => {
 
   const [interests, setInterest] = useState<string[] | []>([])
   const [hiddenInterests, setHiddenInterests] = useState<string[] | []>([])
-  const [loadingInterests, setLoadingInterest] = useState(false)
+  const [loadingInterests, setLoadingInterest] = useState(true)
 
   const handleGetInterests = async () => {
     setLoadingInterest(true)
@@ -34,7 +34,6 @@ export const MyInterestsScreen = () => {
   }
 
   useEffect(() => {
-    // auth().currentUser?.updateProfile({})
     handleGetInterests()
   }, [])
 
