@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   interestsContainer: {
     // paddingHorizontal: 20,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     flexWrap: 'wrap',
     marginBottom: 80,

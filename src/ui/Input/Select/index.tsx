@@ -44,6 +44,9 @@ export const Select = ({
         placeholderTextColor: Colors.silver,
         allowFontScaling: false,
         autoCorrect: false,
+        style: {
+          color: colors.text,
+        },
       }}
       suggestionsListContainerStyle={{
         ...styles.suggestionsListContainerStyle,

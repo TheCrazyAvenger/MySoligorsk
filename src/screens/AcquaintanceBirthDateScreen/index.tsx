@@ -11,12 +11,9 @@ export const AcquaintanceBirthDateScreen = () => {
   const route: any = useRoute()
   const { colors } = useTheme()
 
-  const handleSetBirthDate = (value: any) => {
-    setBirthDate(value.toDateString())
-  }
   const handleGoNext = () => {
     navigation.navigate(Screens.acquaintanceInterests, {
-      data: { ...route.params?.data, birthDate },
+      data: { ...route.params?.data, birthDate: birthDate.toDateString() },
     })
   }
 
@@ -29,7 +26,7 @@ export const AcquaintanceBirthDateScreen = () => {
         style={{ alignSelf: 'center' }}
         maximumDate={new Date()}
         minimumDate={new Date('1920-01-01')}
-        onDateChange={handleSetBirthDate}
+        onDateChange={setBirthDate}
         textColor={colors.text}
         fadeToColor={colors.background}
         mode='date'

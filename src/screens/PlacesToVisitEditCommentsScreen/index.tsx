@@ -17,7 +17,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
   const navigation = useNavigation<any>()
   const token = useSelector(selectToken)
   const { grade, title, isEdit = false, comment = null } = route.params
-  const { firstname, lastname } = useSelector(selectUser)
+  const { firstname, lastname, avatar } = useSelector(selectUser)
   const { colors } = useTheme()
 
   const buttonTitle = isEdit ? 'Изменить' : 'Отправить'
@@ -51,6 +51,7 @@ export const PlacesToVisitEditCommentsScreen = () => {
     const comment = {
       user: `${firstname} ${lastname}`,
       grade: userGrade,
+      avatar,
       comment: value.trim(),
       date: new Date().toLocaleDateString(),
       uid: token,

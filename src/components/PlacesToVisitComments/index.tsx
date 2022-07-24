@@ -1,21 +1,18 @@
 import { Colors, Screens } from '@/constants'
-import { selectUser } from '@/selectors'
 import { Divider, Typography } from '@/ui'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Image, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { useSelector } from 'react-redux'
 import { styles } from './styles'
 
 type Props = {
-  data: { user: string; grade: number; comment: string; date: string }[]
+  data: { user: string; grade: number; comment: string; date: string; avatar: string }[]
   title: string
 }
 
 export const PlacesToVisitComments = ({ data, title }: Props) => {
   const navigation = useNavigation<any>()
-  const { avatar } = useSelector(selectUser)
 
   const handleGoToComments = () => {
     navigation.navigate(Screens.placesToVisitComments, { title })
@@ -27,7 +24,7 @@ export const PlacesToVisitComments = ({ data, title }: Props) => {
         Отзывы
       </Typography.H4>
       {data.map((item, i) => {
-        const { user, comment, grade, date } = item
+        const { user, comment, grade, date, avatar } = item
 
         return (
           <View key={i}>

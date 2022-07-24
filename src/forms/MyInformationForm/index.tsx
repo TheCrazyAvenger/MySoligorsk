@@ -1,4 +1,4 @@
-import { Colors, Fonts } from '@/constants'
+import { addresses, Colors, Fonts } from '@/constants'
 import { isErrorsExist } from '@/helpers'
 import { selectToken } from '@/selectors'
 import { BottomSheet, Button, Input, Spinner, Typography } from '@/ui'
@@ -76,19 +76,35 @@ export const MyInformationForm = ({ onSubmit, initialValues, loading }: any) => 
       .doc(token)
       .get()
       .then(async (userInfo: any) => {
-        const { firstname, lastname, avatar, location, birthDate } = userInfo.data()
+        const { firstname, lastname, avatar, location, birthDate, address } = userInfo.data()
         await data.map((item: any) => {
           if (item.title === location.name) {
             setSelectedId(item.id)
           }
           return item
         })
+        address &&
+          (await addresses.map((item) => {
+            if (item.title === address.street) {
+              setStreetId(item.id)
+              onSelectAddress(item)
+              item.houses.map((house, i) => {
+                if (house === address.house) {
+                  setHouseId(i.toString())
+                }
+                return house
+              })
+            }
+            return item
+          }))
         setValues({
           firstname,
           lastname,
           avatar,
           location,
           birthDate,
+          street: address ? address?.street : '',
+          house: address ? address?.house : '',
         })
         setUserInfoLoading(false)
       })
@@ -103,14 +119,38 @@ export const MyInformationForm = ({ onSubmit, initialValues, loading }: any) => 
 
   const handleSetAbout = (id: string) => {
     if (id === '0' || id === '1') {
-      setFieldValue('location', { name: 'local', value: data[+id].title })
+      setFieldValue('location', { value: 'local', name: data[+id].title })
     } else {
-      setFieldValue('location', { name: 'visitor', value: data[+id].title })
+      setFieldValue('location', { value: 'visitor', name: data[+id].title })
     }
   }
 
   const setBirthDate = (value: any) => {
     setFieldValue('birthDate', value.toDateString())
+  }
+
+  const [houses, setHouses] = useState<any>([])
+  const [streetId, setStreetId] = useState<any>(null)
+  const [houseId, setHouseId] = useState<any>(null)
+  const onSelectAddress = async (item: any) => {
+    if (item) {
+      const addresses = await [...item.houses.map((item: string, i: number) => ({ id: i.toString(), title: item }))]
+      setHouses(addresses)
+      setFieldValue('street', item.title)
+    }
+  }
+  const onAddressClear = () => {
+    setFieldValue('street', '')
+    setHouses([])
+  }
+  const onHouseClear = () => {
+    setFieldValue('house', '')
+  }
+
+  const onSelectHouse = (item: any) => {
+    if (item) {
+      setFieldValue('house', item.title)
+    }
   }
 
   const handleMakePhoto = () => {
@@ -141,7 +181,11 @@ export const MyInformationForm = ({ onSubmit, initialValues, loading }: any) => 
     }
   }, [resetForm])
 
-  const isContinueButtonDisabled = isErrorsExist(errors)
+  const isContinueButtonDisabled =
+    isErrorsExist(errors) ||
+    new Date('2010-01-01') <= new Date(values.birthDate) ||
+    (values.street && !values.house) ||
+    (!values.street && values.house)
 
   return userInfoLoading ? (
     <Spinner />
@@ -153,7 +197,7 @@ export const MyInformationForm = ({ onSubmit, initialValues, loading }: any) => 
         style={[styles.container, { backgroundColor: colors.background }]}
         contentContainerStyle={{ marginTop: 20, paddingHorizontal: 20 }}
       >
-        <Typography.Default mb={30}>Здесь вы можете изменить данные о себе</Typography.Default>
+        <Typography.Default mb={20}>Здесь вы можете изменить данные о себе</Typography.Default>
 
         <Typography.Default type='semiBold' mb={5}>
           Фото
@@ -211,6 +255,61 @@ export const MyInformationForm = ({ onSubmit, initialValues, loading }: any) => 
           fadeToColor={colors.background}
           mode='date'
         />
+        <Typography.Default type='semiBold' mt={15}>
+          Адрес
+        </Typography.Default>
+        <View>
+          <View style={{ flexDirection: 'row', maxWidth: '79.5%' }}>
+            <Input.Select
+              dataSet={addresses}
+              showChevron={false}
+              placeholder='Улица'
+              onSelectItem={onSelectAddress}
+              onClear={onAddressClear}
+              onBlur={handleBlur('street')}
+              onChangeText={handleChange('street')}
+              inputContainerStyle={{ minWidth: '95%', maxWidth: '95%' }}
+              suggestionsListContainerStyle={{ width: '95%' }}
+              value={values.street}
+              initialValue={streetId ?? '0'}
+              errorMessage={errors.street}
+              touched={touched.street}
+            />
+            <Input.Select
+              dataSet={houses}
+              showChevron={false}
+              placeholder='Дом'
+              onSelectItem={onSelectHouse}
+              onBlur={handleBlur('house')}
+              onChangeText={handleChange('house')}
+              onClear={onHouseClear}
+              value={values.house}
+              initialValue={houseId ?? '0'}
+              inputContainerStyle={{ minWidth: '56%', maxWidth: '56%', paddingLeft: 0 }}
+              suggestionsListContainerStyle={{ width: '56%' }}
+              errorMessage={errors.house}
+              inputStyle={{ marginLeft: 0 }}
+              rightButtonsContainerStyle={{ marginRight: 0 }}
+              touched={touched.house}
+            />
+          </View>
+          <View
+            style={[
+              styles.errorsContainer,
+              {
+                bottom: errors?.street && touched.street && errors?.house && touched.house ? -38 : -20,
+              },
+            ]}
+          >
+            {errors?.street && touched.street ? (
+              <Typography.Default style={[styles.error, { color: colors.error }]}>{errors.street}</Typography.Default>
+            ) : null}
+            {errors?.house && touched.house ? (
+              <Typography.Default style={[styles.error, { color: colors.error }]}>{errors.house}</Typography.Default>
+            ) : null}
+          </View>
+        </View>
+        <View style={{ marginBottom: 60 }} />
       </ScrollView>
       <View style={[styles.buttons, { backgroundColor: colors.background }]}>
         <Button

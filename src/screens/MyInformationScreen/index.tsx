@@ -1,61 +1,88 @@
 import { Screens } from '@/constants'
 import { MyInformationForm } from '@/forms'
 import { useSendImage } from '@/hooks'
-import { selectToken } from '@/selectors'
+import { selectToken, selectUser } from '@/selectors'
+import { setUser } from '@/slices'
 import firestore from '@react-native-firebase/firestore'
+import storage from '@react-native-firebase/storage'
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Snackbar } from 'react-native-paper'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export const MyInformationScreen = () => {
   const navigation = useNavigation<any>()
+  const { interests, email, hiddenInterests } = useSelector(selectUser)
   const token = useSelector(selectToken)
-  const initialValues = { firstname: '', lastname: '', avatar: '', location: {}, birthDate: '' }
+  const dispatch = useDispatch()
+  const initialValues = { firstname: '', lastname: '', avatar: '', location: {}, birthDate: '', street: '', house: '' }
 
-  const [uris, setUris] = useState<any>([])
-  const addImageHandler = (uri: string) => {
-    setUris((prev: any) => [...prev, uri].slice(0, 6))
-  }
-  const removeImageHandler = (uri: string) => {
-    setUris((prev: any) => prev.filter((currentUri: string) => currentUri !== uri))
-  }
+  const ref = `avatars/${token}`
+  const filename = 'profile-avatar'
+  const { sendPhoto } = useSendImage({ filename, ref, token })
 
-  const ref = `reports/messages/${token}`
-
-  const { sendPhoto, error: a } = useSendImage({ placeName: 'report', ref, token })
+  const imageRef = `avatars/${token}/profile-avatar`
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<null | string>(null)
   const handleHideSnackBar = () => setError(null)
 
   const handleSendComment = async (values: any) => {
-    const { firstname, lastname, email, message } = values
-    setError(null)
-    setLoading(true)
-    const comment = {
-      user: `${firstname} ${lastname}`,
-      email,
-      message: message.trim(),
-      date: new Date().toLocaleDateString(),
-      uid: token,
-    }
-    await firestore()
-      .collection('Reports')
-      .doc('Messages')
-      .collection(token)
-      .add(comment)
-      .then(() => {
-        setLoading(false)
-      })
-      .catch(() => {
-        setError('Что-то пошло не так')
-        setLoading(false)
-      })
+    try {
+      const { firstname, lastname, avatar, location, birthDate, street, house } = values
+      setError(null)
+      setLoading(true)
 
-    uris && sendPhoto({ result: { assets: [...uris.map((uri: any) => ({ uri }))] } })
-    // setLoading(false)
-    handleComplete()
+      await firestore()
+        .collection('Users')
+        .doc(token)
+        .update({
+          firstname,
+          lastname,
+          location,
+          address:
+            street && house
+              ? {
+                  street,
+                  house,
+                }
+              : null,
+          birthDate,
+        })
+        .then(() => {
+          setLoading(false)
+        })
+        .catch(() => {
+          setError('Что-то пошло не так')
+          setLoading(false)
+        })
+
+      avatar !==
+        'https://firebasestorage.googleapis.com/v0/b/mysoligorsk-80c01.appspot.com/o/avatars%2Fblank-profile.png?alt=media&token=27da88d9-dc49-4cab-80aa-8f25a14dd203' &&
+        (await sendPhoto({ result: { assets: [{ uri: avatar }] } }).then(() => {
+          const reference = storage().ref(imageRef)
+          reference
+            .getDownloadURL()
+            .then((url) => {
+              firestore()
+                .collection('Users')
+                .doc(token)
+                .update({ avatar: url })
+                .then(() => {
+                  dispatch(setUser({ firstname, lastname, interests, avatar: url, email, hiddenInterests }))
+                })
+            })
+            .catch((e) => {
+              console.log('Errors while downloading => ', e)
+            })
+        }))
+
+      // setLoading(false)
+      handleComplete()
+    } catch {
+      setError('Что-то пошло не так')
+      setLoading(false)
+    }
   }
 
   const handleComplete = () =>
@@ -66,14 +93,7 @@ export const MyInformationScreen = () => {
 
   return (
     <>
-      <MyInformationForm
-        onSubmit={handleSendComment}
-        loading={loading}
-        initialValues={initialValues}
-        addImageHandler={addImageHandler}
-        removeImageHandler={removeImageHandler}
-        uris={uris}
-      />
+      <MyInformationForm onSubmit={handleSendComment} loading={loading} initialValues={initialValues} />
       <Snackbar
         visible={!!error}
         onDismiss={handleHideSnackBar}

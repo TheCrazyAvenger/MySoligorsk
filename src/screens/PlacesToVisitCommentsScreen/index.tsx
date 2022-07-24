@@ -1,13 +1,11 @@
 import { Colors, Screens } from '@/constants'
 import { useGetComments } from '@/hooks'
-import { selectUser } from '@/selectors'
 import { Button, Divider, Spinner, Typography } from '@/ui'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React from 'react'
 import { Image, ScrollView, View } from 'react-native'
 import { useTheme } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { useSelector } from 'react-redux'
 import { styles } from './styles'
 
 interface IComment {
@@ -15,13 +13,13 @@ interface IComment {
   grade: number
   comment: string
   date: string
+  avatar: string
 }
 
 export const PlacesToVisitCommentsScreen = () => {
   const navigation = useNavigation<any>()
   const route = useRoute<any>()
   const { colors }: any = useTheme()
-  const { avatar } = useSelector(selectUser)
 
   const { title } = route.params
   const { comments: data, userComment, loading } = useGetComments({ placeName: title, size: 100 })
@@ -44,7 +42,7 @@ export const PlacesToVisitCommentsScreen = () => {
       <ScrollView>
         <View style={{ marginTop: 20 }} />
         {data.map((item: IComment, i: number) => {
-          const { user, comment, grade, date } = item
+          const { user, comment, grade, date, avatar } = item
 
           return (
             <View key={i}>

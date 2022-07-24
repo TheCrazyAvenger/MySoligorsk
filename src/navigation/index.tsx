@@ -49,7 +49,7 @@ export const RootNavigator = () => {
         .get()
         .then((responce) => {
           const data = responce.data()
-          const { firstname, lastname, interests, avatar }: any = data
+          const { firstname, lastname, interests, avatar, hiddenInterests }: any = data
 
           dispatch(
             setUser({
@@ -57,6 +57,7 @@ export const RootNavigator = () => {
               lastname: isAnonymous ? uid : lastname,
               email,
               interests: isAnonymous ? null : interests,
+              hiddenInterests: isAnonymous ? null : hiddenInterests,
               avatar: isAnonymous
                 ? 'https://firebasestorage.googleapis.com/v0/b/mysoligorsk-80c01.appspot.com/o/avatars%2Fblank-profile.png?alt=media&token=27da88d9-dc49-4cab-80aa-8f25a14dd203'
                 : avatar,
@@ -72,6 +73,7 @@ export const RootNavigator = () => {
                 lastname: uid.slice(0, 9),
                 email: 'No email',
                 interests: [],
+                hiddenInterests: [],
                 avatar:
                   'https://firebasestorage.googleapis.com/v0/b/mysoligorsk-80c01.appspot.com/o/avatars%2Fblank-profile.png?alt=media&token=27da88d9-dc49-4cab-80aa-8f25a14dd203',
               })

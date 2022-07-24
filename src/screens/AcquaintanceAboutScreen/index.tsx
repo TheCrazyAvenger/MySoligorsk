@@ -19,19 +19,12 @@ export const AcquaintanceAboutScreen = () => {
   const handleGoNext = () =>
     navigation.navigate(Screens.acquaintanceBirthDate, { data: { ...route.params?.data, location: selectedCheckbox } })
 
-  const handleSetAbout = (id: string) => {
-    if (id === '0' || id === '1') {
-      setSelectedCheckbox({ name: 'local', value: data[+id].title })
-    } else {
-      setSelectedCheckbox({ name: 'visitor', value: data[+id].title })
-    }
-  }
-
   const data: any = [
     {
       id: 0,
       fillColor: '#629FFA',
       text: renderText('Я здесь живу'),
+      title: 'Я здесь живу',
       textStyle: { textDecorationLine: 'none', color: colors.text },
       style: { marginBottom: 15, marginRight: 40 },
     },
@@ -39,6 +32,7 @@ export const AcquaintanceAboutScreen = () => {
       id: 1,
       fillColor: '#629FFA',
       text: renderText('Я здесь живу, но учусь/работаю в другом городе'),
+      title: 'Я здесь живу, но учусь/работаю в другом городе',
       textStyle: { textDecorationLine: 'none', color: colors.text },
       style: { marginBottom: 15, marginRight: 40 },
     },
@@ -46,6 +40,7 @@ export const AcquaintanceAboutScreen = () => {
       id: 2,
       fillColor: '#629FFA',
       text: renderText('Я здесь учусь, но живу/работаю в другом городе'),
+      title: 'Я здесь учусь, но живу/работаю в другом городе',
       textStyle: { textDecorationLine: 'none', color: colors.text },
       style: { marginBottom: 15, marginRight: 40 },
     },
@@ -53,10 +48,19 @@ export const AcquaintanceAboutScreen = () => {
       id: 3,
       fillColor: '#629FFA',
       text: renderText('Я турист'),
+      title: 'Я турист',
       textStyle: { textDecorationLine: 'none', color: colors.text },
       style: { marginBottom: 15, marginRight: 40 },
     },
   ]
+
+  const handleSetAbout = (id: string) => {
+    if (id === '0' || id === '1') {
+      setSelectedCheckbox({ value: 'local', name: data[+id].title })
+    } else {
+      setSelectedCheckbox({ value: 'visitor', name: data[+id].title })
+    }
+  }
 
   return (
     <FormWrapper title={'Расскажите о себе'} onContinue={handleGoNext} disabledContinueBtn={!selectedCheckbox}>

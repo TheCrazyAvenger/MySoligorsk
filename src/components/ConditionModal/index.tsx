@@ -38,8 +38,9 @@ export const ConditionModal = ({
       setIsLoading(true)
       await onPressMainButton()
       setIsLoading(false)
-    } catch {
+    } catch (e) {
       setError('Что-то пошло не так')
+      setIsLoading(false)
     }
   }
   return (
@@ -49,7 +50,9 @@ export const ConditionModal = ({
           <Typography.H2 ph={25} style={{ textAlign: 'center', fontFamily: Fonts.openSansSemiBold }}>
             {title}
           </Typography.H2>
-          <Typography.Default pv={24}>{description}</Typography.Default>
+          <Typography.Default pv={24} textAlign={'center'}>
+            {description}
+          </Typography.Default>
 
           <View>
             <Button
@@ -68,7 +71,9 @@ export const ConditionModal = ({
               </Button>
               {error ? (
                 <Typography.Description
-                  style={{ position: 'absolute', bottom: -22, alignSelf: 'center' }}
+                  mt={10}
+                  mb={-15}
+                  style={{ alignSelf: 'center' }}
                   color={colors.error}
                   textAlign={'center'}
                 >

@@ -2,8 +2,11 @@ import { OtherSelectedModal } from '@/components'
 import { Colors, Fonts, interests, Screens } from '@/constants'
 import { shuffle } from '@/helpers'
 import { selectOtherInterestSelected } from '@/selectors/applicationSettings'
+import { setHiddenInterest, setInterest } from '@/slices'
 import { setOtherInterestSelected } from '@/slices/applicationSettings'
-import { Button, Typography } from '@/ui'
+import { Button, Spinner, Typography } from '@/ui'
+import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useMemo, useState } from 'react'
 import { ScrollView, View } from 'react-native'
@@ -38,21 +41,78 @@ export const AcquaintanceInterestsScreen = () => {
   const dispatch = useDispatch()
   const [showOtherModal, setShowOtherModal] = useState(false)
 
-  const [selectedInterests, setSelectedInterests] = useState<string[] | []>([])
+  const [selectedInterests, setSelectedInterests] = useState<string[] | []>(
+    route?.params?.hiddenInterests ?? route?.params?.interests ?? []
+  )
+  const title = route?.params?.hiddenInterests
+    ? 'Скрыть интерес'
+    : route?.params?.interests
+    ? 'Добавить интерес'
+    : 'Чем вы увлекаетесь?'
+
   const handleAddInterest = (name: string) => setSelectedInterests((prev: any) => [...prev, name])
   const handleRemoveInterest = (name: string) =>
     setSelectedInterests((prev: any) => prev.filter((item: any) => item !== name))
 
+  const [loading, setLoading] = useState(false)
+  const handleSetInterests = async () => {
+    const uid = auth().currentUser?.uid
+    setLoading(true)
+
+    await firestore()
+      .collection('Users')
+      .doc(uid)
+      .update({
+        interests: selectedInterests,
+      })
+      .then(() => {
+        dispatch(setInterest(selectedInterests))
+        setLoading(false)
+        navigation.goBack()
+        navigation.goBack()
+        navigation.navigate(Screens.myInterests)
+      })
+      .catch(() => {
+        setLoading(false)
+      })
+  }
+
+  const handleSetHiddenInterests = async () => {
+    const uid = auth().currentUser?.uid
+    setLoading(true)
+
+    await firestore()
+      .collection('Users')
+      .doc(uid)
+      .update({
+        hiddenInterests: selectedInterests,
+      })
+      .then(() => {
+        dispatch(setHiddenInterest(selectedInterests))
+        setLoading(false)
+        navigation.goBack()
+        navigation.goBack()
+        navigation.navigate(Screens.myInterests)
+      })
+      .catch(() => {
+        setLoading(false)
+      })
+  }
+
   const handleGoNext = () => {
     const isOther = selectedInterests.findIndex((interest) => interest === 'Другое')
 
-    if (isOther !== -1 && !otherInterestSelected) {
+    if (isOther !== -1 && !otherInterestSelected && !route.params.interests) {
       setShowOtherModal(true)
     } else {
       selectedInterests.length > 0 &&
-        navigation.navigate(Screens.acquaintanceAddress, {
-          data: { ...route.params?.data, interests: selectedInterests },
-        })
+        (route?.params?.hiddenInterests
+          ? handleSetHiddenInterests()
+          : route.params.interests
+          ? handleSetInterests()
+          : navigation.navigate(Screens.acquaintanceAddress, {
+              data: { ...route.params?.data, interests: selectedInterests },
+            }))
     }
   }
 
@@ -82,7 +142,22 @@ export const AcquaintanceInterestsScreen = () => {
     )
   }
 
-  const shuffledInterests = useMemo(() => shuffle(interests), [])
+  const shuffledInterests = useMemo(
+    () =>
+      shuffle(
+        route?.params?.hiddenInterests
+          ? interests.filter((item) => {
+              const indexOfInterest = route?.params?.interests.findIndex((interest: string) => item.title === interest)
+
+              if (indexOfInterest !== -1) {
+                return false
+              }
+              return true
+            })
+          : interests
+      ),
+    []
+  )
   const handleHideOtherModal = () => {
     dispatch(setOtherInterestSelected(true))
     setShowOtherModal(false)
@@ -94,10 +169,11 @@ export const AcquaintanceInterestsScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
+      {loading && <Spinner />}
       <OtherSelectedModal visible={showOtherModal} hideModal={handleHideOtherModal} />
       <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
         <Typography.TitleText mt={50} lineH={50.73} style={[styles.text, { fontFamily: Fonts.openSansBold }]} size={38}>
-          Чем вы увлекаетесь?
+          {title}
         </Typography.TitleText>
 
         <Typography.Default mb={30} mt={24} style={styles.text}>
@@ -107,7 +183,7 @@ export const AcquaintanceInterestsScreen = () => {
           {shuffledInterests.map((item: any) => (
             <InterestsItem key={item.id} item={item} />
           ))}
-          <InterestsItem item={otherObject} />
+          {!route?.params?.hiddenInterests ? <InterestsItem item={otherObject} /> : null}
         </View>
       </ScrollView>
       <Button disabled={selectedInterests.length === 0} buttonStyle={styles.nextButton} onPress={handleGoNext}>

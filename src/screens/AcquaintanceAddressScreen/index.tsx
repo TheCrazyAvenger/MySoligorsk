@@ -31,11 +31,9 @@ export const AcquaintanceAddressScreen = () => {
     }
   }
   const handleSkip = () =>
-    navigation.navigate(
-      navigation.navigate(Screens.acquaintanceFinish, {
-        data: { ...route.params, address: null },
-      })
-    )
+    navigation.navigate(Screens.acquaintanceFinish, {
+      data: { ...route.params?.data, address: null },
+    })
 
   return (
     <AcquaintanceAddressForm

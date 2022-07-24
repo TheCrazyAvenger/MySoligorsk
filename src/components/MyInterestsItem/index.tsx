@@ -22,11 +22,20 @@ const getIcon = (name: string, type: string, color: string = Colors.white) => {
   )
 }
 
+const otherObject = {
+  id: 21,
+  fillColor: '#000',
+  title: 'Другое',
+  icon: 'help',
+  iconColor: Colors.white,
+  iconType: 'Ion',
+}
+
 export const MyInterestsItem = ({ data, title, onRemove, loading }: Props) => {
   const { colors }: any = useTheme()
 
   const interestsArr = useMemo(() => {
-    return data.map((item) => interests.filter((interest) => interest.title === item))
+    return data.map((item) => [...interests, otherObject].filter((interest) => interest.title === item))
   }, [data])
 
   return (
@@ -35,30 +44,38 @@ export const MyInterestsItem = ({ data, title, onRemove, loading }: Props) => {
         {title}
       </Typography.Default>
       <View style={[styles.container, { backgroundColor: colors.navigation }]}>
-        {interestsArr.map((item, i) =>
-          item.map((item) => {
-            return (
-              <View key={i}>
-                {i !== 0 && <Divider style={styles.divider} />}
-                <View style={styles.menuItemWrapper}>
-                  <View style={styles.menuItemInner}>
-                    <View style={styles.menuItemContent}>
-                      <View style={[styles.iconContainer, { backgroundColor: item.fillColor }]}>
-                        {getIcon(item.icon, item.iconType)}
+        {interestsArr?.length ? (
+          interestsArr.map((item, i) =>
+            item.map((item) => {
+              return (
+                <View key={i}>
+                  {i !== 0 && <Divider style={styles.divider} />}
+                  <View style={styles.menuItemWrapper}>
+                    <View style={styles.menuItemInner}>
+                      <View style={styles.menuItemContent}>
+                        <View style={[styles.iconContainer, { backgroundColor: item.fillColor }]}>
+                          {getIcon(item.icon, item.iconType)}
+                        </View>
+                        <Typography.H4 ml={8} style={{ fontFamily: Fonts.openSansRegular }}>
+                          {item.title}
+                        </Typography.H4>
                       </View>
-                      <Typography.H4 ml={8} style={{ fontFamily: Fonts.openSansRegular }}>
-                        {item.title}
-                      </Typography.H4>
-                    </View>
 
-                    <TouchableRipple borderless style={styles.trashContainer} onPress={() => onRemove(item.title)}>
-                      {loading ? <ActivityIndicator /> : <IonIcon name='trash' size={20} color={colors.error} />}
-                    </TouchableRipple>
+                      <TouchableRipple borderless style={styles.trashContainer} onPress={() => onRemove(item.title)}>
+                        {loading ? <ActivityIndicator /> : <IonIcon name='trash' size={20} color={colors.error} />}
+                      </TouchableRipple>
+                    </View>
                   </View>
                 </View>
-              </View>
-            )
-          })
+              )
+            })
+          )
+        ) : (
+          <View style={styles.menuItemWrapper}>
+            <Typography.H4 ml={8} style={{ fontFamily: Fonts.openSansRegular }}>
+              Пусто
+            </Typography.H4>
+          </View>
         )}
       </View>
     </>

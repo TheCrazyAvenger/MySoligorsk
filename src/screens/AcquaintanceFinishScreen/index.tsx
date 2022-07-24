@@ -26,6 +26,7 @@ export const AcquaintanceFinishScreen = () => {
       .doc(uid)
       .set({
         ...route.params.data,
+        hiddenInterests: [],
         avatar:
           'https://firebasestorage.googleapis.com/v0/b/mysoligorsk-80c01.appspot.com/o/avatars%2Fblank-profile.png?alt=media&token=27da88d9-dc49-4cab-80aa-8f25a14dd203',
       })
@@ -44,6 +45,7 @@ export const AcquaintanceFinishScreen = () => {
                 lastname,
                 email,
                 interests,
+                hiddenInterests: [],
                 avatar:
                   'https://firebasestorage.googleapis.com/v0/b/mysoligorsk-80c01.appspot.com/o/avatars%2Fblank-profile.png?alt=media&token=27da88d9-dc49-4cab-80aa-8f25a14dd203',
               })

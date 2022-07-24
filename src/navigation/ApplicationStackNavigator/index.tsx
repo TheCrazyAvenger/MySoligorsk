@@ -1,6 +1,7 @@
 import { Header, PlacesToVisitEditCommentsScreen } from '@/components'
 import { Navigators, Screens } from '@/constants'
 import {
+  AcquaintanceInterestsScreen,
   CompleteScreen,
   MyInformationScreen,
   MyInterestsScreen,
@@ -93,6 +94,11 @@ export const ApplicationStackNavigator = () => {
           name={Screens.myInformation}
           options={{ title: 'Личная информация' }}
           component={MyInformationScreen}
+        />
+        <Stack.Screen
+          name={Screens.acquaintanceInterests}
+          options={photoOptions}
+          component={AcquaintanceInterestsScreen}
         />
       </Stack.Group>
     </Stack.Navigator>

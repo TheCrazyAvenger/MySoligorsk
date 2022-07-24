@@ -5,9 +5,10 @@ type Props = {
   placeName?: string
   token: string
   ref?: string
+  filename?: string
 }
 
-export const useSendImage = ({ ref, placeName, token }: Props) => {
+export const useSendImage = ({ ref, placeName, token, filename }: Props) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const cleanError = () => setError(null)
@@ -17,7 +18,7 @@ export const useSendImage = ({ ref, placeName, token }: Props) => {
     setError(null)
     await result?.assets?.slice(0, 6).map((item: any) => {
       const photoUri = item.uri
-      const fileName = `${placeName}_${token}_${Math.random()}`
+      const fileName = filename ?? `${placeName}_${token}_${Math.random()}`
       const reference = storage().ref(ref ? `${ref}/${fileName}` : `/places/${placeName}/unverified/${fileName}`)
       reference.putFile(photoUri).catch(() => {
         setError('Что-то пошло не так')

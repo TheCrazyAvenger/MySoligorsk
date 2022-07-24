@@ -42,7 +42,7 @@ export const MenuScreen = () => {
     <Animated.ScrollView style={rStyle} contentContainerStyle={[styles.container, { marginTop: insets.top + 50 }]}>
       <View style={styles.header}>
         <View style={styles.avatarContainer}>
-          <Image style={styles.avatar} resizeMode={'contain'} source={{ uri: avatar }} />
+          <Image style={styles.avatar} resizeMode={'cover'} source={{ uri: avatar }} />
         </View>
         <Typography.H4 mt={10}>
           {firstname} {lastname}

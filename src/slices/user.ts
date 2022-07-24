@@ -6,6 +6,7 @@ type UserState = {
   lastname: string | null
   email: string | null
   interests: string[] | null
+  hiddenInterests: string[] | null
   avatar: string | null
 }
 
@@ -14,6 +15,7 @@ const initialState: UserState = {
   lastname: null,
   email: null,
   interests: null,
+  hiddenInterests: null,
   avatar: null,
 }
 
@@ -26,13 +28,15 @@ const userSlice = createSlice({
       return state
     },
     setInterest: (state, action) => {
-      console.log(action.payload)
       state = { ...state, interests: action.payload }
+    },
+    setHiddenInterest: (state, action) => {
+      state = { ...state, hiddenInterests: action.payload }
     },
   },
 })
 
 export const {
-  actions: { setUser, setInterest },
+  actions: { setUser, setInterest, setHiddenInterest },
   reducer: userReducer,
 } = userSlice
